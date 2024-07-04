@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Telegraf } = require("telegraf");
 const TOKEN = process.env.BOT_TOKEN;
 const bot = new Telegraf(TOKEN);
@@ -10,7 +11,7 @@ bot.start((ctx) => {
   const urlSent = `${web_link}?ref=${startPayload}`;
   const user = ctx.message.from;
   const userName = user.username ? `@${user.username}` : user.first_name;
-  ctx.replyWithMarkdown(`*Hey, ${userName}! Welcome to PlutoTap!*
+  ctx.replyWithMarkdown(`*Hey, ${userName}! Welcome to Taptip!*
 Tap on the coin and see your balance rise.
 
 *PlutoTap* is a Decentralized Exchange on the TON Blockchain. The biggest part of Plutotap Token PLUTO distribution will occur among the players here.

@@ -1,4 +1,5 @@
 // src/firebase.js
+require('dotenv').config();
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
