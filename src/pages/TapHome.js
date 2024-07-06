@@ -225,12 +225,12 @@ function TapHome() {
           refereeId: refereeId || null, // Store refereeId if present
           timestamp: new Date(),
         });
-        // console.log("User data stored:", { username, userid, refereeId });
+        setLogMessage("User data stored:", { username, userid, refereeId });
       } else {
-        // console.log("User already exists:", { username, userid });
+        setLogMessage("User already exists:", { username, userid });
       }
     } catch (e) {
-      console.error("Error adding document: ", e);
+      setLogMessage("Error adding document: ", e);
     }
   };
 
