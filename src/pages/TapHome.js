@@ -24,6 +24,9 @@ const slideUp = keyframes`
   }
 `;
 
+
+
+
 const SlideUpText = styled.div`
   position: absolute;
   animation: ${slideUp} 3s ease-out;
@@ -43,26 +46,43 @@ const Container = styled.div`
   height: 100%;
 `;
 
+
 const EnergyFill = styled.div`
   background-color: #e39725;
-  height: 12px;
+  height: 8px;
   border-radius: 6px;
   width: ${({ percentage }) => percentage}%;
 `;
 
-function TapHome() {
-  const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
+
+
+const refillTime = 5 * 60 * 1000; // 15 minutes in milliseconds
+
+function Appold() {
+
   const [username, setUsername] = useState("");
-  const [name, setName] = useState("");
+  const [idme, setIdme] = useState("");
+  const [count, setCount] = useState(0);
+  const [energy, setEnergy] = useState(500);
+  const [displayEnergy, setDisplayEnergy] = useState(500); // Added state for displaying energy
   const imageRef = useRef(null);
+  const [showText, setShowText] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [clicks, setClicks] = useState([]);
+  const [refilling, setRefilling] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showLevels, setShowLevels] = useState(false);
+  const [fetchError, setFetchError] = useState(false); // State to track fetch error
+
 
   const levelsAction = () => {
+
     setShowLevels(true);
+
     document.getElementById("footermain").style.zIndex = "50";
-  };
+
+  }
+
 
   const handleClick = (e) => {
     if (energy > 0) {
@@ -95,7 +115,9 @@ function TapHome() {
       // Remove the animation class after animation ends to allow re-animation on the same side
       setTimeout(() => {
         imageRef.current.classList.remove(animationClass);
-      }, 500); // duration should match the animation duration in CSS
+      }, 1000); // duration should match the animation duration in CSS
+
+
 
       // Increment the count
       const rect = e.target.getBoundingClientRect();
@@ -105,234 +127,241 @@ function TapHome() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 2
-      const updatedEnergy = energy - 2;
+        // Update count in Firestore
+        const updatedCount = count + 5; // Increment count by 5
+        localStorage.setItem('count', updatedCount); // Save updated count to local storage
+      
 
-      setClicks((prevClicks) => [...prevClicks, newClick]);
-      setCount(updatedCount);
-      setEnergy(updatedEnergy);
-      setDisplayEnergy(updatedEnergy); // Update display energy
-
-      updateUserStatsInFirestore(idme, updatedCount, updatedEnergy);
+        setClicks((prevClicks) => [...prevClicks, newClick]);
+        setCount(updatedCount);
+        updateCountInFirestore(idme, updatedCount);
 
       // Remove the click after the animation duration
       setTimeout(() => {
-        setClicks((prevClicks) =>
-          prevClicks.filter((click) => click.id !== newClick.id)
-        );
+        setClicks((prevClicks) => prevClicks.filter((click) => click.id !== newClick.id));
       }, 1000); // Match this duration with the animation duration
+
+      // Decrement energy
+      setEnergy((prevEnergy) => Math.max(prevEnergy - 5, 0));
+      setDisplayEnergy((prevDisplayEnergy) => Math.max(prevDisplayEnergy - 5, 0)); // Update display energy
+    } else if (energy === 0 && refilling && energy < 500) {
+      setCount(count + 5);
+      setClicks((prevClicks) => [...prevClicks, { id: Date.now() }]);
     }
   };
 
   useEffect(() => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
+
+    // Fetch username from Telegram Web App context
+    const telegramUsername = window.Telegram.WebApp.initDataUnsafe?.user?.username;
     const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
 
-    if (telegramName) {
-      setName(telegramName + " " + telegramLastName);
-    }
-
-    if (telegramUsername && telegramUserid) {
+    if (telegramUsername) {
       setUsername(telegramUsername);
+    }
+    if (telegramUserid) {
       setIdme(telegramUserid);
-
-      // Save refereeId to Firestore if available
-      saveRefereeIdToFirestore();
     }
 
-    // Fetch count and energy from Firestore when component mounts
+    if (telegramUsername && telegramUserid && !localStorage.getItem('userStored')) {
+      storeUserData(telegramUsername, telegramUserid);
+      localStorage.setItem('userStored', 'true');
+    }
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const username = queryParams.get('username');
+
+    if (username && !localStorage.getItem('usernameStored')) {
+      storeUsername(username);
+      localStorage.setItem('usernameStored', 'true');
+    }
+  
+
+    const interval = setInterval(() => {
+      if (energy < 500) {
+        setEnergy((prevEnergy) => {
+          const newEnergy = Math.min(prevEnergy + 5, 500);
+          setDisplayEnergy(newEnergy); // Update display energy when refilling
+          return newEnergy;
+        });
+        if (energy === 495) {
+          setRefilling(false);
+        }
+      }
+    }, refillTime / 100);
+
+    // Fetch count from Firestore when component mounts
     if (telegramUserid) {
-      fetchUserStatsFromFirestore(telegramUserid)
-        .then((userStats) => {
-          if (isNaN(userStats.count)) {
+      fetchCountFromFirestore(telegramUserid)
+        .then((userCount) => {
+          if (isNaN(userCount)) {
             setCount(0);
-            updateUserStatsInFirestore(telegramUserid, 0, 500);
+            updateCountInFirestore(telegramUserid, 0);
           } else {
-            setCount(userStats.count);
-            setEnergy(userStats.energy);
-            setDisplayEnergy(userStats.energy); // Update display energy
+            setCount(userCount);
           }
           setLoading(false); // Set loading to false after fetching count
         })
         .catch(() => {
           setCount(0); // Set count to 0 if fetching fails
-          setEnergy(500); // Set energy to 500 if fetching fails
           setLoading(false);
         });
     }
-    // eslint-disable-next-line
+
+
+
+    return () => clearInterval(interval);
+  }, [energy]);
+
+  useEffect(() => {
+    // Get count from local storage when component mounts
+    const storedCount = localStorage.getItem('count');
+    if (storedCount) {
+      setCount(parseInt(storedCount)); // Parse stored count as integer and set it in state
+    }
   }, []);
 
-  const saveRefereeIdToFirestore = async () => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
-    const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
 
-    const fullName = telegramName + " " + telegramLastName;
-
-    const queryParams = new URLSearchParams(window.location.search);
-    let refereeId = queryParams.get("ref");
-    if (refereeId) {
-      // Remove all non-numeric characters
-      refereeId = refereeId.replace(/\D/g, "");
-    }
-
-    if (telegramUsername && telegramUserid) {
-      await storeUserData(
-        fullName,
-        telegramUsername,
-        telegramUserid,
-        refereeId
-      );
-    }
-  };
-
-  const storeUserData = async (fullname, username, userid, refereeId) => {
+  const storeUserData = async (username, userid) => {
     try {
-      const userRef = collection(db, "telegramUsers");
-      const querySnapshot = await getDocs(userRef);
-      let userExists = false;
-
-      querySnapshot.forEach((doc) => {
-        if (doc.data().userId === userid) {
-          userExists = true;
-        }
+      await addDoc(collection(db, 'telegramUsers'), {
+        username: username,
+        userId: userid,
+        timestamp: new Date()
       });
-
-      if (!userExists) {
-        await addDoc(userRef, {
-          fullname: fullname,
-          username: username,
-          userId: userid,
-          count: 0, // Initialize count
-          energy: 500, // Initialize energy
-          refereeId: refereeId || null, // Store refereeId if present
-          timestamp: new Date(),
-        });
-        // console.log("User data stored:", { username, userid, refereeId });
-      } else {
-        // console.log("User already exists:", { username, userid });
-      }
+      console.log('User data stored:', { username, userid });
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error('Error adding document: ', e);
     }
   };
 
-  const updateUserStatsInFirestore = async (userid, newCount, newEnergy) => {
+
+  const updateCountInFirestore = async (userid, newCount) => {
     try {
-      const userRef = collection(db, "telegramUsers");
+      const userRef = collection(db, 'telegramUsers');
       const querySnapshot = await getDocs(userRef);
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userid) {
-          updateDoc(doc.ref, { count: newCount, energy: newEnergy });
+          updateDoc(doc.ref, { count: newCount });
         }
       });
-      // console.log("User stats updated:", { newCount, newEnergy });
+      console.log('Count updated:', newCount);
     } catch (e) {
-      console.error("Error updating document: ", e);
+      console.error('Error updating document: ', e);
     }
   };
 
-  const fetchUserStatsFromFirestore = async (userid) => {
+  const fetchCountFromFirestore = async (userid) => {
     try {
-      const userRef = collection(db, "telegramUsers");
+      const userRef = collection(db, 'telegramUsers');
       const querySnapshot = await getDocs(userRef);
-      let userStats = { count: 0, energy: 500 };
+      let userCount = 0;
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userid) {
-          userStats = { count: doc.data().count, energy: doc.data().energy };
+          userCount = doc.data().count;
         }
       });
-      return userStats;
+      return userCount;
     } catch (e) {
-      console.error("Error fetching document: ", e);
-      return { count: 0, energy: 500 };
+      console.error('Error fetching document: ', e);
+      return 0;
     }
   };
 
-  const formattedCount = new Intl.NumberFormat()
-    .format(count)
-    .replace(/,/g, " ");
+  const storeUsername = async (username) => {
+    try {
+      await addDoc(collection(db, 'telegramUsers'), {
+        username: username,
+        timestamp: new Date()
+      });
+      console.log('Username stored:', username);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  };
+
+  const formattedCount = new Intl.NumberFormat().format(count).replace(/,/g, " ");
 
   return (
     <>
-      {loading ? (
+
+{loading ? (
         <Spinner />
       ) : (
-        <Animate>
-          <div className="flex space-x-[2px] justify-center items-center">
-            <div className="w-[50px] h-[50px]">
-              <img src={coinsmall} className="w-full" alt="coin" />
-            </div>
-            <h1 className="text-[#fff] text-[42px] font-extrabold">
+
+<Animate>
+
+
+            <div className="flex space-x-[2px] justify-center items-center">
+              <div className="w-[50px] h-[50px]">
+                <img src={coinsmall} className="w-full" alt="coin"/>
+              </div>
+              <h1 className="text-[#fff] text-[42px] font-extrabold">
               {formattedCount}
-            </h1>
-          </div>
-          <div className="flex justify-center items-center mt-4">
-            <h2 className="text-[#fff] text-[20px] font-medium">
-              Username: {username}
-            </h2>
-          </div>
-          <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
-            <img
-              src={bronze}
-              className="w-[30px] h-[30px] relative"
-              alt="bronze"
-            />
-            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">
-              Bronze
-            </h2>
-            <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
-          </div>
-          <div className="w-full flex justify-center items-center pt-14 pb-36">
-            <div className="w-[265px] h-[265px] relative">
-              <div className="bg-[#efc26999] blur-[50px] absolute rotate-[35deg] w-[400px] h-[160px] -left-40 rounded-full"></div>
-              <div className="image-container">
-                <Container>
-                  <img
-                    onPointerDown={handleClick}
-                    ref={imageRef}
-                    src={tapmecoin}
-                    alt="Wobble"
-                    className="wobble-image select-none"
-                  />
-                  {clicks.map((click) => (
-                    <SlideUpText key={click.id} x={click.x} y={click.y}>
-                      +2
-                    </SlideUpText>
-                  ))}
-                </Container>
-              </div>
+              </h1>
             </div>
-          </div>
-          <div className="flex flex-col space-y-6 fixed bottom-[120px] left-0 right-0 justify-center items-center px-5">
-            <div className="flex flex-col w-full items-center justify-center">
-              <div className="flex pb-[6px] space-x-1 items-center justify-center text-[#fff]">
-                <img alt="flash" src={flash} className="w-[20px]" />
-                <div className="">
-                  <span className="text-[18px] font-bold">{displayEnergy}</span>
-                  <span className="text-[14px] font-medium">/ 500</span>
+            <div onClick={levelsAction} className="w-full ml-[6px] flex space-x-1 items-center justify-center">
+              <img src={bronze} className="w-[30px] h-[30px] relative" alt="bronze"/>
+              <h2 className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
+              <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]"/>
+            </div>
+            <div className="w-full flex justify-center items-center pt-8 pb-36">
+              <div className="w-[300px] h-[300px] relative">
+                <div className="bg-[#efc269] blur-[50px] absolute rotate-[35deg] w-[400px] h-[160px] -left-40 rounded-full"></div>
+               
+                <div className="image-container" onClick={handleClick}>
+                  <Container>
+                    <img
+                      ref={imageRef}
+                      src={tapmecoin}
+                      alt="Wobble"
+                      className="wobble-image"
+                    />
+
+                    {clicks.map((click) => (
+                      <SlideUpText
+                        key={click.id}
+                        x={click.x}
+                        y={click.y}
+                      >
+                        +5
+                      </SlideUpText>
+                    ))}
+                  </Container>
+
+
                 </div>
-              </div>
-              <div className="flex w-full p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders2">
-                <EnergyFill percentage={(energy / 500) * 100} />
+
+
+
+
               </div>
             </div>
-          </div>
-          <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
-        </Animate>
-      )}
+
+            <div className="flex flex-col space-y-6 fixed bottom-[120px] left-0 right-0 justify-center items-center px-5">
+
+                    <div className="flex flex-col w-full items-center justify-center">
+            <div className="flex pb-[6px] space-x-1 items-center justify-center text-[#fff]">
+    <IoIosFlash size={24} className="text-[#efc269]"/>
+    <div className="">
+      <span className="text-[18px] font-bold">{displayEnergy}</span>
+      <span className="text-[14px] font-medium">/ 500</span>
+    </div>
+  </div>
+
+    <div className="flex w-full p-[4px] items-center bg-[#473847] rounded-[10px] border-[1px] border-[#453e5a]">
+    <EnergyFill percentage={(energy / 500) * 100} />
+    </div>
+  </div>
+  </div>
+
+  <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
+
+
+       
+        </Animate>   
+        )}
+      
     </>
   );
 }
