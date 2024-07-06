@@ -14,16 +14,20 @@ import TapHome from "./pages/TapHome";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <TapHome />,
     errorElement: <ErrorCom />,
     children:[
       {
         path:"/",
-        element: <TapHome />,
+        element: <Home />,
       },
       {
         path:"/ref",
         element: <Ref />,
+      },
+      {
+        path:"/tasks",
+        element: <Tasks />,
       },
       {
         path:"/stats",
