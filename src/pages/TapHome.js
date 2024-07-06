@@ -58,7 +58,7 @@ const EnergyFill = styled.div`
 
 const refillTime = 5 * 60 * 1000; // 15 minutes in milliseconds
 
-function Appold() {
+function TapHome() {
 
   const [username, setUsername] = useState("");
   const [idme, setIdme] = useState("");
