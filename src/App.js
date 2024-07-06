@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
-import "../App.css";
-import coinsmall from "../images/coinsmall.webp";
-import tapmecoin from "../images/tapme1.webp";
-import bronze from "../images/bronze.webp";
+import "./App.css";
+import coinsmall from "../src/images/coinsmall.webp";
+import tapmecoin from "../src/images/tapme1.webp";
+import bronze from "../src/images/bronze.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { db } from "../firebase";
+import { db } from "./firebase";
 import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
-import Animate from "../Components/Animate";
-import Spinner from "../Components/Spinner";
-import Levels from "../Components/Levels";
-import flash from "../images/flash.webp";
-import { EnergyContext } from "../context/EnergyContext";
+import Animate from "./Components/Animate";
+import Spinner from "./Components/Spinner";
+import Levels from "./Components/Levels";
+import flash from "../src/images/flash.webp";
+import { EnergyContext } from "./context/EnergyContext";
 
 const slideUp = keyframes`
   0% {
@@ -32,7 +32,7 @@ const SlideUpText = styled.div`
   font-weight: 600;
   left: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
-  pointer-events: none; /* To prevent any interaction */
+  pointer-events: none;
 `;
 
 const Container = styled.div`
@@ -52,9 +52,7 @@ const EnergyFill = styled.div`
 
 function App() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
-    // eslint-disable-next-line
   const [username, setUsername] = useState("");
-    // eslint-disable-next-line
   const [name, setName] = useState("");
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
@@ -66,7 +64,7 @@ function App() {
     document.getElementById("footermain").style.zIndex = "50";
   };
 
-  const handleClick = (e) => {
+  const handleClick = useCallback((e) => {
     if (energy > 0) {
       const { offsetX, offsetY, target } = e.nativeEvent;
       const { clientWidth, clientHeight } = target;
@@ -107,7 +105,7 @@ function App() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 5
+      const updatedCount = count + 2; // Increment count by 2
       const updatedEnergy = energy - 2;
 
       setClicks((prevClicks) => [...prevClicks, newClick]);
@@ -124,82 +122,70 @@ function App() {
         );
       }, 1000); // Match this duration with the animation duration
     }
-  };
+  }, [count, energy, idme, setClicks, setCount, setEnergy, setDisplayEnergy]);
 
   useEffect(() => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
-    const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
+    const fetchTelegramUserData = () => {
+      const telegramName = window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
+      const telegramLastName = window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
+      const telegramUsername = window.Telegram.WebApp.initDataUnsafe?.user?.username;
+      const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
 
-    if (telegramName) {
-      setName(telegramName + " " + telegramLastName);
-    }
+      if (telegramName) {
+        setName(telegramName + " " + telegramLastName);
+      }
 
-    if (telegramUsername) {
-      setUsername(telegramUsername);
-    }
-    if (telegramUserid) {
-      setIdme(telegramUserid);
-    }
+      if (telegramUsername) {
+        setUsername(telegramUsername);
+      }
+      if (telegramUserid) {
+        setIdme(telegramUserid);
+      }
 
-    if (telegramUsername && telegramUserid) {
-      saveRefereeIdToFirestore();
-    }
+      if (telegramUsername && telegramUserid) {
+        saveRefereeIdToFirestore();
+      }
 
-    // Fetch count and energy from Firestore when component mounts
-    if (telegramUserid) {
-      fetchUserStatsFromFirestore(telegramUserid)
-        .then((userStats) => {
-          if (isNaN(userStats.count)) {
-            setCount(0);
-            updateUserStatsInFirestore(telegramUserid, 0, 500);
-          } else {
-            setCount(userStats.count);
-            setEnergy(userStats.energy);
-            setDisplayEnergy(userStats.energy); // Update display energy
-          }
-          setLoading(false); // Set loading to false after fetching count
-        })
-        .catch(() => {
-          setCount(0); // Set count to 0 if fetching fails
-          setEnergy(500); // Set energy to 500 if fetching fails
-          setLoading(false);
-        });
-    }
-    // eslint-disable-next-line
-  }, []);
+      if (telegramUserid) {
+        fetchUserStatsFromFirestore(telegramUserid)
+          .then((userStats) => {
+            if (isNaN(userStats.count)) {
+              setCount(0);
+              updateUserStatsInFirestore(telegramUserid, 0, 500);
+            } else {
+              setCount(userStats.count);
+              setEnergy(userStats.energy);
+              setDisplayEnergy(userStats.energy); // Update display energy
+            }
+            setLoading(false); // Set loading to false after fetching count
+          })
+          .catch(() => {
+            setCount(0); // Set count to 0 if fetching fails
+            setEnergy(500); // Set energy to 500 if fetching fails
+            setLoading(false);
+          });
+      }
+    };
+
+    fetchTelegramUserData();
+  }, [setName, setUsername, setIdme, setCount, setEnergy, setDisplayEnergy]);
 
   const saveRefereeIdToFirestore = async () => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
+    const telegramUsername = window.Telegram.WebApp.initDataUnsafe?.user?.username;
     const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
+    const telegramName = window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
+    const telegramLastName = window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
 
     const fullName = telegramName + " " + telegramLastName;
 
     const queryParams = new URLSearchParams(window.location.search);
     let refereeId = queryParams.get("ref");
     if (refereeId) {
-      // Remove all non-numeric characters
       refereeId = refereeId.replace(/\D/g, "");
     }
 
     if (telegramUsername && telegramUserid) {
-      await storeUserData(
-        fullName,
-        telegramUsername,
-        telegramUserid,
-        refereeId
-      );
+      await storeUserData(fullName, telegramUsername, telegramUserid, refereeId);
     }
   };
 
@@ -225,9 +211,6 @@ function App() {
           refereeId: refereeId || null, // Store refereeId if present
           timestamp: new Date(),
         });
-        // console.log("User data stored:", { username, userid, refereeId });
-      } else {
-        // console.log("User already exists:", { username, userid });
       }
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -243,7 +226,6 @@ function App() {
           updateDoc(doc.ref, { count: newCount, energy: newEnergy });
         }
       });
-      // console.log("User stats updated:", { newCount, newEnergy });
     } catch (e) {
       console.error("Error updating document: ", e);
     }
@@ -272,7 +254,6 @@ function App() {
 
   return (
     <>
-    
       {loading ? (
         <Spinner />
       ) : (
@@ -286,14 +267,11 @@ function App() {
             </h1>
           </div>
           <div className="flex justify-center items-center mt-4">
-          <h2 className="text-[#fff] text-[20px] font-medium">
-            Username: {username}
-          </h2>
-        </div>
-          <div
-           
-            className="w-full ml-[6px] flex space-x-1 items-center justify-center"
-          >
+            <h2 className="text-[#fff] text-[24px] font-medium">
+              @{username}
+            </h2>
+          </div>
+          <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
             <img
               src={bronze}
               className="w-[30px] h-[30px] relative"
