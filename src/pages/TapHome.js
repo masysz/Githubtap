@@ -56,6 +56,7 @@ function TapHome() {
   const [username, setUsername] = useState("");
     // eslint-disable-next-line
   const [name, setName] = useState("");
+  const [logMessage, setLogMessage] = useState('');
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -283,6 +284,7 @@ function TapHome() {
             </div>
             <h1 className="text-[#fff] text-[42px] font-extrabold">
               {formattedCount}
+              {logMessage && <p>{logMessage}</p>}
             </h1>
           </div>
           <div
