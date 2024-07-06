@@ -6,20 +6,21 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import ErrorCom from "./Components/ErrorCom";
 import Stats from "./pages/Stats";
 import TapHome from "./pages/TapHome";
+import Tasks from "./pages/Tasks"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <TapHome />,
     errorElement: <ErrorCom />,
     children:[
       {
         path:"/",
-        element: <TapHome />,
+        element: <App />,
       },
       {
         path:"/ref",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path:"/stats",
         element: <Stats />,
+      },
+      {
+        path:"/tasks",
+        element: <Tasks />,
       },
     ]
 
