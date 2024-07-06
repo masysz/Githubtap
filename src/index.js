@@ -10,7 +10,6 @@ import Home from "./pages/Home";
 import ErrorCom from "./Components/ErrorCom";
 import Stats from "./pages/Stats";
 import TapHome from "./pages/TapHome";
-import Tasks from "./pages/Tasks";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +28,6 @@ const router = createBrowserRouter([
       {
         path:"/stats",
         element: <Stats />,
-      },
-      {
-        path:"/tasks",
-        element: <Tasks />,
       },
     ]
 
