@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db, firebase } from '../firebase'; // Ensure firebase is correctly imported
+import { db } from '../firebase'; // Ensure firebase is correctly imported
 
 function TapHome() {
   const [fullname, setFullname] = useState('');
