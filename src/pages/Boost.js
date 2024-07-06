@@ -6,44 +6,24 @@ import { db } from '../firebase';
 function Boost() {
 
 
-  const handleBoost = async (type) => {
-
-
-    switch (type) {
-      case 'energy':
-        updatedUser.energy = Math.min(user.energy + 50, 100);
-        break;
-      case 'coins':
-        updatedUser.coins += 100;
-        break;
-      case 'level':
-        updatedUser.level += 1;
-        break;
-      default:
-        return;
-    }
-
-
-  };
-
   return (
     <div className="boost">
       <h2 className="text-xl font-bold mb-4">Boosts</h2>
       <button
         className="mb-2 px-4 py-2 rounded bg-yellow-500 text-white"
-        onClick={() => handleBoost('energy')}
+
       >
         Boost Energy (+50)
       </button>
       <button
         className="mb-2 px-4 py-2 rounded bg-green-500 text-white"
-        onClick={() => handleBoost('coins')}
+
       >
         Boost Coins (+100)
       </button>
       <button
         className="mb-2 px-4 py-2 rounded bg-purple-500 text-white"
-        onClick={() => handleBoost('level')}
+
       >
         Boost Level (+1)
       </button>
