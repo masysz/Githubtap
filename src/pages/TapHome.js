@@ -342,7 +342,7 @@ function TapHome() {
 
                     <div className="flex flex-col w-full items-center justify-center">
             <div className="flex pb-[6px] space-x-1 items-center justify-center text-[#fff]">
-    <IoIosFlash size={24} className="text-[#efc269]"/>
+            <img alt="flash" src={flash} className="w-[20px]" />
     <div className="">
       <span className="text-[18px] font-bold">{displayEnergy}</span>
       <span className="text-[14px] font-medium">/ 500</span>
