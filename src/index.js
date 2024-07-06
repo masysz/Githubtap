@@ -10,25 +10,20 @@ import Home from "./pages/Home";
 import ErrorCom from "./Components/ErrorCom";
 import Stats from "./pages/Stats";
 import TapHome from "./pages/TapHome";
-import Tasks from "./pages/Tasks"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <TapHome />,
+    element: <Home />,
     errorElement: <ErrorCom />,
     children:[
       {
         path:"/",
-        element: <Home />,
+        element: <TapHome />,
       },
       {
         path:"/ref",
         element: <Ref />,
-      },
-      {
-        path:"/tasks",
-        element: <Tasks />,
       },
       {
         path:"/stats",
