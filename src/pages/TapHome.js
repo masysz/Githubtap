@@ -52,9 +52,7 @@ const EnergyFill = styled.div`
 
 function TapHome() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
-    // eslint-disable-next-line
   const [username, setUsername] = useState("");
-    // eslint-disable-next-line
   const [name, setName] = useState("");
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
@@ -107,7 +105,7 @@ function TapHome() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 5
+      const updatedCount = count + 2; // Increment count by 2
       const updatedEnergy = energy - 2;
 
       setClicks((prevClicks) => [...prevClicks, newClick]);
@@ -140,14 +138,11 @@ function TapHome() {
       setName(telegramName + " " + telegramLastName);
     }
 
-    if (telegramUsername) {
-      setUsername(telegramUsername);
-    }
-    if (telegramUserid) {
-      setIdme(telegramUserid);
-    }
-
     if (telegramUsername && telegramUserid) {
+      setUsername(telegramUsername);
+      setIdme(telegramUserid);
+
+      // Save refereeId to Firestore if available
       saveRefereeIdToFirestore();
     }
 
@@ -272,7 +267,6 @@ function TapHome() {
 
   return (
     <>
-    
       {loading ? (
         <Spinner />
       ) : (
@@ -286,20 +280,19 @@ function TapHome() {
             </h1>
           </div>
           <div className="flex justify-center items-center mt-4">
-          <h2 className="text-[#fff] text-[20px] font-medium">
-            Username: {username}
-          </h2>
-        </div>
-          <div
-           
-            className="w-full ml-[6px] flex space-x-1 items-center justify-center"
-          >
+            <h2 className="text-[#fff] text-[20px] font-medium">
+              Username: {username}
+            </h2>
+          </div>
+          <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
             <img
               src={bronze}
               className="w-[30px] h-[30px] relative"
               alt="bronze"
             />
-            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
+            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">
+              Bronze
+            </h2>
             <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
           </div>
           <div className="w-full flex justify-center items-center pt-14 pb-36">
