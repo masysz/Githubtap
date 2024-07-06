@@ -41,6 +41,9 @@ ${
         <img src={tasks} className="w-[30px]" alt="tasks" />
         <span className="font-medium">Tasks</span>
       </NavLink>
+
+      {/*  */}
+
       <NavLink
         to="/"
         className={({ isActive }) => {
@@ -73,6 +76,9 @@ ${
         <img src={boost} className="w-[28px] -mb-[2px]" alt="boost" />
         <span className="font-medium">Boost</span>
       </NavLink>
+
+      {/*  */}
+
       <NavLink
         to="/stats"
         className={({ isActive }) => {
