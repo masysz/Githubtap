@@ -15,7 +15,7 @@ import TaskOne from '../Components/TaskOne';
 import ClaimLeveler from '../Components/ClaimLeveler';
 import Levels from '../Components/Levels';
 import { IoCheckmarkSharp } from "react-icons/io5";
-import TaskTwo from '../Components/TaskTwo';
+// import TaskTwo from '../Components/TaskTwo';
 import congrats from "../images/celebrate.gif";
 
 
@@ -748,7 +748,7 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
 
 
 <TaskOne showModal={showModal} setShowModal={setShowModal} />
-<TaskTwo showModal2={showModal2} setShowModal2={setShowModal2} />
+{/* <TaskTwo showModal2={showModal2} setShowModal2={setShowModal2} /> */}
 <ClaimLeveler claimLevel={claimLevel} setClaimLevel={setClaimLevel} />
 <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
 
