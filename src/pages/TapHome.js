@@ -32,7 +32,7 @@ const SlideUpText = styled.div`
   font-weight: 600;
   left: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
-  pointer-events: none; /* To prevent any interaction */
+  pointer-events: none;
 `;
 
 const Container = styled.div`
@@ -52,9 +52,7 @@ const EnergyFill = styled.div`
 
 function TapHome() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
-    // eslint-disable-next-line
   const [username, setUsername] = useState("");
-    // eslint-disable-next-line
   const [name, setName] = useState("");
   const [logMessage, setLogMessage] = useState('');
   const imageRef = useRef(null);
@@ -108,7 +106,7 @@ function TapHome() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 5
+      const updatedCount = count + 2; // Increment count by 2
       const updatedEnergy = energy - 2;
 
       setClicks((prevClicks) => [...prevClicks, newClick]);
@@ -204,14 +202,14 @@ function TapHome() {
     }
   };
 
-  const storeUserData = async (fullname, username, userid, refereeId) => {
+  const storeUserData = async (fullname, username, userId, refereeId) => {
     try {
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
       let userExists = false;
 
       querySnapshot.forEach((doc) => {
-        if (doc.data().userId === userid) {
+        if (doc.data().userId === userId) {
           userExists = true;
         }
       });
@@ -220,16 +218,16 @@ function TapHome() {
         await addDoc(userRef, {
           fullname: fullname,
           username: username,
-          userId: userid,
+          userId: userId,
           count: 0, // Initialize count
           energy: 500, // Initialize energy
           refereeId: refereeId || null, // Store refereeId if present
           timestamp: new Date(),
         });
-        setLogMessage("User data stored:", { username, userid, refereeId });
-      } 
+        setLogMessage(`User data stored: ${username}, ${userId}, ${refereeId}`);
+      }
     } catch (e) {
-      setLogMessage("Error adding document: ", e);
+      setLogMessage(`Error adding document: ${e.message}`);
     }
   };
 
@@ -242,9 +240,9 @@ function TapHome() {
           updateDoc(doc.ref, { count: newCount, energy: newEnergy });
         }
       });
-      // console.log("User stats updated:", { newCount, newEnergy });
+      setLogMessage(`User stats updated: ${newCount}, ${newEnergy}`);
     } catch (e) {
-      console.error("Error updating document: ", e);
+      setLogMessage(`Error updating document: ${e.message}`);
     }
   };
 
@@ -271,7 +269,6 @@ function TapHome() {
 
   return (
     <>
-    
       {loading ? (
         <Spinner />
       ) : (
@@ -282,18 +279,15 @@ function TapHome() {
             </div>
             <h1 className="text-[#fff] text-[42px] font-extrabold">
               {formattedCount}
-              {logMessage && <p>{logMessage}</p>}
             </h1>
           </div>
-          <div
-           
-            className="w-full ml-[6px] flex space-x-1 items-center justify-center"
-          >
-            <img
-              src={bronze}
-              className="w-[30px] h-[30px] relative"
-              alt="bronze"
-            />
+          {logMessage && (
+            <div className="log-message">
+              <p>{logMessage}</p>
+            </div>
+          )}
+          <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
+            <img src={bronze} className="w-[30px] h-[30px] relative" alt="bronze" />
             <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
             <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
           </div>
