@@ -6,6 +6,26 @@ import { db } from '../firebase';
 function Boost() {
 
 
+  const handleBoost = async (type) => {
+
+
+    switch (type) {
+      case 'energy':
+        updatedUser.energy = Math.min(user.energy + 50, 100);
+        break;
+      case 'coins':
+        updatedUser.coins += 100;
+        break;
+      case 'level':
+        updatedUser.level += 1;
+        break;
+      default:
+        return;
+    }
+
+
+  };
+
   return (
     <div className="boost">
       <h2 className="text-xl font-bold mb-4">Boosts</h2>
