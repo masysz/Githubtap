@@ -11,6 +11,7 @@ import ErrorCom from "./Components/ErrorCom";
 import Stats from "./pages/Stats";
 import TapHome from "./pages/TapHome";
 import Tasks from "./pages/Tasks";
+import Boost from "./pages/Boost";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path:"/tasks",
         element: <Tasks />,
+      },
+      {
+        path:"/boost",
+        element: <Boost />,
       },
     ]
 
