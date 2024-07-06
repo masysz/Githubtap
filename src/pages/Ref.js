@@ -80,7 +80,7 @@ const Ref = () => {
       setIdme(telegramUserid);
     }
 
-   const reflink = `https://t.me/plutotap_bot?start=r${telegramUserid}`
+   const reflink = `https://t.me/Tetekdf_bot?start=r${telegramUserid}`
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(reflink).then(() => {
