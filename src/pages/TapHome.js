@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from './firebase'; // Sesuaikan dengan lokasi file firebase Anda
+import { db } from '../firebase'; // Sesuaikan dengan lokasi file firebase Anda
 
 function TapHome() {
   const [logMessage, setLogMessage] = useState('');
