@@ -227,9 +227,7 @@ function TapHome() {
           timestamp: new Date(),
         });
         setLogMessage("User data stored:", { username, userid, refereeId });
-      } else {
-        setLogMessage("User already exists:", { username, userid });
-      }
+      } 
     } catch (e) {
       setLogMessage("Error adding document: ", e);
     }
