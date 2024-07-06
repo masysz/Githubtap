@@ -20,7 +20,7 @@ function TapHome() {
         userId,
         count: 0,
         energy: 500,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: new Date()
       });
       setLogMessage('Document successfully added!');
     } catch (error) {
