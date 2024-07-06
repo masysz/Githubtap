@@ -136,7 +136,7 @@ const Ref = () => {
               </span>
             </span>
             <div className="text-[#9a96a6] text-[13px]">
-            https://t.me/plutotap_bot?start=r{idme}
+            https://t.me/Tetekdf_bot?start=r{idme}
             </div>
           </div>
           <div className="bg-borders w-full px-5 h-[1px] !mt-6"></div>

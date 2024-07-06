@@ -79,7 +79,7 @@ const TaskOne = ({ showModal, setShowModal }) => {
 
 
   const handleTaskLinkClick = () => {
-    window.open("https://t.me/plutotapofficial");
+    window.open("https://t.me/teteknibos");
 
     setTimeout(() => {
       setShowTaskButton(false);
