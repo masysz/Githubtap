@@ -285,6 +285,11 @@ function TapHome() {
               {formattedCount}
             </h1>
           </div>
+          <div className="flex justify-center items-center mt-4">
+            <h2 className="text-[#fff] text-[24px] font-medium">
+              telegramUsers
+            </h2>
+          </div>
           <div
            
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
