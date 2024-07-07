@@ -58,8 +58,11 @@ const Ref = () => {
       });
 
       setUsers(allUsers);
-      setFilteredUsers(allUsers.filter(user => user.refereeId === idme));
-      setCount(allUsers.filter(user => user.refereeId === idme).length);
+
+      // Filter users based on refereeId matching idme
+      const filtered = allUsers.filter(user => user.refereeId === idme);
+      setFilteredUsers(filtered);
+      setCount(filtered.length);
       setLoading(false); // Set loading to false once data is fetched
     } catch (error) {
       console.error("Error fetching users: ", error);
@@ -183,7 +186,7 @@ const ReferralList = ({ filteredUsers }) => (
         ))
       ) : (
         <p className="w-full text-center text-[16px] py-12 font-medium">
-          You don't have referralt😭
+          You don't have referrals😭
         </p>
       )}
     </div>
