@@ -20,8 +20,8 @@ const Ref = () => {
     try {
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
-      const filteredUsers = [];
 
+      const filteredUsers = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         if (data.refereeId === refereeId) {
@@ -31,11 +31,15 @@ const Ref = () => {
 
       setUsers(filteredUsers);
       setLoading(false);
+
+      console.log("Filtered Users:", filteredUsers); // Log filtered users
     } catch (error) {
       console.error("Error fetching users: ", error);
       setLoading(false);
     }
   };
+
+  console.log("IDME:", idme); // Log idme value for debugging
 
   return (
     <>
@@ -47,27 +51,31 @@ const Ref = () => {
             {users.length} Referrals
           </h1>
           <div className="w-full flex flex-col space-y-3">
-            {users.map((user, index) => (
-              <div
-                key={index}
-                className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
-              >
-                <div className="flex flex-1 flex-col space-y-1">
-                  <div className="text-[#fff] text-[16px] font-semibold">
-                    {user.fullname}
-                  </div>
-                  <div className="text-[#9a96a6] text-[14px]">
-                    Username: {user.username}
-                  </div>
-                  <div className="text-[#9a96a6] text-[14px]">
-                    Referee ID: {user.refereeId}
-                  </div>
-                  <div className="text-[#9a96a6] text-[14px]">
-                    Count: {user.count}
+            {users.length > 0 ? (
+              users.map((user, index) => (
+                <div
+                  key={index}
+                  className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
+                >
+                  <div className="flex flex-1 flex-col space-y-1">
+                    <div className="text-[#fff] text-[16px] font-semibold">
+                      {user.fullname}
+                    </div>
+                    <div className="text-[#9a96a6] text-[14px]">
+                      Username: {user.username}
+                    </div>
+                    <div className="text-[#9a96a6] text-[14px]">
+                      Referee ID: {user.refereeId}
+                    </div>
+                    <div className="text-[#9a96a6] text-[14px]">
+                      Count: {user.count}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-[#fff] text-center">No referrals found.</p>
+            )}
           </div>
         </div>
       )}
