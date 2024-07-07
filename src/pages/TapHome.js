@@ -6,14 +6,13 @@ import tapmecoin from "../images/tapme1.webp";
 import bronze from "../images/bronze.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { db } from "../firebase";
-import { collection, addDoc, getDocs, updateDoc, query, where, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
 import Animate from "../Components/Animate";
 import Spinner from "../Components/Spinner";
 import Levels from "../Components/Levels";
 import flash from "../images/flash.webp";
 import { EnergyContext } from "../context/EnergyContext";
 
-// Animation for the click effect
 const slideUp = keyframes`
   0% {
     opacity: 1;
@@ -53,20 +52,20 @@ const EnergyFill = styled.div`
 
 function TapHome() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
+    // eslint-disable-next-line
   const [username, setUsername] = useState("");
+    // eslint-disable-next-line
   const [name, setName] = useState("");
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showLevels, setShowLevels] = useState(false);
 
-  // Function to show levels
   const levelsAction = () => {
     setShowLevels(true);
     document.getElementById("footermain").style.zIndex = "50";
   };
 
-  // Function to handle clicks
   const handleClick = (e) => {
     if (energy > 0) {
       const { offsetX, offsetY, target } = e.nativeEvent;
@@ -108,7 +107,7 @@ function TapHome() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 2
+      const updatedCount = count + 2; // Increment count by 5
       const updatedEnergy = energy - 2;
 
       setClicks((prevClicks) => [...prevClicks, newClick]);
@@ -176,81 +175,104 @@ function TapHome() {
   }, []);
 
   const saveRefereeIdToFirestore = async () => {
-    const telegramUsername = window.Telegram.WebApp.initDataUnsafe?.user?.username;
+    // Fetch username and user ID from Telegram Web App context
+    const telegramUsername =
+      window.Telegram.WebApp.initDataUnsafe?.user?.username;
     const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-    const telegramName = window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName = window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
+    const telegramName =
+      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
+    const telegramLastName =
+      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
 
-    const fullName = `${telegramName} ${telegramLastName}`;
+    const fullName = telegramName + " " + telegramLastName;
 
     const queryParams = new URLSearchParams(window.location.search);
     let refereeId = queryParams.get("ref");
     if (refereeId) {
+      // Remove all non-numeric characters
       refereeId = refereeId.replace(/\D/g, "");
     }
 
     if (telegramUsername && telegramUserid) {
-      await storeUserData(fullName, telegramUsername, telegramUserid, refereeId);
+      await storeUserData(
+        fullName,
+        telegramUsername,
+        telegramUserid,
+        refereeId
+      );
     }
   };
 
-  const storeUserData = async (fullname, username, userid, refereeId) => {
+  const storeUserData = async (name, username, idme, refereeId) => {
     try {
       const userRef = collection(db, "telegramUsers");
-      const userQuery = query(userRef, where("userId", "==", userid));
-      const querySnapshot = await getDocs(userQuery);
+      const querySnapshot = await getDocs(userRef);
+      let userExists = false;
 
-      if (querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        if (doc.data().userId === idme) {
+          userExists = true;
+        }
+      });
+
+      if (!userExists) {
         await addDoc(userRef, {
-          fullname,
-          username,
-          userId: userid,
+          name: name,
+          username: username,
+          userId: idme,
           count: 0, // Initialize count
           energy: 500, // Initialize energy
           refereeId: refereeId || null, // Store refereeId if present
           timestamp: new Date(),
         });
+        // console.log("User data stored:", { username, userid, refereeId });
+      } else {
+        // console.log("User already exists:", { username, userid });
       }
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
 
-  const updateUserStatsInFirestore = async (userid, newCount, newEnergy) => {
+  const updateUserStatsInFirestore = async (idme, newCount, newEnergy) => {
     try {
       const userRef = collection(db, "telegramUsers");
-      const userQuery = query(userRef, where("userId", "==", userid));
-      const querySnapshot = await getDocs(userQuery);
-
+      const querySnapshot = await getDocs(userRef);
       querySnapshot.forEach((doc) => {
-        updateDoc(doc.ref, { count: newCount, energy: newEnergy });
+        if (doc.data().userId === idme) {
+          updateDoc(doc.ref, { count: newCount, energy: newEnergy });
+        }
       });
+      // console.log("User stats updated:", { newCount, newEnergy });
     } catch (e) {
       console.error("Error updating document: ", e);
     }
   };
 
-  const fetchUserStatsFromFirestore = async (userid) => {
+  const fetchUserStatsFromFirestore = async (idme) => {
     try {
       const userRef = collection(db, "telegramUsers");
-      const userQuery = query(userRef, where("userId", "==", userid));
-      const querySnapshot = await getDocs(userQuery);
-
-      if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0];
-        return { count: userDoc.data().count, energy: userDoc.data().energy };
-      }
-      return { count: 0, energy: 500 };
+      const querySnapshot = await getDocs(userRef);
+      let userStats = { count: 0, energy: 500 };
+      querySnapshot.forEach((doc) => {
+        if (doc.data().userId === idme) {
+          userStats = { count: doc.data().count, energy: doc.data().energy };
+        }
+      });
+      return userStats;
     } catch (e) {
       console.error("Error fetching document: ", e);
       return { count: 0, energy: 500 };
     }
   };
 
-  const formattedCount = new Intl.NumberFormat().format(count).replace(/,/g, " ");
+  const formattedCount = new Intl.NumberFormat()
+    .format(count)
+    .replace(/,/g, " ");
 
   return (
     <>
+    
       {loading ? (
         <Spinner />
       ) : (
@@ -263,20 +285,16 @@ function TapHome() {
               {formattedCount}
             </h1>
           </div>
-          <div className="flex justify-center items-center mt-4">
-            <h2 className="text-[#fff] text-[24px] font-medium">
-              @{username} - {name} - {idme}
-            </h2>
-          </div>
-          <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
+          <div
+           
+            className="w-full ml-[6px] flex space-x-1 items-center justify-center"
+          >
             <img
               src={bronze}
               className="w-[30px] h-[30px] relative"
               alt="bronze"
             />
-            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">
-              Bronze
-            </h2>
+            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
             <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
           </div>
           <div className="w-full flex justify-center items-center pt-14 pb-36">
