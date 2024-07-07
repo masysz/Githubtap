@@ -32,7 +32,7 @@ const SlideUpText = styled.div`
   font-weight: 600;
   left: ${({ x }) => x}px;
   top: ${({ y }) => y}px;
-  pointer-events: none;
+  pointer-events: none; /* To prevent any interaction */
 `;
 
 const Container = styled.div`
@@ -202,6 +202,9 @@ const TapHome = () => {
           refereeId: refereeId || null,
           timestamp: new Date(),
         });
+        console.log("User data stored:", { username, idme, refereeId });
+      } else {
+        console.log("User already exists:", { username, idme });
       }
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -217,6 +220,7 @@ const TapHome = () => {
           updateDoc(doc.ref, { count: newCount, energy: newEnergy });
         }
       });
+      console.log("User stats updated:", { newCount, newEnergy });
     } catch (e) {
       console.error("Error updating document: ", e);
     }
@@ -257,45 +261,36 @@ const TapHome = () => {
           </div>
           <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
             <img src={bronze} className="w-[30px] h-[30px] relative" alt="bronze" />
-            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
-            <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
+            <h2 onClick={levelsAction} className="text-[18px] select-none text-[#efb810] cursor-pointer font-[600] flex items-center">
+              Bronze <MdOutlineKeyboardArrowRight className="ml-1 text-[20px]" />
+            </h2>
           </div>
-          <div className="w-full flex justify-center items-center pt-14 pb-36">
-            <div className="w-[265px] h-[265px] relative">
-              <div className="bg-[#efc26999] blur-[50px] absolute rotate-[35deg] w-[400px] h-[160px] -left-40 rounded-full"></div>
-              <div className="image-container">
-                <Container>
-                  <img
-                    onPointerDown={handleClick}
-                    ref={imageRef}
-                    src={tapmecoin}
-                    alt="Wobble"
-                    className="wobble-image select-none"
-                  />
-                  {clicks.map((click) => (
-                    <SlideUpText key={click.id} x={click.x} y={click.y}>
-                      +2
-                    </SlideUpText>
-                  ))}
-                </Container>
+          <div className="w-full flex justify-center items-center">
+            <div className="w-[65%] border-[#d1a01f] h-[12px] relative border-[3px] rounded-[20px]">
+              <EnergyFill percentage={(displayEnergy / 500) * 100} />
+              <div className="flex items-center justify-center absolute top-[0px] left-0 w-full h-full">
+                <img src={flash} className="w-[14px] mb-[1px]" alt="energy" />
+                <h2 className="text-[#fff] select-none text-[12px] font-extrabold">
+                  {displayEnergy} / 500
+                </h2>
               </div>
             </div>
           </div>
-          <div className="flex flex-col space-y-6 fixed bottom-[120px] left-0 right-0 justify-center items-center px-5">
-            <div className="flex flex-col w-full items-center justify-center">
-              <div className="flex pb-[6px] space-x-1 items-center justify-center text-[#fff]">
-                <img alt="flash" src={flash} className="w-[20px]" />
-                <div className="">
-                  <span className="text-[18px] font-bold">{displayEnergy}</span>
-                  <span className="text-[14px] font-medium">/ 500</span>
-                </div>
-              </div>
-              <div className="flex w-full p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders2">
-                <EnergyFill percentage={(energy / 500) * 100} />
-              </div>
-            </div>
-          </div>
-          <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
+          <Container>
+            <img
+              ref={imageRef}
+              src={tapmecoin}
+              alt="Tap Me"
+              onClick={handleClick}
+              className="w-[270px] h-[270px] md:w-[320px] md:h-[320px] select-none"
+            />
+            {clicks.map((click) => (
+              <SlideUpText key={click.id} x={click.x} y={click.y}>
+                +2
+              </SlideUpText>
+            ))}
+          </Container>
+          {showLevels && <Levels setShowLevels={setShowLevels} />}
         </Animate>
       )}
     </>
