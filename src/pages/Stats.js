@@ -87,7 +87,7 @@ const Stats = () => {
   };
 
   const calculateDividedCount = (count) => {
-    return count / 4;
+    return count;
   };
 
   const formatNumber = (num) => {
