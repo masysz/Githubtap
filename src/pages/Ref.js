@@ -35,7 +35,7 @@ const Ref = () => {
     }
 
     fetchAllUsers(); // Fetch all users when the component mounts
-  }, []);
+  }, [fetchAllUsers]);
 
   const fetchAllUsers = useCallback(async () => {
     try {
@@ -58,12 +58,14 @@ const Ref = () => {
       });
 
       setUsers(allUsers);
+      setFilteredUsers(allUsers.filter(user => user.refereeId === idme));
+      setCount(allUsers.filter(user => user.refereeId === idme).length);
       setLoading(false); // Set loading to false once data is fetched
     } catch (error) {
       console.error("Error fetching users: ", error);
       setLoading(false);
     }
-  }, []);
+  }, [idme]);
 
   const copyToClipboard = useCallback(() => {
     const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
@@ -181,7 +183,7 @@ const ReferralList = ({ filteredUsers }) => (
         ))
       ) : (
         <p className="w-full text-center text-[16px] py-12 font-medium">
-          You don't have referrals😭
+          You don't have referralt😭
         </p>
       )}
     </div>
