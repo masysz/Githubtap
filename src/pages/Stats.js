@@ -77,7 +77,7 @@ const Stats = () => {
       });
 
       setUsers(allUsers.length);
-      setDividedUsers(allUsers.length / 2);
+      setDividedUsers(allUsers.length);
       setLoading(false); // Set loading to false once data is fetched
       // Update the count of unique users
     } catch (error) {
