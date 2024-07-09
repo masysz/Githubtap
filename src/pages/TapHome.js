@@ -4,7 +4,7 @@ import "../App.css";
 import coinsmall from "../images/coinsmall.webp";
 import tapmecoin from "../images/tapme1.webp";
 import bronze from "../images/bronze.webp";
-import silver from "../images/sliver.webp";
+import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
@@ -75,183 +75,31 @@ function TapHome() {
     { name: 'diamond', minCount: 40000, nextLevel: null, image: diamond, threshold: 40000 },
   ];
 
-  const handleClick = (e) => {
-    if (energy > 0) {
-      const { offsetX, offsetY, target } = e.nativeEvent;
-      const { clientWidth, clientHeight } = target;
+  const handleClick = (event) => {
+    const x = event.clientX - imageRef.current.getBoundingClientRect().left;
+    const y = event.clientY - imageRef.current.getBoundingClientRect().top;
+    setClicks((prevClicks) => [...prevClicks, { x, y, id: Date.now() }]);
 
-      const horizontalMidpoint = clientWidth / 2;
-      const verticalMidpoint = clientHeight / 2;
+    setTimeout(() => {
+      setClicks((prevClicks) => prevClicks.filter((click) => click.id !== Date.now()));
+    }, 3000);
 
-      const animationClass =
-        offsetX < horizontalMidpoint
-          ? "wobble-left"
-          : offsetX > horizontalMidpoint
-          ? "wobble-right"
-          : offsetY < verticalMidpoint
-          ? "wobble-top"
-          : "wobble-bottom";
-
-      // Remove previous animations
-      imageRef.current.classList.remove(
-        "wobble-top",
-        "wobble-bottom",
-        "wobble-left",
-        "wobble-right"
-      );
-
-      // Add the new animation class
-      imageRef.current.classList.add(animationClass);
-
-      // Remove the animation class after animation ends to allow re-animation on the same side
-      setTimeout(() => {
-        imageRef.current.classList.remove(animationClass);
-      }, 500); // duration should match the animation duration in CSS
-
-      // Increment the count
-      const rect = e.target.getBoundingClientRect();
-      const newClick = {
-        id: Date.now(), // Unique identifier
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
-
-      const updatedCount = count + 2; // Increment count by 2
-      const updatedEnergy = energy - 2;
-
-      setClicks((prevClicks) => [...prevClicks, newClick]);
-      setCount(updatedCount);
-      setEnergy(updatedEnergy);
-      setDisplayEnergy(updatedEnergy); // Update display energy
-
-      updateUserStatsInFirestore(idme, updatedCount, updatedEnergy);
-
-      // Remove the click after the animation duration
-      setTimeout(() => {
-        setClicks((prevClicks) =>
-          prevClicks.filter((click) => click.id !== newClick.id)
-        );
-      }, 1000); // Match this duration with the animation duration
-    }
+    updateUserStatsInFirestore();
   };
 
-  useEffect(() => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
-    const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-
-    if (telegramName) {
-      setName(telegramName + " " + telegramLastName);
-    }
-
-    if (telegramUsername) {
-      setUsername(telegramUsername);
-    }
-    if (telegramUserid) {
-      setIdme(telegramUserid);
-    }
-
-    if (telegramUsername && telegramUserid) {
-      saveRefereeIdToFirestore();
-    }
-
-    // Fetch count and energy from Firestore when component mounts
-    if (telegramUserid) {
-      fetchUserStatsFromFirestore(telegramUserid)
-        .then((userStats) => {
-          if (isNaN(userStats.count)) {
-            setCount(0);
-            updateUserStatsInFirestore(telegramUserid, 0, 500);
-          } else {
-            setCount(userStats.count);
-            setEnergy(userStats.energy);
-            setDisplayEnergy(userStats.energy); // Update display energy
-          }
-          setLoading(false); // Set loading to false after fetching count
-        })
-        .catch(() => {
-          setCount(0); // Set count to 0 if fetching fails
-          setEnergy(500); // Set energy to 500 if fetching fails
-          setLoading(false);
-        });
-    }
-    // eslint-disable-next-line
-  }, []);
-
-  const saveRefereeIdToFirestore = async () => {
-    // Fetch username and user ID from Telegram Web App context
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
-    const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-    const telegramName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.first_name;
-    const telegramLastName =
-      window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
-
-    const fullName = telegramName + " " + telegramLastName;
-
-    const queryParams = new URLSearchParams(window.location.search);
-    let refereeId = queryParams.get("ref");
-    if (refereeId) {
-      // Remove all non-numeric characters
-      refereeId = refereeId.replace(/\D/g, "");
-    }
-
-    if (telegramUsername && telegramUserid) {
-      await storeUserData(
-        fullName,
-        telegramUsername,
-        telegramUserid,
-        refereeId
-      );
-    }
-  };
-
-  const storeUserData = async (fullname, username, userid, refereeId) => {
+  const updateUserStatsInFirestore = async () => {
     try {
+      const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
+      if (!telegramUserid) return;
+
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
-      let userExists = false;
 
       querySnapshot.forEach((doc) => {
-        if (doc.data().userId === userid) {
-          userExists = true;
-        }
-      });
-
-      if (!userExists) {
-        await addDoc(userRef, {
-          fullname: fullname,
-          username: username,
-          userId: userid,
-          count: 0, // Initialize count
-          energy: 500, // Initialize energy
-          level: 'bronze',
-          refereeId: refereeId || null, // Store refereeId if present
-          timestamp: new Date(),
-        });
-        // console.log("User data stored:", { username, userid, refereeId });
-      } else {
-        // console.log("User already exists:", { username, userid });
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
-  const updateUserStatsInFirestore = async (userid, newCount, newEnergy) => {
-    try {
-      const userRef = collection(db, "telegramUsers");
-      const querySnapshot = await getDocs(userRef);
-      querySnapshot.forEach((doc) => {
-        if (doc.data().userId === userid) {
+        if (doc.data().userId === telegramUserid) {
           const userDocRef = doc.ref;
-
+          const newCount = doc.data().count + 2;
+          const newEnergy = doc.data().energy >= 500 ? 500 : doc.data().energy + 2;
           const newLevel = determineLevel(newCount);
 
           updateDoc(userDocRef, { count: newCount, energy: newEnergy, level: newLevel });
