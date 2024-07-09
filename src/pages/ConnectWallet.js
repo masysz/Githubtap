@@ -12,13 +12,11 @@ function ConnectWallet() {
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Animate>
+
+
           <TonConnectButton />
-        </Animate>
-      )}
+
+
     </>
   );
 }
