@@ -66,7 +66,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
 
                         // Update level in Firestore
                         const userDocRef = doc(db, 'telegramUsers', doc.id);
-                        updateDoc(userDocRef, { level: newLevel })
+                        updateDoc(userDocRef, { level: String(newLevel) })
                             .catch((error) => console.error('Error updating document: ', error));
                     }
                 });
