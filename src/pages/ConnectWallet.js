@@ -11,14 +11,12 @@ const Connect = () => {
   
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
+
         <Animate>
           <TonConnectButton />
           <Outlet />
         </Animate>
-      )}
+
     </>
   );
 };
