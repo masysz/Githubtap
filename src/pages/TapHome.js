@@ -4,6 +4,10 @@ import "../App.css";
 import coinsmall from "../images/coinsmall.webp";
 import tapmecoin from "../images/tapme1.webp";
 import bronze from "../images/bronze.webp";
+import silver from "../images/silver.webp";
+import gold from "../images/gold.webp";
+import platinum from "../images/platinum.webp";
+import diamond from "../images/diamond.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { db } from "../firebase";
 import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
@@ -65,10 +69,10 @@ function TapHome() {
 
   const levels = [
     { name: 'bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
-    { name: 'silver', minCount: 10000, nextLevel: 'gold', image: bronze, threshold: 10000 },
-    { name: 'gold', minCount: 20000, nextLevel: 'platinum', image: bronze, threshold: 20000 },
-    { name: 'platinum', minCount: 30000, nextLevel: 'diamond', image: bronze, threshold: 30000 },
-    { name: 'diamond', minCount: 40000, nextLevel: null, image: bronze, threshold: 40000 },
+    { name: 'silver', minCount: 10000, nextLevel: 'gold', image: silver, threshold: 10000 },
+    { name: 'gold', minCount: 20000, nextLevel: 'platinum', image: gold, threshold: 20000 },
+    { name: 'platinum', minCount: 30000, nextLevel: 'diamond', image: platinum, threshold: 30000 },
+    { name: 'diamond', minCount: 40000, nextLevel: null, image: diamond, threshold: 40000 },
   ];
 
   const handleClick = (e) => {
@@ -248,7 +252,6 @@ function TapHome() {
         if (doc.data().userId === userid) {
           const userDocRef = doc.ref;
 
-          // Determine new level based on newCount
           const newLevel = determineLevel(newCount);
 
           updateDoc(userDocRef, { count: newCount, energy: newEnergy, level: newLevel });
@@ -267,6 +270,11 @@ function TapHome() {
       }
     }
     return 'bronze'; // Default level if count doesn't meet any threshold
+  };
+
+  const getLevelImage = (level) => {
+    const levelData = levels.find(l => l.name.toLowerCase() === level);
+    return levelData ? levelData.image : bronze;
   };
 
   const fetchUserStatsFromFirestore = async (userid) => {
@@ -308,9 +316,9 @@ function TapHome() {
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
           >
             <img
-              src={bronze}
+              src={getLevelImage(determineLevel(count))}
               className="w-[30px] h-[30px] relative"
-              alt="bronze"
+              alt={determineLevel(count)}
             />
             <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">{determineLevel(count)}</h2>
             <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
