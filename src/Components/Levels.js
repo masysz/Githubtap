@@ -50,7 +50,17 @@ const Levels = ({ showLevels, setShowLevels }) => {
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     setCount(data.count);
-                    setLevel(data.level || 'bronze');
+
+                    // Update level based on count
+                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level || 'bronze');
+                    let newLevelIndex = currentLevelIndex;
+
+                    while (newLevelIndex < levels.length - 1 && data.count >= levels[newLevelIndex + 1].minCount) {
+                        newLevelIndex++;
+                    }
+
+                    setLevel(levels[newLevelIndex].name.toLowerCase());
+                    setActiveIndex(newLevelIndex);
                 });
             }, (error) => {
                 console.error('Error fetching document: ', error);
@@ -58,7 +68,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
 
             return () => unsubscribe();
         }
-    }, []);
+    }, [levels]);
 
     const handleNextLevel = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, levels.length - 1));
