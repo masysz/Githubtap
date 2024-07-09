@@ -80,7 +80,7 @@ ${
       {/*  */}
 
       <NavLink
-        to="/connectwallet"
+        to="/connect"
         className={({ isActive }) => {
           return `
 
