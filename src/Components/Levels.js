@@ -15,19 +15,19 @@ const Levels = ({ showLevels, setShowLevels }) => {
 
         const levelss = {
             bronze: {
-                name: 'Bronze',
+                name: 'bronze',
                 minCount: 0,
                 nextLevel: 'silver',
                 claimCount: 10000,
             },
             silver: {
-                name: 'Silver',
+                name: 'silver',
                 minCount: 9999,
                 nextLevel: 'gold',
                 claimCount: 100000,
             },
             gold: {
-                name: 'Gold',
+                name: 'gold',
                 minCount: 100000,
                 nextLevel: null,
                 claimCount: 0,
