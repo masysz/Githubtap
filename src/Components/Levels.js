@@ -10,11 +10,11 @@ import diamond from "../images/diamond.webp";
 
 const Levels = ({ showLevels, setShowLevels }) => {
     const levels = [
-        { name: 'bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
-        { name: 'silver', minCount: 10000, nextLevel: 'gold', image: silver, threshold: 10000 },
-        { name: 'gold', minCount: 20000, nextLevel: 'platinum', image: gold, threshold: 20000 },
-        { name: 'platinum', minCount: 30000, nextLevel: 'diamond', image: platinum, threshold: 30000 },
-        { name: 'diamond', minCount: 40000, nextLevel: null, image: diamond, threshold: 40000 },
+        { name: 'Bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
+        { name: 'Silver', minCount: 10000, nextLevel: 'gold', image: silver, threshold: 10000 },
+        { name: 'Gold', minCount: 20000, nextLevel: 'platinum', image: gold, threshold: 20000 },
+        { name: 'Platinum', minCount: 30000, nextLevel: 'diamond', image: platinum, threshold: 30000 },
+        { name: 'Diamond', minCount: 40000, nextLevel: null, image: diamond, threshold: 40000 },
     ];
 
     const [count, setCount] = useState(0);
@@ -50,7 +50,17 @@ const Levels = ({ showLevels, setShowLevels }) => {
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     setCount(data.count);
-                    setLevel(data.level || 'bronze');
+
+                    // Update level based on count
+                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level || 'bronze');
+                    let newLevelIndex = currentLevelIndex;
+
+                    while (newLevelIndex < levels.length - 1 && data.count >= levels[newLevelIndex + 1].minCount) {
+                        newLevelIndex++;
+                    }
+
+                    setLevel(levels[newLevelIndex].name.toLowerCase());
+                    setActiveIndex(newLevelIndex);
                 });
             }, (error) => {
                 console.error('Error fetching document: ', error);
@@ -58,7 +68,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
 
             return () => unsubscribe();
         }
-    }, []);
+    }, [levels]);
 
     const handleNextLevel = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, levels.length - 1));
