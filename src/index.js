@@ -13,6 +13,10 @@ import TapHome from "./pages/TapHome";
 import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
 import Connect from "./pages/ConnectWallet";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
+
+const manifestUrl =
+  "https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +51,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <TonConnectUIProvider manifestUrl={manifestUrl}>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
+  </TonConnectUIProvider>
 );
