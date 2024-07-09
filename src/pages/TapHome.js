@@ -316,9 +316,10 @@ function TapHome() {
             <h1 className="text-[#fff] text-[42px] font-extrabold">
               {formattedCount}
             </h1>
-            <h1 className="text-[#fff] text-[42px] font-extrabold">
-              {idme} - {username} - {userImage}
-            </h1>
+            <img
+              src={userImage}
+              className="w-[30px] h-[30px] relative"
+            />
           </div>
           <div
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
