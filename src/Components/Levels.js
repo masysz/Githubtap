@@ -146,8 +146,13 @@ const Levels = ({ showLevels, setShowLevels }) => {
                                         usersByLevel[lvl.name].map((user, idx) => (
                                             <div key={idx} className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center">
                                                 <div className="flex flex-1 flex-col space-y-1">
-                                                    <div className="text-[#fff] pl-1 text-[16px] font-semibold">
-                                                        {user.fullname}
+                                                    <div className="flex items-center space-x-2">
+                                                        <div className="rounded-full overflow-hidden w-[32px] h-[32px]">
+                                                            <img src={user.photo_url || telegramUserImage} alt={user.fullname} className="w-full h-full object-cover" />
+                                                        </div>
+                                                        <div className="text-[#fff] pl-1 text-[16px] font-semibold">
+                                                            {user.fullname}
+                                                        </div>
                                                     </div>
                                                     <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
                                                         <div>
