@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
-import Animate from "./Components/Animate";
-import Spinner from "./Components/Spinner";
+import Animate from "../Components/Animate";
+import Spinner from "../Components/Spinner";
 import { TonConnectButton } from "@tonconnect/ui-react";
 
 
