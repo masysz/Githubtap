@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, getDocs } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
 import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
+import coinsmall from "../images/coinsmall.webp";
 
 const Levels = ({ showLevels, setShowLevels }) => {
     const levels = [
