@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, updateDoc, doc } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
 import silver from "../images/sliver.webp";
@@ -59,8 +59,15 @@ const Levels = ({ showLevels, setShowLevels }) => {
                         newLevelIndex++;
                     }
 
-                    setLevel(levels[newLevelIndex].name.toLowerCase());
-                    setActiveIndex(newLevelIndex);
+                    if (newLevelIndex !== currentLevelIndex) {
+                        setLevel(levels[newLevelIndex].name.toLowerCase());
+                        setActiveIndex(newLevelIndex);
+
+                        // Update level in Firestore
+                        const userDocRef = doc(db, 'telegramUsers', doc.id);
+                        updateDoc(userDocRef, { level: levels[newLevelIndex].name.toLowerCase() })
+                            .catch((error) => console.error('Error updating document: ', error));
+                    }
                 });
             }, (error) => {
                 console.error('Error fetching document: ', error);
