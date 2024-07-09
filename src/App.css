@@ -248,37 +248,3 @@ body{
   height: var(--tg-viewport-stable-height);
   touch-action: none; /* Prevent touch actions */
 }
-
-.ton-connect-button {
-  display: flex;
-  align-items: center;
-  background-color: #2196F3; /* Warna biru */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 30px; /* Ujung membulat */
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Efek bayangan */
-  transition: all 0.3s ease;
-}
-
-.ton-connect-button:hover {
-  background-color: #1976D2; /* Warna biru lebih gelap saat hover */
-}
-
-.ton-connect-button .icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  background-image: url('https://rajatav.my.id/library/assets/mobile/icon/png/rajata/e-money.png');
-  background-size: cover;
-}
-
-.ton-connect-button .text {
-  flex-grow: 1;
-}
-
-.ton-connect-button .arrow {
-  margin-left: 10px;
-}
