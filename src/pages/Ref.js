@@ -3,7 +3,7 @@ import Animate from "../Components/Animate";
 import { Outlet } from "react-router-dom";
 import ClaimLeveler from "../Components/ClaimLeveler";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Spinner from "../Components/Spinner";
 import bronze from "../images/bronze.webp";
 import coinsmall from "../images/coinsmall.webp";
@@ -13,7 +13,7 @@ const Ref = () => {
   const [username, setUsername] = useState("");
   const [idme, setIdme] = useState("");
   const [claimLevel, setClaimLevel] = useState(false);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [referrals, setReferrals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(null);
@@ -27,32 +27,30 @@ const Ref = () => {
     if (telegramUsername) setUsername(telegramUsername);
     if (telegramUserid) {
       setIdme(telegramUserid);
-      fetchAllUsers(telegramUserid);
+      fetchReferrals(telegramUserid);
     } else {
       setError("Unable to get Telegram user ID");
       setLoading(false);
     }
   }, []);
 
-  const fetchAllUsers = async (currentUserId) => {
+  const fetchReferrals = async (currentUserId) => {
     try {
       const userRef = collection(db, "telegramUsers");
-      const querySnapshot = await getDocs(userRef);
-      const allUsers = [];
-
+      const q = query(userRef, where("refereeId", "==", currentUserId));
+      const querySnapshot = await getDocs(q);
+      
+      const referralList = [];
       querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.refereeId === currentUserId) {
-          allUsers.push(data);
-        }
+        referralList.push(doc.data());
       });
 
-      console.log("Filtered users:", allUsers);
-      setFilteredUsers(allUsers);
-      setCount(allUsers.length);
+      console.log("Referrals:", referralList);
+      setReferrals(referralList);
+      setCount(referralList.length);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching users: ", error);
+      console.error("Error fetching referrals: ", error);
       setError("Failed to fetch referrals. Please try again later.");
       setLoading(false);
     }
@@ -121,8 +119,8 @@ const Ref = () => {
           <h3 className="text-[22px] font-semibold pb-[16px]">My Referrals:</h3>
 
           <div className="w-full flex flex-col space-y-3">
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user, index) => (
+            {referrals.length > 0 ? (
+              referrals.map((user, index) => (
                 <div
                   key={index}
                   className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
