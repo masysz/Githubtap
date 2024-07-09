@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
-import silver from "../images/sliver.webp";
+import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
@@ -20,6 +20,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
     const [count, setCount] = useState(0);
     const [level, setLevel] = useState('bronze');
     const [activeIndex, setActiveIndex] = useState(0);
+    const [bronzeUsers, setBronzeUsers] = useState([]);
 
     useEffect(() => {
         const handleBackButtonClick = () => {
@@ -65,9 +66,22 @@ const Levels = ({ showLevels, setShowLevels }) => {
                 console.error('Error fetching document: ', error);
             });
 
+            // Clean up the listener on unmount
             return () => unsubscribe();
         }
     }, [levels]);
+
+    useEffect(() => {
+        const fetchBronzeUsers = async () => {
+            const userRef = collection(db, 'telegramUsers');
+            const q = query(userRef, where('level', '==', 'bronze')); // Fetch users where level is 'bronze'
+            const querySnapshot = await getDocs(q);
+            const users = querySnapshot.docs.map(doc => doc.data());
+            setBronzeUsers(users);
+        };
+
+        fetchBronzeUsers();
+    }, []);
 
     const handleNextLevel = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, levels.length - 1));
@@ -88,7 +102,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
                     <div className="w-full flex flex-col items-center justify-start">
                         <div className="flex w-full flex-col items-center text-center">
                             <h1 className="text-[20px] font-semibold">
-                                {currentLevel.name} League
+                                {currentLevel.name.charAt(0).toUpperCase() + currentLevel.name.slice(1)} League
                             </h1>
                             <p className="text-[#9a96a6] text-[14px] font-medium pt-1 pb-10 px-4">
                                 Your number of shares determines the league you enter:
@@ -107,6 +121,18 @@ const Levels = ({ showLevels, setShowLevels }) => {
                                 <div className="flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-[#403f5c]">
                                     <div className="h-[8px] rounded-[8px] bg-btn" style={{ width: `${progress}%` }} />
                                 </div>
+                            </div>
+                        )}
+
+                        {/* Display Bronze League users */}
+                        {currentLevel.name === 'bronze' && (
+                            <div className="w-full mt-4">
+                                <h2 className="text-lg font-semibold mb-2">Bronze League Users</h2>
+                                <ul>
+                                    {bronzeUsers.map(user => (
+                                        <li key={user.userId}>{user.username}</li>
+                                    ))}
+                                </ul>
                             </div>
                         )}
                     </div>
