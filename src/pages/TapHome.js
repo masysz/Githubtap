@@ -63,7 +63,7 @@ function TapHome() {
 
   const levelsAction = () => {
     setShowLevels(true);
-    document.getElementById("footermain").style.zIndex = "50";
+    // document.getElementById("footermain").style.zIndex = "50";
   };
 
   const handleClick = (e) => {
@@ -333,7 +333,7 @@ function TapHome() {
               </div>
             </div>
           </div>
-          <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
+          {/* <Levels showLevels={showLevels} setShowLevels={setShowLevels} /> */}
         </Animate>
       )}
     </>
