@@ -248,3 +248,25 @@ body{
   height: var(--tg-viewport-stable-height);
   touch-action: none; /* Prevent touch actions */
 }
+
+.custom-ton-connect-button {
+  background-color: #4a90e2; /* Custom background color */
+  color: #ffffff;           /* Custom text color */
+  border: 2px solid #4a90e2; /* Custom border */
+  border-radius: 5px;        /* Rounded corners */
+  padding: 10px 20px;        /* Padding */
+  font-size: 16px;           /* Font size */
+  font-weight: bold;         /* Font weight */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.custom-ton-connect-button:hover {
+  background-color: #357ab8; /* Darker background on hover */
+  color: #ffffff;           /* Text color on hover */
+  border-color: #357ab8;    /* Border color on hover */
+}
+
+.custom-ton-connect-button:focus {
+  outline: none;            /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.5); /* Custom focus shadow */
+}
