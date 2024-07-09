@@ -52,7 +52,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
                     setCount(data.count);
 
                     // Update level based on count
-                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level || 'bronze');
+                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === (data.level || 'bronze'));
                     let newLevelIndex = currentLevelIndex;
 
                     while (newLevelIndex < levels.length - 1 && data.count >= levels[newLevelIndex + 1].minCount) {
@@ -60,12 +60,13 @@ const Levels = ({ showLevels, setShowLevels }) => {
                     }
 
                     if (newLevelIndex !== currentLevelIndex) {
-                        setLevel(levels[newLevelIndex].name.toLowerCase());
+                        const newLevel = levels[newLevelIndex].name.toLowerCase();
+                        setLevel(newLevel);
                         setActiveIndex(newLevelIndex);
 
                         // Update level in Firestore
                         const userDocRef = doc(db, 'telegramUsers', doc.id);
-                        updateDoc(userDocRef, { level: levels[newLevelIndex].name.toLowerCase() })
+                        updateDoc(userDocRef, { level: newLevel })
                             .catch((error) => console.error('Error updating document: ', error));
                     }
                 });
