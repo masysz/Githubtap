@@ -13,7 +13,6 @@ const Ref = () => {
   const [username, setUsername] = useState("");
   const [idme, setIdme] = useState("");
   const [claimLevel, setClaimLevel] = useState(false);
-  const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -26,34 +25,35 @@ const Ref = () => {
     const telegramUserid = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
 
     if (telegramUsername) setUsername(telegramUsername);
-    if (telegramUserid) setIdme(telegramUserid);
-
-    fetchAllUsers();
+    if (telegramUserid) {
+      setIdme(telegramUserid);
+      fetchAllUsers(telegramUserid);
+    } else {
+      setError("Unable to get Telegram user ID");
+      setLoading(false);
+    }
   }, []);
 
-  const fetchAllUsers = async () => {
+  const fetchAllUsers = async (currentUserId) => {
     try {
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
       const allUsers = [];
-      const uniqueUsernames = new Set();
 
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        if (!uniqueUsernames.has(data.username)) {
+        if (data.refereeId === currentUserId) {
           allUsers.push(data);
-          uniqueUsernames.add(data.username);
         }
       });
 
-      console.log("All users:", allUsers);
-      setUsers(allUsers);
-      setFilteredUsers(allUsers.filter(user => user.refereeId === idme));
+      console.log("Filtered users:", allUsers);
+      setFilteredUsers(allUsers);
       setCount(allUsers.length);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching users: ", error);
-      setError("Failed to fetch users. Please try again later.");
+      setError("Failed to fetch referrals. Please try again later.");
       setLoading(false);
     }
   };
@@ -97,7 +97,7 @@ const Ref = () => {
       <div className="w-full justify-center flex-col space-y-3 px-5">
         <div className="flex space-y-0 flex-col justify-center items-center">
           <h1 className="text-[#fff] -mb-2 text-[42px] font-semibold">
-            {formattedCount} Users
+            {formattedCount} Referrals
           </h1>
         </div>
 
