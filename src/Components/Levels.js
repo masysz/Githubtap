@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, onSnapshot, getDocs } from 'firebase/firestore';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
 import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
-import coinsmall from "../images/coinsmall.webp";
 
 const Levels = ({ showLevels, setShowLevels }) => {
     const levels = [
@@ -21,7 +20,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
     const [count, setCount] = useState(0);
     const [level, setLevel] = useState('bronze');
     const [activeIndex, setActiveIndex] = useState(0);
-    const [bronzeUsers, setBronzeUsers] = useState([]);
+    const [usersByLevel, setUsersByLevel] = useState({});
 
     useEffect(() => {
         const handleBackButtonClick = () => {
@@ -67,22 +66,34 @@ const Levels = ({ showLevels, setShowLevels }) => {
                 console.error('Error fetching document: ', error);
             });
 
-            // Clean up the listener on unmount
             return () => unsubscribe();
         }
     }, [levels]);
 
     useEffect(() => {
-        const fetchBronzeUsers = async () => {
-            const userRef = collection(db, 'telegramUsers');
-            const q = query(userRef, where('level', '==', 'bronze')); // Fetch users where level is 'bronze'
-            const querySnapshot = await getDocs(q);
-            const users = querySnapshot.docs.map(doc => doc.data());
-            setBronzeUsers(users);
+        const fetchUsersByLevel = async () => {
+            const usersByLevelData = {};
+
+            // Fetch users for each level
+            for (let i = 0; i < levels.length; i++) {
+                const levelName = levels[i].name;
+                const userRef = collection(db, 'telegramUsers');
+                const q = query(userRef, where('level', '==', levelName));
+
+                try {
+                    const querySnapshot = await getDocs(q);
+                    usersByLevelData[levelName] = querySnapshot.docs.map(doc => doc.data());
+                } catch (error) {
+                    console.error(`Error fetching users for level ${levelName}:`, error);
+                    usersByLevelData[levelName] = [];
+                }
+            }
+
+            setUsersByLevel(usersByLevelData);
         };
 
-        fetchBronzeUsers();
-    }, []);
+        fetchUsersByLevel();
+    }, [levels]);
 
     const handleNextLevel = () => {
         setActiveIndex((prevIndex) => Math.min(prevIndex + 1, levels.length - 1));
@@ -125,26 +136,27 @@ const Levels = ({ showLevels, setShowLevels }) => {
                             </div>
                         )}
 
-                        {/* Display Bronze League users */}
-                        {currentLevel.name === 'bronze' && (
-                            <div className="w-full mt-4">
-                                <h3 className="text-[22px] font-semibold pb-[16px]">Leaderboard:</h3>
+                        {/* Display Leaderboards for each level */}
+                        {levels.map((lvl, index) => (
+                            <div key={index} className={`${lvl.name === currentLevel.name ? 'block' : 'hidden'}`}>
+                                <h3 className="text-[22px] font-semibold pb-[16px]">{lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)} Leaderboard:</h3>
                                 <div className="w-full flex flex-col space-y-3">
-                                    {bronzeUsers.length > 0 ? (
-                                        bronzeUsers.map((user, index) => (
-                                            <div key={index} className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center">
+                                    {usersByLevel[lvl.name]?.length > 0 ? (
+                                        usersByLevel[lvl.name].map((user, idx) => (
+                                            <div key={idx} className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center">
                                                 <div className="flex flex-1 flex-col space-y-1">
                                                     <div className="text-[#fff] pl-1 text-[16px] font-semibold">
                                                         {user.fullname}
                                                     </div>
                                                     <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
                                                         <div>
-                                                            <img src={bronze} alt="bronze" className="w-[18px]" />
+                                                            <img src={lvl.image} alt={lvl.name} className="w-[18px]" />
                                                         </div>
                                                         <span className="font-medium text-[#9a96a6]">
-                                                            Bronze
+                                                            {lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)}
                                                         </span>
                                                         <span className="bg-[#bdbdbd] w-[1px] h-[13px] mx-2"></span>
+                                                        {/* Assuming you have an icon for coins */}
                                                         <span className="w-[20px]">
                                                             <img src={coinsmall} className="w-full" alt="coin" />
                                                         </span>
@@ -156,11 +168,11 @@ const Levels = ({ showLevels, setShowLevels }) => {
                                             </div>
                                         ))
                                     ) : (
-                                        <p>No users found in Bronze League</p>
+                                        <p>No users found in {lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)} League</p>
                                     )}
                                 </div>
                             </div>
-                        )}
+                        ))}
                     </div>
                 </div>
             )}
