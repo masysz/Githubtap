@@ -18,7 +18,6 @@ const Levels = ({ showLevels, setShowLevels }) => {
     ];
 
     const [count, setCount] = useState(0);
-    const [level, setLevel] = useState('bronze');
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
@@ -51,16 +50,9 @@ const Levels = ({ showLevels, setShowLevels }) => {
                     const data = doc.data();
                     setCount(data.count);
 
-                    // Update level based on count
-                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level || 'bronze');
-                    let newLevelIndex = currentLevelIndex;
-
-                    while (newLevelIndex < levels.length - 1 && data.count >= levels[newLevelIndex + 1].minCount) {
-                        newLevelIndex++;
-                    }
-
-                    setLevel(levels[newLevelIndex].name.toLowerCase());
-                    setActiveIndex(newLevelIndex);
+                    // Update activeIndex based on count
+                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level.toLowerCase() || l.name.toLowerCase() === 'bronze');
+                    setActiveIndex(currentLevelIndex);
                 });
             }, (error) => {
                 console.error('Error fetching document: ', error);
@@ -79,7 +71,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
     };
 
     const currentLevel = levels[activeIndex];
-    const nextLevel = currentLevel.nextLevel ? levels.find(l => l.name.toLowerCase() === currentLevel.nextLevel) : null;
+    const nextLevel = currentLevel.nextLevel ? levels.find(l => l.name.toLowerCase() === currentLevel.nextLevel.toLowerCase()) : null;
     const progress = nextLevel ? ((count - currentLevel.minCount) / (nextLevel.minCount - currentLevel.minCount)) * 100 : 100;
 
     return (
@@ -103,7 +95,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
                         <div className="font-semibold text-[18px] pt-10 pb-5">
                             From {currentLevel.threshold}
                         </div>
-                        {nextLevel && count <= 20000 && (
+                        {nextLevel && (
                             <div className="w-full overflow-hidden">
                                 <div className="flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-[#403f5c]">
                                     <div className="h-[8px] rounded-[8px] bg-btn" style={{ width: `${progress}%` }} />
