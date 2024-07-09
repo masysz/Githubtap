@@ -222,6 +222,7 @@ function TapHome() {
           userId: userid,
           count: 0, // Initialize count
           energy: 500, // Initialize energy
+          level: 'bronze',
           refereeId: refereeId || null, // Store refereeId if present
           timestamp: new Date(),
         });

@@ -3,13 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBWQu-H3fXG4C3djbd0YwmgIExnaxU8d3g",
-  authDomain: "kombat-c1f13.firebaseapp.com",
-  projectId: "kombat-c1f13",
-  storageBucket: "kombat-c1f13.appspot.com",
-  messagingSenderId: "819689626667",
-  appId: "1:819689626667:web:cd3e697d4b765805cf5e6e",
-  measurementId: "G-RSBHKS27GT"
+  apiKey: "AIzaSyAholmqgjpCJ1aTn6xUex5n8D7NffgKOuk",
+  authDomain: "tete-93fd0.firebaseapp.com",
+  projectId: "tete-93fd0",
+  storageBucket: "tete-93fd0.appspot.com",
+  messagingSenderId: "608000462822",
+  appId: "1:608000462822:web:95e1de530288a5f9025027"
 };
 
 const app = initializeApp(firebaseConfig);
