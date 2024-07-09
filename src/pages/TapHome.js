@@ -64,11 +64,11 @@ function TapHome() {
   };
 
   const levels = [
-    { name: 'Bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
-    { name: 'Silver', minCount: 10000, nextLevel: 'gold', image: bronze, threshold: 10000 },
-    { name: 'Gold', minCount: 20000, nextLevel: 'platinum', image: bronze, threshold: 20000 },
-    { name: 'Platinum', minCount: 30000, nextLevel: 'diamond', image: bronze, threshold: 30000 },
-    { name: 'Diamond', minCount: 40000, nextLevel: null, image: bronze, threshold: 40000 },
+    { name: 'bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
+    { name: 'silver', minCount: 10000, nextLevel: 'gold', image: bronze, threshold: 10000 },
+    { name: 'gold', minCount: 20000, nextLevel: 'platinum', image: bronze, threshold: 20000 },
+    { name: 'platinum', minCount: 30000, nextLevel: 'diamond', image: bronze, threshold: 30000 },
+    { name: 'diamond', minCount: 40000, nextLevel: null, image: bronze, threshold: 40000 },
   ];
 
   const handleClick = (e) => {
@@ -263,10 +263,10 @@ function TapHome() {
   const determineLevel = (count) => {
     for (let i = levels.length - 1; i >= 0; i--) {
       if (count >= levels[i].minCount) {
-        return levels[i].name;
+        return levels[i].name.toLowerCase();
       }
     }
-    return 'Bronze'; // Default level if count doesn't meet any threshold
+    return 'bronze'; // Default level if count doesn't meet any threshold
   };
 
   const fetchUserStatsFromFirestore = async (userid) => {
