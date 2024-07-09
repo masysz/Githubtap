@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import coinsmall from "../images/coinsmall.webp";
 import taskbook from "../images/taskbook.webp";
 import bronze from "../images/bronze.webp";
-import silver from "../images/sliver.webp";
+import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import ref from "../images/ref.webp";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
