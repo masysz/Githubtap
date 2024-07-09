@@ -333,7 +333,7 @@ function TapHome() {
               </div>
             </div>
           </div>
-          {/* <Levels showLevels={showLevels} setShowLevels={setShowLevels} /> */}
+          <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
         </Animate>
       )}
     </>
