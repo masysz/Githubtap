@@ -141,7 +141,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
 
                         {/* Display Leaderboards for each level */}
                         {levels.map((lvl, index) => (
-                            <div key={index} className={`${lvl.name === currentLevel.name ? 'block' : 'hidden'}`}>
+                            <div key={index} className={`w-full mt-4 ${lvl.name === currentLevel.name ? 'block' : 'hidden'}`}>
                                 <h3 className="text-[22px] font-semibold pb-[16px]">{lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)} Leaderboard:</h3>
                                 <div className="w-full flex flex-col space-y-3">
                                     {usersByLevel[lvl.name]?.length > 0 ? (
