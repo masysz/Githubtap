@@ -127,12 +127,37 @@ const Levels = ({ showLevels, setShowLevels }) => {
                         {/* Display Bronze League users */}
                         {currentLevel.name === 'bronze' && (
                             <div className="w-full mt-4">
-                                <h2 className="text-lg font-semibold mb-2">Bronze League Users</h2>
-                                <ul>
-                                    {bronzeUsers.map(user => (
-                                        <li key={user.userId}>{user.username}</li>
-                                    ))}
-                                </ul>
+                                <h3 className="text-[22px] font-semibold pb-[16px]">Leaderboard:</h3>
+                                <div className="w-full flex flex-col space-y-3">
+                                    {bronzeUsers.length > 0 ? (
+                                        bronzeUsers.map((user, index) => (
+                                            <div key={index} className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center">
+                                                <div className="flex flex-1 flex-col space-y-1">
+                                                    <div className="text-[#fff] pl-1 text-[16px] font-semibold">
+                                                        {user.fullname}
+                                                    </div>
+                                                    <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
+                                                        <div>
+                                                            <img src={bronze} alt="bronze" className="w-[18px]" />
+                                                        </div>
+                                                        <span className="font-medium text-[#9a96a6]">
+                                                            Bronze
+                                                        </span>
+                                                        <span className="bg-[#bdbdbd] w-[1px] h-[13px] mx-2"></span>
+                                                        <span className="w-[20px]">
+                                                            <img src={coinsmall} className="w-full" alt="coin" />
+                                                        </span>
+                                                        <span className="font-normal text-[#ffffff] text-[15px]">
+                                                            {user.count}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>No users found in Bronze League</p>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
