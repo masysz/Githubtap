@@ -7,9 +7,11 @@ import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
-import coinsmall from "../images/coinsmall.webp";
+import coinsmall from "../images/coinsmall.webp"; // Assuming you have an image for coins
 
 const Levels = ({ showLevels, setShowLevels }) => {
+    const telegramUserImage = window.Telegram.WebApp.initDataUnsafe?.user?.photo_url;
+
     const levels = [
         { name: 'bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
         { name: 'silver', minCount: 10000, nextLevel: 'gold', image: silver, threshold: 10000 },
@@ -162,7 +164,6 @@ const Levels = ({ showLevels, setShowLevels }) => {
                                                             {lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)}
                                                         </span>
                                                         <span className="bg-[#bdbdbd] w-[1px] h-[13px] mx-2"></span>
-                                                        {/* Assuming you have an icon for coins */}
                                                         <span className="w-[20px]">
                                                             <img src={coinsmall} className="w-full" alt="coin" />
                                                         </span>
