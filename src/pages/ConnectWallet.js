@@ -13,9 +13,9 @@ function ConnectWallet() {
   return (
     <>
 
-
+<div className="ConnectWallet">
           <TonConnectButton />
-
+          </div>
 
     </>
   );
