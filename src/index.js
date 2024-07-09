@@ -12,6 +12,7 @@ import Stats from "./pages/Stats";
 import TapHome from "./pages/TapHome";
 import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
+import Connect from "./pages/ConnectWallet";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +29,8 @@ const router = createBrowserRouter([
         element: <Ref />,
       },
       {
-        path:"/stats",
-        element: <Stats />,
+        path:"/connect",
+        element: <Connect />,
       },
       {
         path:"/tasks",
