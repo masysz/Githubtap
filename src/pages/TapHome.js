@@ -52,9 +52,7 @@ const EnergyFill = styled.div`
 
 function TapHome() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
-    // eslint-disable-next-line
   const [username, setUsername] = useState("");
-    // eslint-disable-next-line
   const [name, setName] = useState("");
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
@@ -63,8 +61,15 @@ function TapHome() {
 
   const levelsAction = () => {
     setShowLevels(true);
-    // document.getElementById("footermain").style.zIndex = "50";
   };
+
+  const levels = [
+    { name: 'Bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
+    { name: 'Silver', minCount: 10000, nextLevel: 'gold', image: bronze, threshold: 10000 },
+    { name: 'Gold', minCount: 20000, nextLevel: 'platinum', image: bronze, threshold: 20000 },
+    { name: 'Platinum', minCount: 30000, nextLevel: 'diamond', image: bronze, threshold: 30000 },
+    { name: 'Diamond', minCount: 40000, nextLevel: null, image: bronze, threshold: 40000 },
+  ];
 
   const handleClick = (e) => {
     if (energy > 0) {
@@ -107,7 +112,7 @@ function TapHome() {
         y: e.clientY - rect.top,
       };
 
-      const updatedCount = count + 2; // Increment count by 5
+      const updatedCount = count + 2; // Increment count by 2
       const updatedEnergy = energy - 2;
 
       setClicks((prevClicks) => [...prevClicks, newClick]);
@@ -241,7 +246,12 @@ function TapHome() {
       const querySnapshot = await getDocs(userRef);
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userid) {
-          updateDoc(doc.ref, { count: newCount, energy: newEnergy });
+          const userDocRef = doc.ref;
+
+          // Determine new level based on newCount
+          const newLevel = determineLevel(newCount);
+
+          updateDoc(userDocRef, { count: newCount, energy: newEnergy, level: newLevel });
         }
       });
       // console.log("User stats updated:", { newCount, newEnergy });
@@ -250,20 +260,29 @@ function TapHome() {
     }
   };
 
+  const determineLevel = (count) => {
+    for (let i = levels.length - 1; i >= 0; i--) {
+      if (count >= levels[i].minCount) {
+        return levels[i].name;
+      }
+    }
+    return 'Bronze'; // Default level if count doesn't meet any threshold
+  };
+
   const fetchUserStatsFromFirestore = async (userid) => {
     try {
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
-      let userStats = { count: 0, energy: 500 };
+      let userStats = { count: 0, energy: 500, level: 'bronze' };
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userid) {
-          userStats = { count: doc.data().count, energy: doc.data().energy };
+          userStats = { count: doc.data().count, energy: doc.data().energy, level: doc.data().level };
         }
       });
       return userStats;
     } catch (e) {
       console.error("Error fetching document: ", e);
-      return { count: 0, energy: 500 };
+      return { count: 0, energy: 500, level: 'bronze' };
     }
   };
 
@@ -273,7 +292,6 @@ function TapHome() {
 
   return (
     <>
-    
       {loading ? (
         <Spinner />
       ) : (
@@ -287,7 +305,6 @@ function TapHome() {
             </h1>
           </div>
           <div
-           
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
           >
             <img
@@ -295,7 +312,7 @@ function TapHome() {
               className="w-[30px] h-[30px] relative"
               alt="bronze"
             />
-            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">Bronze</h2>
+            <h2 onClick={levelsAction} className="text-[#9d99a9] text-[20px] font-medium">{determineLevel(count)}</h2>
             <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
           </div>
           <div className="w-full flex justify-center items-center pt-14 pb-36">
