@@ -58,6 +58,7 @@ function TapHome() {
   const { energy, setEnergy, displayEnergy, setDisplayEnergy, idme, setIdme, count, setCount } = useContext(EnergyContext);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
+  const [userImage, setUserImage] = useState("");
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -143,6 +144,7 @@ function TapHome() {
       window.Telegram.WebApp.initDataUnsafe?.user?.last_name;
     const telegramUsername =
       window.Telegram.WebApp.initDataUnsafe?.user?.username;
+    const telegramUserImage = window.Telegram.WebApp.initDataUnsafe?.user?.photo_url;
     const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
 
     if (telegramName) {
@@ -151,6 +153,9 @@ function TapHome() {
 
     if (telegramUsername) {
       setUsername(telegramUsername);
+    }
+    if (telegramUserImage) {
+      setUserImage(telegramUserImage);
     }
     if (telegramUserid) {
       setIdme(telegramUserid);
@@ -310,6 +315,9 @@ function TapHome() {
             </div>
             <h1 className="text-[#fff] text-[42px] font-extrabold">
               {formattedCount}
+            </h1>
+            <h1 className="text-[#fff] text-[42px] font-extrabold">
+              {idme} - {username} - {userImage}
             </h1>
           </div>
           <div
