@@ -26,8 +26,9 @@ const Ref = () => {
 
     if (telegramUsername) setUsername(telegramUsername);
     if (telegramUserid) {
-      setIdme(telegramUserid);
-      fetchReferrals(telegramUserid);
+      const userIdString = telegramUserid.toString(); // Convert to string
+      setIdme(userIdString);
+      fetchReferrals(userIdString);
     } else {
       setError("Unable to get Telegram user ID");
       setLoading(false);
