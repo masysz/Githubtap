@@ -3,7 +3,7 @@ import { db } from '../firebase';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
-import silver from "../images/silver.webp";
+import silver from "../images/sliver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";

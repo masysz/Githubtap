@@ -4,7 +4,7 @@ import "../App.css";
 import coinsmall from "../images/coinsmall.webp";
 import tapmecoin from "../images/tapme1.webp";
 import bronze from "../images/bronze.webp";
-import silver from "../images/silver.webp";
+import silver from "../images/sliver.webp";
 import gold from "../images/gold.webp";
 import platinum from "../images/platinum.webp";
 import diamond from "../images/diamond.webp";
