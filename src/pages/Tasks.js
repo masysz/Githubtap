@@ -43,13 +43,7 @@ const Tasks = () => {
                       {task.name}
                     </div>
                     <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
-                      <div>
-                        <img src={bronze} alt="bronze" className="w-[18px]" />
-                      </div>
-                      <span className="font-medium text-[#9a96a6]">
-                        Bronze
-                      </span>
-                      <span className="bg-[#bdbdbd] w-[1px] h-[13px] mx-2"></span>
+                      
                       <span className="w-[20px]">
                         <img src={coinsmall} className="w-full" alt="coin" />
                       </span>
