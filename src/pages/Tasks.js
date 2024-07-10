@@ -684,6 +684,62 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
                 </div>
             </div>
 
+            {/* Invite 2 Friend Task */}
+<div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
+                <div className='flex flex-1 items-center space-x-2'>
+                    <div className=''>
+                        <img src={ref} alt="ref" className='w-[55px]'/>
+                    </div>
+                    <div className='flex flex-col space-y-1'>
+                        <span className='font-semibold'>
+                            Invite 2 Friends
+                        </span>
+                        <div className='flex items-center space-x-1'>
+                            <span className="w-[20px] h-[20px]">
+                                <img src={coinsmall} className="w-full" alt="coin"/>
+                            </span>
+                            <span className='font-medium'>
+                                5 000
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className=''>
+                    {invitedFriends >= 2 ? (
+                        <button 
+                            onClick={() => {
+                                // Handle claim logic here
+                                console.log("Claimed reward for inviting 1 friend");
+                                // Note: Don't reset invitedFriends here as it's based on actual invites
+                            }} 
+                            className='bg-btn relative rounded-[8px] font-semibold py-2 px-3 text-[#fff]'
+                        >
+                            Claim
+                        </button>
+                    ) : (
+                        <span className='bg-btn2 rounded-[8px] font-semibold py-2 px-3 text-[#fff6]'>
+                            Invite
+                        </span>
+                    )}
+                </div>
+
+                <div className='flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders'>
+                    <div 
+                        className='h-[8px] rounded-[8px] bg-btn' 
+                        style={{ width: `${Math.min(invitedFriends * 100, 100)}%` }}
+                    > 
+                    </div>
+                </div>
+
+                <div className='w-full text-center mt-2'>
+                    <span className='text-[#fff6]'>
+                        {invitedFriends} friend{invitedFriends !== 1 ? 's' : ''} invited
+                    </span>
+                </div>
+            </div>
+
+
 {/*  */}
 
 <div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
