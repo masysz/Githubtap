@@ -44,16 +44,17 @@ const Tasks = () => {
                     </div>
                     <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
                       
-                      <span className="w-[20px]">
-                        <img src={coinsmall} className="w-full" alt="coin" />
-                      </span>
+                      
                       <span className="font-normal text-[#ffffff] text-[15px]">
                         {task.desc}
                       </span>
                     </div>
                   </div>
+                  <span className="w-[20px]">
+                        <img src={coinsmall} className="w-full" alt="coin" />
+                      </span>
                   <div className="text-[#ffce68] font-semibold text-[14px]">
-                    {task.points}
+                    +{task.points}
                   </div>
                   <div className="flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders">
                     <div className="h-[10px] rounded-[8px] bg-btn w-[.5%]"></div>
