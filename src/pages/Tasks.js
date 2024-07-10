@@ -31,7 +31,7 @@ const Tasks = () => {
       ) : (
         <Animate>
           <div className='w-full h-full flex justify-center px-5'>
-            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[80vh]">
+            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
               {tasks.map((task, index) => (
                 <div
                   key={task.id}
