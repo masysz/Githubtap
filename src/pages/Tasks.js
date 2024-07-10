@@ -10,7 +10,7 @@ const Tasks = () => {
     return (
       <div>
         <button onClick={openModal}>Open Daily Reward</button>
-        <DailyRewardModal isOpen={modalIsOpen} onClose={closeModal} />
+        {showModal && <DailyRewardModal onClose={closeModal} />}
       </div>
     );
   };
