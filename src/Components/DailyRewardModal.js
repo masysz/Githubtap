@@ -1,7 +1,7 @@
 import React from 'react';
-import Modal from 'react-modal';
+import './DailyRewardModal.css';
 
-const DailyRewardModal = ({ isOpen, onClose }) => {
+const DailyRewardModal = ({ onClose }) => {
   const rewardDays = [
     { day: 1, reward: 500 },
     { day: 2, reward: '1K' },
@@ -16,15 +16,12 @@ const DailyRewardModal = ({ isOpen, onClose }) => {
   ];
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      contentLabel="Daily Reward Modal"
-      className="daily-reward-modal"
-    >
+    <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>×</button>
-        <img src="calendar-icon.png" alt="Calendar Icon" className="calendar-icon" />
+        <div className="calendar-icon">
+          <span className="dollar-sign">$</span>
+        </div>
         <h2>Daily reward</h2>
         <p>Accrue coins for logging into the game daily without skipping</p>
         
@@ -40,7 +37,7 @@ const DailyRewardModal = ({ isOpen, onClose }) => {
         
         <button className="come-back-button">Come back tomorrow</button>
       </div>
-    </Modal>
+    </div>
   );
 };
 
