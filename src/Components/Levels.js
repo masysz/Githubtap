@@ -81,7 +81,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
             for (let i = 0; i < levels.length; i++) {
                 const levelName = levels[i].name;
                 const userRef = collection(db, 'telegramUsers');
-                const q = query(userRef, where('level', '==', levelName), orderBy('count', 'desc'), limit(2));
+                const q = query(userRef, where('level', '==', levelName), orderBy('count', 'desc'));
 
                 try {
                     const querySnapshot = await getDocs(q);
