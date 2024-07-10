@@ -201,6 +201,60 @@ const claimSilverLevel = () => {
 setClaimLevel(true);
 };
 
+const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [invitedFriends, setInvitedFriends] = useState(0);
+
+    useEffect(() => {
+        const telegramUsername = window.Telegram.WebApp.initDataUnsafe?.user?.username;
+        const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
+
+        if (telegramUsername) {
+            setUsername(telegramUsername);
+        }
+        if (telegramUserid) {
+            setIdme(String(telegramUserid));
+        }
+
+        fetchAllUsers();
+    }, []);
+
+    useEffect(() => {
+        if (idme && users.length > 0) {
+            const filtered = users.filter(user => user.refereeId === idme);
+            setFilteredUsers(filtered);
+            setInvitedFriends(filtered.length);
+        }
+    }, [idme, users]);
+
+    const fetchAllUsers = async () => {
+        try {
+            const userRef = collection(db, "telegramUsers");
+            const querySnapshot = await getDocs(userRef);
+            const allUsers = [];
+            const uniqueUsernames = new Set();
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const username = data.username;
+                const fullname = data.fullname;
+                const refereeId = String(data.refereeId);
+                const count = data.count;
+
+                if (!uniqueUsernames.has(username)) {
+                    allUsers.push({ username, fullname, refereeId, count });
+                    uniqueUsernames.add(username);
+                }
+            });
+
+            setUsers(allUsers);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching users: ", error);
+            setLoading(false);
+        }
+    };
+
 const formattedCount = new Intl.NumberFormat().format(count).replace(/,/g, " ");
 const currentLevel = levels[level];
 const level2 = levels[levelTwo];
@@ -379,7 +433,7 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
 
             <div className={`${activeIndex === 2 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 {/*  */}
-{/* {nextLevel && (
+{nextLevel && (
                                 <div className='w-full flex flex-col items-center'>
                                     <div className='border-borders w-full px-5 h-[1px] !mt-5 !mb-5'></div>
                                     <div className='w-full border-[1px] border-[#39314f] rounded-[10px] p-1 flex items-center'>
@@ -388,12 +442,12 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
                                         </div>
                                     </div>
                                 </div>
-                            )} */}
-                            {/* {nextLevel && count >= nextLevel.minCount && (
+                            )}
+                            {nextLevel && count >= nextLevel.minCount && (
                                 <button onClick={claimSilver} className='bg-[#39314f] rounded-[8px] font-semibold py-2 px-3 text-[#fff6] mt-2'>
                                     Claim {nextLevel.claimCount} Coins
                                 </button>
-                            )} */}
+                            )}
 <div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
 
     <div className='flex flex-1 items-center space-x-2'>
@@ -575,6 +629,61 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
 
 
             <div className={`${activeIndex === 3 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+{/* Invite 1 Friend Task */}
+<div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
+                <div className='flex flex-1 items-center space-x-2'>
+                    <div className=''>
+                        <img src={ref} alt="ref" className='w-[55px]'/>
+                    </div>
+                    <div className='flex flex-col space-y-1'>
+                        <span className='font-semibold'>
+                            Invite 1 Friend
+                        </span>
+                        <div className='flex items-center space-x-1'>
+                            <span className="w-[20px] h-[20px]">
+                                <img src={coinsmall} className="w-full" alt="coin"/>
+                            </span>
+                            <span className='font-medium'>
+                                1 000
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className=''>
+                    {invitedFriends >= 1 ? (
+                        <button 
+                            onClick={() => {
+                                // Handle claim logic here
+                                console.log("Claimed reward for inviting 1 friend");
+                                // Note: Don't reset invitedFriends here as it's based on actual invites
+                            }} 
+                            className='bg-btn relative rounded-[8px] font-semibold py-2 px-3 text-[#fff]'
+                        >
+                            Claim
+                        </button>
+                    ) : (
+                        <span className='bg-btn2 rounded-[8px] font-semibold py-2 px-3 text-[#fff6]'>
+                            Invite
+                        </span>
+                    )}
+                </div>
+
+                <div className='flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders'>
+                    <div 
+                        className='h-[8px] rounded-[8px] bg-btn' 
+                        style={{ width: `${Math.min(invitedFriends * 100, 100)}%` }}
+                    > 
+                    </div>
+                </div>
+
+                <div className='w-full text-center mt-2'>
+                    <span className='text-[#fff6]'>
+                        {invitedFriends} friend{invitedFriends !== 1 ? 's' : ''} invited
+                    </span>
+                </div>
+            </div>
+
 {/*  */}
 
 <div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
