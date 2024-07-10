@@ -248,3 +248,59 @@ body{
   height: var(--tg-viewport-stable-height);
   touch-action: none; /* Prevent touch actions */
 }
+
+.daily-reward-modal {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-button {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.calendar-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.reward-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.reward-day {
+  background-color: #333;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+.reward-day.active {
+  background-color: #4CAF50;
+}
+
+.come-back-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
