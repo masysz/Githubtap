@@ -9,7 +9,7 @@ import gold from "../images/gold.webp";
 import ref from "../images/ref.webp";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { db } from '../firebase';
-import { collection, query, where, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, getDoc, getDocs } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import TaskOne from '../Components/TaskOne';
 import ClaimLeveler from '../Components/ClaimLeveler';
@@ -433,7 +433,7 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
 
             <div className={`${activeIndex === 2 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 {/*  */}
-{nextLevel && (
+{/* {nextLevel && (
                                 <div className='w-full flex flex-col items-center'>
                                     <div className='border-borders w-full px-5 h-[1px] !mt-5 !mb-5'></div>
                                     <div className='w-full border-[1px] border-[#39314f] rounded-[10px] p-1 flex items-center'>
@@ -447,7 +447,7 @@ const progress3 = nextLevel3 ? ((count - currentLevel.minCount) / (nextLevel3.mi
                                 <button onClick={claimSilver} className='bg-[#39314f] rounded-[8px] font-semibold py-2 px-3 text-[#fff6] mt-2'>
                                     Claim {nextLevel.claimCount} Coins
                                 </button>
-                            )}
+                            )} */}
 <div className='bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center'>
 
     <div className='flex flex-1 items-center space-x-2'>
