@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import "../App.css";
 import coinsmall from "../images/coinsmall.webp";
-import tapmecoin from "../images/tapme1.webp";
+import tapmecoin from "../images/tapmem.png";
 import bronze from "../images/bronze.webp";
 import silver from "../images/silver.webp";
 import gold from "../images/gold.webp";
