@@ -56,9 +56,7 @@ const Tasks = () => {
                   <div className="text-[#ffce68] font-semibold text-[14px]">
                     +{task.points}
                   </div>
-                  <div className="flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-borders">
-                    <div className="h-[10px] rounded-[8px] bg-btn w-[.5%]"></div>
-                  </div>
+                  
                 </div>
               ))}
             </div>
