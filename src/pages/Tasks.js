@@ -272,7 +272,7 @@ const Tasks = () => {
                         </div>
                     </div>
                     {showModal && <TaskOne onClose={() => setShowModal(false)} />}
-                    {showModal2 && <TaskTwo onClose={() => setShowModal2(false)} />}
+                    {/* {showModal2 && <TaskTwo onClose={() => setShowModal2(false)} />} */}
                     {showLevels && <Levels onClose={() => setShowLevels(false)} />}
                     {claimLevel && <ClaimLeveler onClose={() => setClaimLevel(false)} />}
                 </Animate>
