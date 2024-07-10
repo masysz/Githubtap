@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import DailyRewardModal from '../Components/DailyRewardModal';
 
 const Tasks = () => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
-    const openModal = () => setModalIsOpen(true);
-    const closeModal = () => setModalIsOpen(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
   
     return (
       <div>
