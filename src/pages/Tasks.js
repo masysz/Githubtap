@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Animate from '../Components/Animate';
 import { Outlet } from 'react-router-dom';
 import coinsmall from "../images/coinsmall.webp";
-import bronze from "../images/bronze.webp";
 import { db } from '../firebase';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
@@ -31,11 +30,11 @@ const Tasks = () => {
         <Spinner />
       ) : (
         <Animate>
-          <div className='w-full justify-center flex-col space-y-3 px-5'>
-            <div className="w-full flex flex-col space-y-3">
+          <div className='w-full h-full flex justify-center px-5'>
+            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[80vh]">
               {tasks.map((task, index) => (
                 <div
-                  key={index}
+                  key={task.id}
                   className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
                 >
                   <div className="flex flex-1 flex-col space-y-1">
@@ -43,20 +42,17 @@ const Tasks = () => {
                       {task.name}
                     </div>
                     <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
-                      
-                      
                       <span className="font-normal text-[#ffffff] text-[15px]">
                         {task.desc}
                       </span>
                     </div>
                   </div>
                   <span className="w-[20px]">
-                        <img src={coinsmall} className="w-full" alt="coin" />
-                      </span>
+                    <img src={coinsmall} className="w-full" alt="coin" />
+                  </span>
                   <div className="text-[#ffce68] font-semibold text-[14px]">
                     +{task.points}
                   </div>
-                  
                 </div>
               ))}
             </div>
