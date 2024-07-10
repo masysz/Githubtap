@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, onSnapshot, getDocs } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, getDocs, orderBy, limit } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import bronze from "../images/bronze.webp";
 import silver from "../images/silver.webp";
@@ -81,7 +81,7 @@ const Levels = ({ showLevels, setShowLevels }) => {
             for (let i = 0; i < levels.length; i++) {
                 const levelName = levels[i].name;
                 const userRef = collection(db, 'telegramUsers');
-                const q = query(userRef, where('level', '==', levelName));
+                const q = query(userRef, where('level', '==', levelName), orderBy('count', 'desc'), limit(10));
 
                 try {
                     const querySnapshot = await getDocs(q);
