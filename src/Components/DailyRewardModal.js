@@ -1,5 +1,5 @@
 import React from 'react';
-import './DailyRewardModal.css';
+import '../App.css';
 
 const DailyRewardModal = ({ onClose }) => {
   const rewardDays = [
