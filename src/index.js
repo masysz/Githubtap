@@ -13,7 +13,6 @@ import TapHome from "./pages/TapHome";
 import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
 import Connect from "./pages/ConnectWallet";
-import Transfer from "./pages/Transfer";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 const manifestUrl =
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/connect",
-        element: <Transfer />,
+        element: <Connect />,
       },
       {
         path:"/tasks",
