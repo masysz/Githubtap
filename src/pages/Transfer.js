@@ -1,5 +1,5 @@
 import React from 'react';
-import './Transfer.css';
+import '../App.css';
 
 const Transfer = () => {
   return (
