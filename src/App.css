@@ -343,3 +343,91 @@ body{
   cursor: pointer;
   width: 100%;
 }
+
+/* Transfer.css */
+
+/* Container for transfer icon and text */
+.item {
+  cursor: pointer;
+}
+
+.item .col {
+  font-size: 10px;
+  text-align: center;
+}
+
+/* Transfer icon */
+.item img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Modal styles */
+.modal.fade.action-sheet {
+  display: none;
+}
+
+.modal.fade.action-sheet .modal-dialog {
+  position: relative;
+  margin: auto;
+}
+
+.modal.fade.action-sheet .modal-content {
+  border-radius: 20px;
+  border-top: 0 !important;
+}
+
+.modal.fade.action-sheet .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal.fade.action-sheet .modal-header .modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal.fade.action-sheet .modal-body {
+  padding: 1rem;
+}
+
+.menu-list {
+  margin-top: 1rem;
+  border-top: 0 !important;
+}
+
+.app-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.app-menu ul .item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.icon-box.bg-upgrade-primary {
+  background-color: var(--color-theme);
+}
+
+.icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.icon-box ion-icon {
+  font-size: 25px;
+  color: var(--color-primary);
+}
+
+.in h5 {
+  margin-bottom: 0;
+  font-weight: bold;
+}
