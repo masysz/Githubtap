@@ -410,7 +410,7 @@ const Plutos = () => {
                   <img
                     onPointerDown={handleClick}
                     ref={imageRef}
-                    src='/tapme1.webp'
+                    src='/coinsmall.webp'
                     alt="Wobble"
                     className="wobble-image !w-[250px] select-none"
                   />
