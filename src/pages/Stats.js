@@ -1,94 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Animate from "../Components/Animate";
 import { Outlet } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import Spinner from "../Components/Spinner";
+import { useUser } from "../context/userContext";
 
 const Stats = () => {
   // eslint-disable-next-line
-  const [username, setUsername] = useState("");
-  // eslint-disable-next-line
-  const [idme, setIdme] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
-  const [dividedCount, setDividedCount] = useState(0);
-  const [users, setUsers] = useState(0);
-  const [dividedUsers, setDividedUsers] = useState(0);
+const { totalCount, dividedCount, users, dividedUsers } = useUser();
 
-  useEffect(() => {
-    const telegramUsername =
-      window.Telegram.WebApp.initDataUnsafe?.user?.username;
-    const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-
-    if (telegramUsername) {
-      setUsername(telegramUsername);
-    }
-    if (telegramUserid) {
-      setIdme(telegramUserid);
-    }
-
-    // Fetch total count from Firestore
-    fetchTotalCountFromFirestore().then((totalCount) => {
-      setTotalCount(totalCount);
-      const divided = calculateDividedCount(totalCount);
-      setDividedCount(divided);
-    });
-
-    fetchAllUsers(); // Fetch all users when the component mounts
-  }, []);
-
-  const fetchTotalCountFromFirestore = async () => {
-    try {
-      const userRef = collection(db, "telegramUsers");
-      const querySnapshot = await getDocs(userRef);
-      let totalCount = 0;
-      querySnapshot.forEach((doc) => {
-        totalCount += doc.data().count;
-      });
-      return totalCount;
-    } catch (e) {
-      console.error("Error fetching documents: ", e);
-      return 0;
-    }
-  };
-
-  const fetchAllUsers = async () => {
-    try {
-      const userRef = collection(db, "telegramUsers");
-      const querySnapshot = await getDocs(userRef);
-      const allUsers = [];
-      const uniqueUsernames = new Set(); // Using a Set to store unique usernames
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const username = data.username;
-        const fullname = data.fullname;
-        const refereeId = data.refereeId;
-        const count = data.count;
-
-        // Check if the username is unique, if yes, add it to the allUsers array and set
-        // a flag indicating that it has been added
-        if (!uniqueUsernames.has(username)) {
-          allUsers.push({ username, fullname, refereeId, count });
-          uniqueUsernames.add(username);
-        }
-      });
-
-      setUsers(allUsers.length);
-      setDividedUsers(allUsers.length);
-      setLoading(false); // Set loading to false once data is fetched
-      // Update the count of unique users
-    } catch (error) {
-      console.error("Error fetching users: ", error);
-      setLoading(false); // Set loading to false if there's an error
-    }
-  };
-
-  const calculateDividedCount = (count) => {
-    return count;
-  };
 
   const formatNumber = (num) => {
     if (num < 100000) {
@@ -110,9 +29,7 @@ const Stats = () => {
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
+
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="fixed top-0 left-0 right-0 pt-8 px-5">
@@ -173,7 +90,7 @@ const Stats = () => {
           </div>
           <Outlet />
         </Animate>
-      )}
+ 
     </>
   );
 };

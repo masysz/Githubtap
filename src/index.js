@@ -8,15 +8,11 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import ErrorCom from "./Components/ErrorCom";
-import Stats from "./pages/Stats";
-import TapHome from "./pages/TapHome";
 import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
-import Connect from "./pages/ConnectWallet";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
-
-const manifestUrl =
-  "https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json";
+import Stats from "./pages/Stats";
+// import DeviceCheck from "./Components/DeviceCheck";
+import Plutos from "./pages/Plutos";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +22,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:"/",
-        element: <TapHome />,
+        element: <Plutos />,
       },
       {
         path:"/ref",
         element: <Ref />,
-      },
-      {
-        path:"/connect",
-        element: <Connect />,
       },
       {
         path:"/tasks",
@@ -44,6 +36,10 @@ const router = createBrowserRouter([
         path:"/boost",
         element: <Boost />,
       },
+      {
+        path:"/stats",
+        element: <Stats />,
+      },
     ]
 
   },
@@ -51,9 +47,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <TonConnectUIProvider manifestUrl={manifestUrl}>
+
+
+
+  // <DeviceCheck>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
-  </TonConnectUIProvider>
+// </DeviceCheck>
+
 );

@@ -1,13 +1,32 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "../App.css";
+import "../fire.scss";
 import { AnimatePresence } from "framer-motion";
 import Footer from "../Components/Footer";
-import { EnergyProvider } from "../context/EnergyContext";
+import { UserProvider } from "../context/userContext";
 
 
 const tele = window.Telegram.WebApp;
 const Home = () => {
+
+  useEffect(() => {
+    const handleContextMenu = (event) => event.preventDefault();
+    const handleKeyDown = (event) => {
+      if ((event.ctrlKey && (event.key === 'u' || event.key === 's')) || (event.ctrlKey && event.shiftKey && event.key === 'i')) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
 
     useEffect(() => {
         tele.ready();
@@ -23,16 +42,6 @@ const Home = () => {
 
     }, []);
 
-    const ConditionalEnergyProvider = ({ children }) => {
-      const location = useLocation();
-      const isTaskRoute = location.pathname === "/task";
-      
-      if (isTaskRoute) {
-        return children; // Do not wrap with EnergyProvider
-      }
-    
-      return <EnergyProvider>{children}</EnergyProvider>; // Wrap with EnergyProvider
-    };
     
 
   return (
@@ -45,12 +54,15 @@ const Home = () => {
 
             
 
+  
       
-          <ConditionalEnergyProvider>
+          <UserProvider>
             <AnimatePresence mode="wait">
             <Outlet />
             </AnimatePresence>
-            </ConditionalEnergyProvider>
+            </UserProvider>
+       
+     
           
           
 

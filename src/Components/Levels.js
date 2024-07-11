@@ -1,190 +1,159 @@
-import React, { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { collection, query, where, onSnapshot, getDocs, orderBy, limit } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import bronze from "../images/bronze.webp";
-import silver from "../images/silver.webp";
-import gold from "../images/gold.webp";
-import platinum from "../images/platinum.webp";
-import diamond from "../images/diamond.webp";
-import coinsmall from "../images/coinsmall.webp"; // Assuming you have an image for coins
+import { useUser } from '../context/userContext';
 
-const Levels = ({ showLevels, setShowLevels }) => {
-    const telegramUserImage = window.Telegram.WebApp.initDataUnsafe?.user?.photo_url;
 
-    const levels = [
-        { name: 'bronze', minCount: 0, nextLevel: 'silver', image: bronze, threshold: 500 },
-        { name: 'silver', minCount: 10000, nextLevel: 'gold', image: silver, threshold: 10000 },
-        { name: 'gold', minCount: 20000, nextLevel: 'platinum', image: gold, threshold: 20000 },
-        { name: 'platinum', minCount: 30000, nextLevel: 'diamond', image: platinum, threshold: 30000 },
-        { name: 'diamond', minCount: 40000, nextLevel: null, image: diamond, threshold: 40000 },
-    ];
-
-    const [count, setCount] = useState(0);
-    const [level, setLevel] = useState('bronze');
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [usersByLevel, setUsersByLevel] = useState({});
-
-    useEffect(() => {
-        const handleBackButtonClick = () => {
-            setShowLevels(false);
-        };
-
-        if (showLevels) {
-            window.Telegram.WebApp.BackButton.show();
-            window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+const userLevels = [
+    { name: 'Bronze', icon: '/bronze.webp', tapBalanceRequired: 1000 },
+    { name: 'Silver', icon: '/sliver.webp', tapBalanceRequired: 50000 },
+    { name: 'Gold', icon: '/gold.webp', tapBalanceRequired: 500000 },
+    { name: 'Platinum', icon: '/platinum.webp', tapBalanceRequired: 1000000 },
+    { name: 'Diamond', icon: '/diamond.webp', tapBalanceRequired: 2500000 },
+    { name: 'Master', icon: '/master.webp', tapBalanceRequired: 5000000 },
+  ];
+  
+  
+  const Levels = ({showLevels, setShowLevels}) => {
+    const { tapBalance } = useUser();
+    const initialLevelIndex = userLevels.findIndex(level => tapBalance < level.tapBalanceRequired);
+    const currentLevelIndex = initialLevelIndex === -1 ? userLevels.length - 1 : initialLevelIndex;
+  
+    const [displayedLevelIndex, setDisplayedLevelIndex] = useState(currentLevelIndex);
+  
+    const handlePrevious = () => {
+      if (displayedLevelIndex > 0) {
+        setDisplayedLevelIndex(displayedLevelIndex - 1);
+      }
+    };
+  
+    const handleNext = () => {
+      if (displayedLevelIndex < userLevels.length - 1) {
+        setDisplayedLevelIndex(displayedLevelIndex + 1);
+      }
+    };
+  
+    const currentLevel = userLevels[displayedLevelIndex];
+  
+    const formatNumberCliam = (num) => {
+      if (num < 100000) {
+        return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+      } else if (num < 1000000) {
+        return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+      } else if (num < 10000000) {
+          return new Intl.NumberFormat().format(num).replace(/,/g, " ");
         } else {
-            window.Telegram.WebApp.BackButton.hide();
-            window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        }
-
-        return () => {
-            window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        };
+        return (num / 10000000).toFixed(3).replace(".", ".") + " T";
+      }
+    };
+    useEffect(() => {
+  
+      // Attach a click event listener to handle the back navigation
+      const handleBackButtonClick = () => {
+        setShowLevels(false);
+      };
+  
+        
+      if (showLevels) {
+        window.Telegram.WebApp.BackButton.show();
+        window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+      } else {
+        window.Telegram.WebApp.BackButton.hide();
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+      }
+    
+      // Cleanup handler when component unmounts
+      return () => {
+        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+  
+      };
     }, [showLevels, setShowLevels]);
-
-    useEffect(() => {
-        const telegramUserid = window.Telegram.WebApp.initDataUnsafe?.user?.id;
-
-        if (telegramUserid) {
-            const userRef = collection(db, 'telegramUsers');
-            const q = query(userRef, where('userId', '==', telegramUserid));
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    setCount(data.count);
-
-                    // Update level based on count
-                    const currentLevelIndex = levels.findIndex(l => l.name.toLowerCase() === data.level || 'bronze');
-                    let newLevelIndex = currentLevelIndex;
-
-                    while (newLevelIndex < levels.length - 1 && data.count >= levels[newLevelIndex + 1].minCount) {
-                        newLevelIndex++;
-                    }
-
-                    setLevel(levels[newLevelIndex].name.toLowerCase());
-                    setActiveIndex(newLevelIndex);
-                });
-            }, (error) => {
-                console.error('Error fetching document: ', error);
-            });
-
-            return () => unsubscribe();
-        }
-    }, [levels]);
-
-    useEffect(() => {
-        const fetchUsersByLevel = async () => {
-            const usersByLevelData = {};
-
-            // Fetch users for each level
-            for (let i = 0; i < levels.length; i++) {
-                const levelName = levels[i].name;
-                const userRef = collection(db, 'telegramUsers');
-                const q = query(userRef, where('level', '==', levelName));
-
-                try {
-                    const querySnapshot = await getDocs(q);
-                    usersByLevelData[levelName] = querySnapshot.docs.map(doc => doc.data());
-                } catch (error) {
-                    console.error(`Error fetching users for level ${levelName}:`, error);
-                    usersByLevelData[levelName] = [];
-                }
-            }
-
-            setUsersByLevel(usersByLevelData);
-        };
-
-        fetchUsersByLevel();
-    }, [levels]);
-
-    const handleNextLevel = () => {
-        setActiveIndex((prevIndex) => Math.min(prevIndex + 1, levels.length - 1));
-    };
-
-    const handlePrevLevel = () => {
-        setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    };
-
-    const currentLevel = levels[activeIndex];
-    const nextLevel = currentLevel.nextLevel ? levels.find(l => l.name.toLowerCase() === currentLevel.nextLevel) : null;
-    const progress = nextLevel ? ((count - currentLevel.minCount) / (nextLevel.minCount - currentLevel.minCount)) * 100 : 100;
-
+  
     return (
         <>
-            {showLevels && (
+            {showLevels ? (
                 <div className="fixed z-50 left-0 right-0 top-0 bottom-0 flex justify-center taskbg px-[16px] h-full">
-                    <div className="w-full flex flex-col items-center justify-start">
-                        <div className="flex w-full flex-col items-center text-center">
-                            <h1 className="text-[20px] font-semibold">
-                                {currentLevel.name.charAt(0).toUpperCase() + currentLevel.name.slice(1)} League
+                    <div className={`w-full flex flex-col items-center justify-start pt-6`}>
+
+                        <div className='flex w-full flex-col items-center text-center'>
+                            <h1 className={`text-[20px] font-semibold`}>
+                            {currentLevel.name}
                             </h1>
-                            <p className="text-[#9a96a6] text-[14px] font-medium pt-1 pb-10 px-4">
+                            <p className='text-[#9a96a6] text-[14px] font-medium pt-1 pb-10 px-4'>
                                 Your number of shares determines the league you enter:
                             </p>
-                        </div>
-                        <div className="w-full flex justify-between items-center px-6">
-                            <MdOutlineKeyboardArrowLeft onClick={handlePrevLevel} size={40} className={`${activeIndex === 0 ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} text-[#e8e8e8]`} />
-                            <img src={currentLevel.image} alt={currentLevel.name} className="w-[200px]" />
-                            <MdOutlineKeyboardArrowRight onClick={handleNextLevel} size={40} className={`${activeIndex === levels.length - 1 ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} text-[#e8e8e8]`} />
-                        </div>
-                        <div className="font-semibold text-[18px] pt-10 pb-5">
-                            From {currentLevel.threshold}
-                        </div>
-                        {nextLevel && count <= 20000 && (
-                            <div className="w-full overflow-hidden">
-                                <div className="flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-[#403f5c]">
-                                    <div className="h-[8px] rounded-[8px] bg-btn" style={{ width: `${progress}%` }} />
-                                </div>
-                            </div>
-                        )}
 
-                        {/* Display Leaderboards for each level */}
-                        {levels.map((lvl, index) => (
-                            <div key={index} className={`w-full mt-4 ${lvl.name === currentLevel.name ? 'block' : 'hidden'}`}>
-                                <h3 className="text-[22px] font-semibold pb-[16px]">{lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)} Leaderboard:</h3>
-                                <div className="w-full flex flex-col space-y-3">
-                                    {usersByLevel[lvl.name]?.length > 0 ? (
-                                        usersByLevel[lvl.name].map((user, idx) => (
-                                            <div key={idx} className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center">
-                                                <div className="flex flex-1 flex-col space-y-1">
-                                                    <div className="flex items-center space-x-2">
-                                                        <div className="rounded-full overflow-hidden w-[32px] h-[32px]">
-                                                            <img src={user.photo_url || telegramUserImage} alt={user.fullname} className="w-full h-full object-cover" />
-                                                        </div>
-                                                        <div className="text-[#fff] pl-1 text-[16px] font-semibold">
-                                                            {user.fullname}
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex items-center space-x-1 text-[14px] text-[#e5e5e5]">
-                                                        <div>
-                                                            <img src={lvl.image} alt={lvl.name} className="w-[18px]" />
-                                                        </div>
-                                                        <span className="font-medium text-[#9a96a6]">
-                                                            {lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)}
-                                                        </span>
-                                                        <span className="bg-[#bdbdbd] w-[1px] h-[13px] mx-2"></span>
-                                                        <span className="w-[20px]">
-                                                            <img src={coinsmall} className="w-full" alt="coin" />
-                                                        </span>
-                                                        <span className="font-normal text-[#ffffff] text-[15px]">
-                                                            {user.count}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p>No users found in {lvl.name.charAt(0).toUpperCase() + lvl.name.slice(1)} League</p>
-                                    )}
-                                </div>
+                        </div>
+
+                        <div className="w-full flex justify-between items-center px-6 relative">
+
+                            <div className="flex items-center justify-center absolute left-0">
+                           
+                            {displayedLevelIndex > 0 && (
+            <button className="text-[#e8e8e8] hover:text-[#c4c4c4]" onClick={handlePrevious}>
+             <MdOutlineKeyboardArrowLeft size={40} className='' />
+            </button>
+          )}
+
                             </div>
-                        ))}
+                            <div className="flex flex-1 items-center justify-center">
+                           
+                        
+
+                <img src={currentLevel.icon} alt={currentLevel.name} className="w-[200px] h-auto" />
+
+
+                           {/*  */}
+                        
+                            </div>
+                            <div className="flex items-center justify-center absolute right-0">
+                            {displayedLevelIndex < userLevels.length - 1 && (
+            <button className="text-[#e8e8e8] hover:text-[#c4c4c4]" onClick={handleNext}>
+                <MdOutlineKeyboardArrowRight size={40} className='' />
+            </button>
+          )} </div>
+
+                        </div>
+
+
+ 
+
+                        <div className={`w-full overflow-hidden`}>
+   
+   
+                        {displayedLevelIndex === currentLevelIndex && displayedLevelIndex < userLevels.length - 1 ? (
+            <>
+               <p className="text-[18px] w-full text-center font-semibold text-[#c6c6c6] px-[20px] pt-[35px] pb-[10px]">{tapBalance} / {formatNumberCliam(currentLevel.tapBalanceRequired)}</p>
+            
+            
+               <div className='w-full px-[44px]'>
+               <div className='flex w-full mt-2 p-[4px] items-center bg-energybar rounded-[10px] border-[1px] border-[#403f5c]'>
+       
+
+        <div className={`h-[8px] rounded-[8px] bg-btn`} style={{ width: `${(tapBalance / currentLevel.tapBalanceRequired) * 100}%` }}/> 
+        </div>
+
+   </div>
+
+
+
+            </>
+          ) : (
+            <>
+            
+        <p className="text-[16px] font-medium w-full text-center text-[#c6c6c6] px-[20px] pt-[35px] pb-[10px]">From {formatNumberCliam(currentLevel.tapBalanceRequired)}</p>
+
+            </>
+          )}
+
+
+    </div>
+
+
                     </div>
                 </div>
-            )}
+            ) : null}
         </>
     );
-};
+}
 
 export default Levels;

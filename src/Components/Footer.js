@@ -80,7 +80,7 @@ ${
       {/*  */}
 
       <NavLink
-        to="/connect"
+        to="/stats"
         className={({ isActive }) => {
           return `
 
@@ -93,7 +93,7 @@ ${
         }}
       >
         <img src={stats} className="w-[24px]" alt="stats" />
-        <span className="font-medium">Wallet</span>
+        <span className="font-medium">Stats</span>
       </NavLink>
     </div>
   );
