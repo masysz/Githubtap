@@ -144,7 +144,7 @@ const levelsAction = () => {
               <img src={bronze} className="w-[30px] h-[30px] relative" alt="bronze"/>
               <h2 className="text-[#9d99a9] text-[20px] font-medium">Wood</h2>
               <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]"/>
-            </div> test*/}
+            </div>*/}
 
             <div onClick={levelsAction} className="w-full flex ml-[6px] space-x-1 items-center justify-center">
                                 <img src={level.imgUrl} className="w-[25px] relative" alt="bronze" />
