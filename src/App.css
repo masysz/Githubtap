@@ -356,39 +356,46 @@ body{
   text-align: center;
 }
 
-/* Transfer icon */
 .item img {
   width: 40px;
   height: 40px;
 }
 
-/* Modal styles */
-.modal.fade.action-sheet {
-  display: none;
-}
-
-.modal.fade.action-sheet .modal-dialog {
+.modal-content {
   position: relative;
   margin: auto;
-}
-
-.modal.fade.action-sheet .modal-content {
+  padding: 20px;
+  background: white;
   border-radius: 20px;
-  border-top: 0 !important;
+  width: 80%;
+  max-width: 500px;
+  outline: none;
 }
 
-.modal.fade.action-sheet .modal-header {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.modal.fade.action-sheet .modal-header .modal-title {
+.modal-header .modal-title {
   font-size: 1.25rem;
   font-weight: bold;
 }
 
-.modal.fade.action-sheet .modal-body {
+.modal-body {
   padding: 1rem;
 }
 
@@ -430,4 +437,11 @@ body{
 .in h5 {
   margin-bottom: 0;
   font-weight: bold;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
