@@ -16,7 +16,7 @@ const Ref = () => {
  
   const copyToClipboard = () => {
 
-   const reflink = `https://t.me/plutotap_bot?start=r${id}`
+   const reflink = `https://t.me/tek2tek_bot?start=r${id}`
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(reflink).then(() => {
@@ -84,7 +84,7 @@ const Ref = () => {
               </span>
             </span>
             <div className="text-[#9a96a6] text-[13px]">
-            https://t.me/plutotap_bot?start=r{id}
+            https://t.me/tek2tek_bot?start=r{id}
             </div>
           </div>
           <div className="bg-borders w-full px-5 h-[1px] !mt-6"></div>
