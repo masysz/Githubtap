@@ -87,89 +87,95 @@ const Plutos = () => {
 
 
 
-  const handleClick = (e) => {
-    triggerHapticFeedback();
+  // Load the sound file
+const clickSound = new Audio('../click.mp3');
 
-    if (energy <= 0 || isDisabled || isUpdatingRef.current) {
-      setGlowBooster(true); // Trigger glow effect if energy and points are 0
-      setTimeout(() => {
-        setGlowBooster(false); // Remove glow effect after 1 second
-      }, 300);
-      return; // Exit if no energy left or if clicks are disabled or if an update is in progress
-    }
+const handleClick = (e) => {
+  // Play the sound
+  clickSound.play();
 
-    const { offsetX, offsetY, target } = e.nativeEvent;
-    const { clientWidth, clientHeight } = target;
+  triggerHapticFeedback();
 
-    const horizontalMidpoint = clientWidth / 2;
-    const verticalMidpoint = clientHeight / 2;
+  if (energy <= 0 || isDisabled || isUpdatingRef.current) {
+    setGlowBooster(true); // Trigger glow effect if energy and points are 0
+    setTimeout(() => {
+      setGlowBooster(false); // Remove glow effect after 1 second
+    }, 300);
+    return; // Exit if no energy left or if clicks are disabled or if an update is in progress
+  }
 
-    const animationClass =
-      offsetX < horizontalMidpoint
-        ? 'wobble-left'
-        : offsetX > horizontalMidpoint
-        ? 'wobble-right'
-        : offsetY < verticalMidpoint
-        ? 'wobble-top'
-        : 'wobble-bottom';
+  const { offsetX, offsetY, target } = e.nativeEvent;
+  const { clientWidth, clientHeight } = target;
 
-    // Remove previous animations
-    imageRef.current.classList.remove(
-      'wobble-top',
-      'wobble-bottom',
-      'wobble-left',
-      'wobble-right'
+  const horizontalMidpoint = clientWidth / 2;
+  const verticalMidpoint = clientHeight / 2;
+
+  const animationClass =
+    offsetX < horizontalMidpoint
+      ? 'wobble-left'
+      : offsetX > horizontalMidpoint
+      ? 'wobble-right'
+      : offsetY < verticalMidpoint
+      ? 'wobble-top'
+      : 'wobble-bottom';
+
+  // Remove previous animations
+  imageRef.current.classList.remove(
+    'wobble-top',
+    'wobble-bottom',
+    'wobble-left',
+    'wobble-right'
+  );
+
+  // Add the new animation class
+  imageRef.current.classList.add(animationClass);
+
+  // Remove the animation class after animation ends to allow re-animation on the same side
+  setTimeout(() => {
+    imageRef.current.classList.remove(animationClass);
+  }, 500); // duration should match the animation duration in CSS
+
+  // Increment the count
+  const rect = e.target.getBoundingClientRect();
+  const newClick = {
+    id: Date.now(), // Unique identifier
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top,
+  };
+
+  setClicks((prevClicks) => [...prevClicks, newClick]);
+
+  // Update state immediately for UI
+  setEnergy((prevEnergy) => {
+    const newEnergy = Math.max(prevEnergy - tapValue.value, 0); // Ensure energy does not drop below zero
+    accumulatedEnergyRef.current = newEnergy;
+    return newEnergy;
+  });
+
+  setPoints((prevPoints) => prevPoints + tapValue.value);
+
+  setBalance((prevBalance) => {
+    const newBalance = prevBalance + tapValue.value;
+    accumulatedBalanceRef.current = newBalance;
+    return newBalance;
+  });
+
+  setTapBalance((prevTapBalance) => {
+    const newTapBalance = prevTapBalance + tapValue.value;
+    accumulatedTapBalanceRef.current = newTapBalance;
+    return newTapBalance;
+  });
+
+  // Remove the click after the animation duration
+  setTimeout(() => {
+    setClicks((prevClicks) =>
+      prevClicks.filter((click) => click.id !== newClick.id)
     );
+  }, 1000); // Match this duration with the animation duration
 
-    // Add the new animation class
-    imageRef.current.classList.add(animationClass);
-
-    // Remove the animation class after animation ends to allow re-animation on the same side
-    setTimeout(() => {
-      imageRef.current.classList.remove(animationClass);
-    }, 500); // duration should match the animation duration in CSS
-
-    // Increment the count
-    const rect = e.target.getBoundingClientRect();
-    const newClick = {
-      id: Date.now(), // Unique identifier
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-
-    setClicks((prevClicks) => [...prevClicks, newClick]);
-
-    // Update state immediately for UI
-    setEnergy((prevEnergy) => {
-      const newEnergy = Math.max(prevEnergy - tapValue.value, 0); // Ensure energy does not drop below zero
-      accumulatedEnergyRef.current = newEnergy;
-      return newEnergy;
-    });
-
-    setPoints((prevPoints) => prevPoints + tapValue.value);
-
-    setBalance((prevBalance) => {
-      const newBalance = prevBalance + tapValue.value;
-      accumulatedBalanceRef.current = newBalance;
-      return newBalance;
-    });
-
-    setTapBalance((prevTapBalance) => {
-      const newTapBalance = prevTapBalance + tapValue.value;
-      accumulatedTapBalanceRef.current = newTapBalance;
-      return newTapBalance;
-    });
-
-    // Remove the click after the animation duration
-    setTimeout(() => {
-      setClicks((prevClicks) =>
-        prevClicks.filter((click) => click.id !== newClick.id)
-      );
-    }, 1000); // Match this duration with the animation duration
-
-    // Reset the debounce timer
-    clearTimeout(debounceTimerRef.current);
-    debounceTimerRef.current = setTimeout(updateFirestore, 1000); // Adjust the delay as needed
+  // Reset the debounce timer
+  clearTimeout(debounceTimerRef.current);
+  debounceTimerRef.current = setTimeout(updateFirestore, 1000); // Adjust the delay as needed
 
   // Reset the refill timer
   clearInterval(refillIntervalRef.current); // Stop refilling while the user is active
@@ -181,6 +187,7 @@ const Plutos = () => {
     }
   }, 1000); // Set the inactivity period to 3 seconds (adjust as needed)
 };
+
   const handleClickGuru = (e) => {
     triggerHapticFeedback();
 
@@ -371,10 +378,11 @@ const Plutos = () => {
   
         <Animate>
          <div className="w-full flex justify-center flex-col overflow-hidden">
-          <div className="flex space-x-[2px] justify-center items-center">
-          <h3 className="text-[#fff] text-[22px] font-extrabold">
+         <h3 className="text-[#fff] text-[22px] font-extrabold">
             {name} 
-            </h3><br/>
+            </h3>
+          <div className="flex space-x-[2px] justify-center items-center">
+          
             <div className="w-[50px] h-[50px]">
               <img src={coinsmall} className="w-full" alt="coin" />
             </div>
