@@ -13,7 +13,7 @@ import {
 import { useUser } from "../context/userContext";
 // import { EnergyContext } from "../context/EnergyContext";
 
-const TaskThree = ({ showModal, setShowModal }) => {
+const TaskSix = ({ showModal, setShowModal }) => {
   const {id, balance, setBalance, taskCompleted, setTaskCompleted} = useUser();
 
   const [isVerified, setIsVerified] = useState(false);
@@ -23,7 +23,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
   const [showTaskButton, setShowTaskButton] = useState(true);
   const [counter, setCounter] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
-  const taskID = "task_3102"; // Assign a unique ID to this task
+  const taskID = "task_3103"; // Assign a unique ID to this task
   const [openComplete, setOpenComplete] = useState(false);
   const [isMissionButtonDisabled, setIsMissionButtonDisabled] = useState(true);
 
@@ -68,7 +68,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
 
 
   const handleTaskLinkClick = () => {
-    window.open("https://www.x.com/@poppycatsol");
+    window.open("https://www.instagram.com");
 
     setTimeout(() => {
       setShowTaskButton(false);
@@ -103,7 +103,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
     } else {
       setTimeout(() => {
         setMessage(
-          "Please follow on X first before you can claim this task bonus."
+          "Please follow instagram first before you can claim this task bonus."
         );
       }, 1000);
       setCounter(15);
@@ -219,9 +219,9 @@ const TaskThree = ({ showModal, setShowModal }) => {
                             </button> */}
             </div>
             <div className="flex w-full flex-col">
-              <h1 className="text-[20px] font-semibold">Follow us on X</h1>
+              <h1 className="text-[20px] font-semibold">Follow us on Instagram</h1>
               <p className="text-[#9a96a6] text-[16px] font-medium pt-1 pb-10">
-                Follow us on X to get regular updates about this airdrop
+                Follow us on Instagram to get regular updates about this airdrop
                 bot and its great potentials
               </p>
 
@@ -248,7 +248,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
                 <div className="flex flex-1 items-center space-x-2">
                   <div className="flex flex-col space-y-1">
                     <span className="font-semibold">
-                      Follow on X
+                      Follow on Instagram
                     </span>
 
                     {message && (
@@ -374,4 +374,4 @@ const TaskThree = ({ showModal, setShowModal }) => {
   );
 };
 
-export default TaskThree;
+export default TaskSix;
