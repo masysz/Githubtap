@@ -11,8 +11,13 @@ import ErrorCom from "./Components/ErrorCom";
 import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
 import Stats from "./pages/Stats";
+import Connect from "./pages/ConnectWallet";
 // import DeviceCheck from "./Components/DeviceCheck";
 import Plutos from "./pages/Plutos";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
+
+const manifestUrl =
+  "https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json";
 
 const router = createBrowserRouter([
   {
@@ -37,8 +42,8 @@ const router = createBrowserRouter([
         element: <Boost />,
       },
       {
-        path:"/stats",
-        element: <Stats />,
+        path:"/connect",
+        element: <Connect />,
       },
     ]
 
@@ -51,9 +56,11 @@ root.render(
 
 
   // <DeviceCheck>
+  <TonConnectUIProvider manifestUrl={manifestUrl}>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
+  </TonConnectUIProvider>
 // </DeviceCheck>
 
 );
