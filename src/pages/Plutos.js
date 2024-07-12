@@ -11,6 +11,7 @@ import flash from "../images/flash.webp";
 import coinsmall from "../images/coinsmall.webp";
 import useSound from 'use-sound';
 import boopSfx from '../get.mp3';
+import burnSfx from '../burn.wav';
 
 
 
@@ -49,6 +50,7 @@ const Plutos = () => {
 
   const imageRef = useRef(null);
   const [play] = useSound(boopSfx);
+  const [play2] = useSound(burnSfx);
   const [clicks, setClicks] = useState([]);
   const { name, balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
 
@@ -188,6 +190,7 @@ const Plutos = () => {
   }, 1000); // Set the inactivity period to 3 seconds (adjust as needed)
 };
   const handleClickGuru = (e) => {
+    play2();
     triggerHapticFeedback();
 
     if (energy <= 0 || isDisabled || isUpdatingRef.current) {
