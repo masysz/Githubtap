@@ -10,7 +10,7 @@ import Levels from '../Components/Levels';
 import flash from "../images/flash.webp";
 import coinsmall from "../images/coinsmall.webp";
 import useSound from 'use-sound';
-import boopSfx from '../click.mp3';
+import boopSfx from '../get.mp3';
 
 
 
