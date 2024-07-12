@@ -372,6 +372,9 @@ const Plutos = () => {
         <Animate>
          <div className="w-full flex justify-center flex-col overflow-hidden">
           <div className="flex space-x-[2px] justify-center items-center">
+          <h3 className="text-[#fff] text-[22px] font-extrabold">
+            {name} <br/>
+            </h3>
             <div className="w-[50px] h-[50px]">
               <img src={coinsmall} className="w-full" alt="coin" />
             </div>
@@ -380,10 +383,7 @@ const Plutos = () => {
           
             </h1>
           </div>
-          <h3 className="text-[#fff] text-[22px] font-extrabold">
-            {name} <br/>
           
-            </h3>
           <div
           
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
