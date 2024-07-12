@@ -19,4 +19,4 @@ const db = getFirestore(app);
 console.log("Firebase initialized:", app);
 console.log("Firestore initialized:", db);
 
-export { db };
+export { db, auth };
