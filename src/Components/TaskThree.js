@@ -248,7 +248,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
                 <div className="flex flex-1 items-center space-x-2">
                   <div className="flex flex-col space-y-1">
                     <span className="font-semibold">
-                      Subscribe Youtube
+                      Follow on X
                     </span>
 
                     {message && (
@@ -268,7 +268,7 @@ const TaskThree = ({ showModal, setShowModal }) => {
                           onClick={handleTaskLinkClick}
                           className={`flex font-medium bg-btn hover:bg-[#1e3356] ease-in duration-300 py-[6px] px-4 rounded-[8px] items-center justify-center text-[16px]`}
                         >
-                          Subscribe
+                          Follow
                         </button>
                       )}
                     </>

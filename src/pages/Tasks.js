@@ -193,7 +193,7 @@ const levelsAction = () => {
             </div>
 
 
-            <div className='!mt-[100px] w-full h-[60vh] flex flex-col'>
+            <div className='!mt-[80px] w-full h-[60vh] flex flex-col'>
 
             <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 
