@@ -68,7 +68,7 @@ const TaskTwo = ({ showModal, setShowModal }) => {
 
 
   const handleTaskLinkClick = () => {
-    window.open("https://www.youtube.com/@zikir-channel");
+    window.open("https://www.youtube.com/@GetoTap");
 
     setTimeout(() => {
       setShowTaskButton(false);
