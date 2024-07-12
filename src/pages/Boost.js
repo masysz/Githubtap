@@ -722,7 +722,7 @@ const Boost = () => {
                    Multitap
                   </h3>
                   <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
-                  Increase amount of PLUTO you can earn per one tap <br/>
+                  Increase amount of GETO you can earn per one tap <br/>
                   +1 per tap for each level
                   </p>
 
