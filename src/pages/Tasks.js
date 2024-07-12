@@ -5,6 +5,7 @@ import coinsmall from "../images/coinsmall.webp";
 import taskbook from "../images/taskbook.webp";
 import youtubeicon from "../images/youtube.png";
 import telegramicon from "../images/telegram.png";
+import twittericon from "../images/twitter.png";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -30,6 +31,7 @@ const Tasks = () => {
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
       // eslint-disable-next-line
     const [claimLevel, setClaimLevel] = useState(false);
     const [showLevels, setShowLevels] = useState(false);
@@ -37,6 +39,7 @@ const Tasks = () => {
     const [message, setMessage] = useState("");
     const taskID = "task_3100"; // Assign a unique ID to this task
     const taskID2 = "task_3101"; // Assign a unique ID to this task
+    const taskID3 = "task_3102"; // Assign a unique ID to this task
 
 
   const [activeIndex, setActiveIndex] = useState(1);
@@ -58,6 +61,10 @@ const taskTwo = () => {
     document.getElementById("footermain").style.zIndex = "50";
 }
 
+const taskThree = () => {
+  setShowModal3(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
   
   useEffect(() => {
 
@@ -74,17 +81,24 @@ const taskTwo = () => {
         setMessage("");
     }
 });
+checkTaskCompletion(id, taskID3).then((completed) => {
+  setTaskCompleted3(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
 
 console.log('my userid is:', id)
 
         // eslint-disable-next-line
 }, []);
 
-const checkTaskCompletion = async (id, taskId, taskId2) => {
+const checkTaskCompletion = async (id, taskId, taskId2, taskId3) => {
     try {
         const userTaskDocRef = doc(db, 'userTasks', `${id}_${taskId}`);
         const userTaskDocRef2 = doc(db, 'userTasks', `${id}_${taskId2}`);
-        const docSnap = await getDoc(userTaskDocRef, userTaskDocRef2);
+        const userTaskDocRef3 = doc(db, 'userTasks', `${id}_${taskId3}`);
+        const docSnap = await getDoc(userTaskDocRef, userTaskDocRef2, userTaskDocRef3);
         if (docSnap.exists()) {
             return docSnap.data().completed;
         } else {
@@ -178,7 +192,7 @@ const levelsAction = () => {
             </div>
 
 
-            <div className='!mt-[20px] w-full h-[60vh] flex flex-col'>
+            <div className='!mt-[100px] w-full h-[60vh] flex flex-col'>
 
             <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 
@@ -270,6 +284,50 @@ const levelsAction = () => {
 
 </div>
 
+{/*  */}
+
+<div onClick={taskThree} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={twittericon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow us on X
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted3 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
 
 
             </div>
@@ -313,6 +371,7 @@ const levelsAction = () => {
 
 <TaskOne showModal={showModal} setShowModal={setShowModal} />
 <TaskTwo showModal={showModal2} setShowModal={setShowModal2} />
+<TaskThree showModal={showModal3} setShowModal={setShowModal3} />
 <ClaimLeveler claimLevel={claimLevel} setClaimLevel={setClaimLevel} />
 <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
 
