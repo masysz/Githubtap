@@ -3,6 +3,8 @@ import Animate from '../Components/Animate';
 import { Outlet } from 'react-router-dom';
 import coinsmall from "../images/coinsmall.webp";
 import taskbook from "../images/taskbook.webp";
+import youtubeicon from "../images/youtube.png";
+import telegramicon from "../images/telegram.png";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -176,7 +178,7 @@ const levelsAction = () => {
             </div>
 
 
-            {/* <div className='!mt-[204px] w-full h-[60vh] flex flex-col'> */}
+            <div className='!mt-[204px] w-full h-[10vh] flex flex-col'>
 
             <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 
@@ -185,11 +187,11 @@ const levelsAction = () => {
                     <div className='flex flex-1 items-center space-x-2'>
 
                         <div className=''>
-                            <img src={taskbook} alt="tasks" className='w-[50px]'/>
+                            <img src={telegramicon} alt="tasks" className='w-[50px]'/>
                         </div>
                         <div className='flex flex-col space-y-1'>
                             <span className='font-semibold'>
-                                Join Our Socials
+                                Join Our Telegram Channel
                             </span>
                             <div className='flex items-center space-x-1'>
                             <span className="w-[20px] h-[20px]">
@@ -231,7 +233,7 @@ const levelsAction = () => {
 <div className='flex flex-1 items-center space-x-2'>
 
     <div className=''>
-        <img src={taskbook} alt="taskbook" className='w-[50px]'/>
+        <img src={youtubeicon} alt="taskbook" className='w-[50px]'/>
     </div>
     <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
@@ -304,7 +306,7 @@ const levelsAction = () => {
 
 </div>
 
-{/* </div> */}
+</div>
 
 
 
