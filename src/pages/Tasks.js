@@ -12,6 +12,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import TaskOne from '../Components/TaskOne';
 import TaskTwo from '../Components/TaskTwo';
+import TaskThree from '../Components/TaskThree';
 import ClaimLeveler from '../Components/ClaimLeveler';
 import Levels from '../Components/Levels';
 import { IoCheckmarkSharp } from "react-icons/io5";
@@ -26,7 +27,7 @@ const Tasks = () => {
 
     
 
-    const {id, balance, refBonus, taskCompleted, level, setTaskCompleted, taskCompleted2, setTaskCompleted2} = useUser();
+    const {id, balance, refBonus, taskCompleted, level, setTaskCompleted, taskCompleted2, setTaskCompleted2, taskCompleted3, setTaskCompleted3} = useUser();
       // eslint-disable-next-line
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
