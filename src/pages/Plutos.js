@@ -349,6 +349,8 @@ const Plutos = () => {
       return new Intl.NumberFormat().format(num).replace(/,/g, " ");
     // } else {
     //   return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+    } else {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
     }
   };
 
