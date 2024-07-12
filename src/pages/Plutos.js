@@ -47,7 +47,7 @@ const Plutos = () => {
 
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
-  const { balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
+  const { name, balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
 
   // eslint-disable-next-line
   const [points, setPoints] = useState(0);
@@ -380,7 +380,10 @@ const Plutos = () => {
           
             </h1>
           </div>
-      
+          <h3 className="text-[#fff] text-[22px] font-extrabold">
+            {name} <br/>
+          
+            </h3>
           <div
           
             className="w-full ml-[6px] flex space-x-1 items-center justify-center"
