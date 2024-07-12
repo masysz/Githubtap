@@ -1,15 +1,21 @@
+import coinsmall from "../images/coinsmall.webp";
+import claim from "../images/claim.webp";
 import { useEffect, useState } from "react";
-import { auth, db } from "../firebase"; // assuming firebase is properly initialized
+import { db } from "../firebase";
 import {
   collection,
-  doc,
   getDoc,
-  setDoc,
+  getDocs,
   updateDoc,
+  doc,
+  setDoc,
 } from "firebase/firestore";
+import { useUser } from "../context/userContext";
+// import { EnergyContext } from "../context/EnergyContext";
 
 const TaskTwo = ({ showModal, setShowModal }) => {
-  const [userId, setUserId] = useState(null);
+  const {id, balance, setBalance, taskCompleted, setTaskCompleted} = useUser();
+
   const [isVerified, setIsVerified] = useState(false);
   const [showCheckButton, setShowCheckButton] = useState(false);
   const [showDoneButton, setShowDoneButton] = useState(false);
@@ -21,19 +27,48 @@ const TaskTwo = ({ showModal, setShowModal }) => {
   const [openComplete, setOpenComplete] = useState(false);
   const [isMissionButtonDisabled, setIsMissionButtonDisabled] = useState(true);
 
+
   useEffect(() => {
-    // Check if there's a logged-in user
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserId(user.uid);
-      } else {
-        setUserId(null);
-      }
-    });
+    const handleBackButtonClick = () => {
+      setShowModal(false);
+      document.getElementById("footermain").style.zIndex = "";
+    };
+  
+    if (showModal) {
+      window.Telegram.WebApp.BackButton.show();
+      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
+    } else {
+      window.Telegram.WebApp.BackButton.hide();
+      window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+    }
+  
+    // Cleanup handler when component unmounts
+    return () => {
+      window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
+    };
+  }, [showModal, setShowModal]);
+  
+
+
+
+  useEffect(() => {
+
+    if (id) {
+      checkTaskCompletion(id, taskID).then((completed) => {
+        setTaskCompleted(completed);
+        if (completed) {
+          setMessage("");
+          setIsMissionButtonDisabled(false);
+        }
+      });
+    }
+    // eslint-disable-next-line
   }, []);
+  
+
 
   const handleTaskLinkClick = () => {
-    window.open("https://www.youtube.com/@GetoTap");
+    window.open("https://www.youtube.com/@zikir-channel");
 
     setTimeout(() => {
       setShowTaskButton(false);
@@ -49,74 +84,80 @@ const TaskTwo = ({ showModal, setShowModal }) => {
       clearInterval(intervalId);
     }
 
-    const apiKey = "AIzaSyC25NrkyOMpCy29QXPgtERoyg8qgFLfkOg";
-    const channelId = "UCZahmkQiWpUtNxIyVX8hkvQ";
+    const response = await fetch(
+      `https://api.telegram.org/bot7436444125:AAGB8IwBNOvRbpW-AjR0HPvMOC0qGSTnILU/getChatMember?chat_id=@teteknibos&user_id=${id}`
+    );
+    const data = await response.json();
 
-    try {
-      const response = await fetch(
-        `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet&channelId=${channelId}&mine=true&key=${apiKey}`
-      );
-      const data = await response.json();
-
-      // Check if user is subscribed based on the response
-      if (data.items.length > 0) {
-        // User is subscribed
-        setIsVerified(true);
-        setCounter(15);
-        setTimeout(() => {
-          setShowDoneButton(true);
-        }, 3000);
-        setTimeout(() => {
-          setShowCheckButton(false);
-          setMessage("");
-          setIsMissionButtonDisabled(false);
-        }, 3000);
-      } else {
-        // User is not subscribed
-        setTimeout(() => {
-          setMessage("Please subscribe to the YouTube channel first.");
-        }, 1000);
-        setCounter(15);
-        const newIntervalId = setInterval(() => {
-          setCounter((prevCounter) => {
-            if (prevCounter === 1) {
-              clearInterval(newIntervalId);
-              setShowCheckButton(false);
-              setShowTaskButton(true);
-              setCounter(null);
-            }
-            return prevCounter - 1;
-          });
-        }, 2000);
-        setIntervalId(newIntervalId);
-      }
-    } catch (error) {
-      console.error("Error checking YouTube subscription: ", error);
-      // Handle error
+    if (data.ok && (data.result.status === "member" || data.result.status === "administrator" || data.result.status === "creator")) {
+      setIsVerified(true);
+      setCounter(15);
+      setTimeout(() => {
+        setShowDoneButton(true);
+      }, 3000);
+      setTimeout(() => {
+        setShowCheckButton(false);
+        setMessage("");
+        setIsMissionButtonDisabled(false);
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        setMessage(
+          "Please subscribe Youtube channel first before you can claim this task bonus."
+        );
+      }, 1000);
+      setCounter(15);
+      const newIntervalId = setInterval(() => {
+        setCounter((prevCounter) => {
+          if (prevCounter === 1) {
+            clearInterval(newIntervalId);
+            setShowCheckButton(false);
+            setShowTaskButton(true);
+            setCounter(null);
+          }
+          return prevCounter - 1;
+        });
+      }, 2000);
+      setIntervalId(newIntervalId);
     }
   };
 
-  const saveTaskCompletionToFirestore = async (userId, taskId, isCompleted) => {
+  const checkTaskCompletion = async (id, taskId) => {
     try {
-      const userTaskDocRef = doc(db, "userTasks", `${userId}_${taskId}`);
+      const userTaskDocRef = doc(db, "userTasks", `${id}_${taskId}`);
+      const docSnap = await getDoc(userTaskDocRef);
+      if (docSnap.exists()) {
+        return docSnap.data().completed;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.error("Error checking task completion: ", e);
+      return false;
+    }
+  };
+
+  const saveTaskCompletionToFirestore = async (id, taskId, isCompleted) => {
+    try {
+      const userTaskDocRef = doc(db, "userTasks", `${id}_${taskId}`);
       await setDoc(
         userTaskDocRef,
-        { userId: userId, taskId: taskId, completed: isCompleted },
+        { userId: id, taskId: taskId, completed: isCompleted },
         { merge: true }
       );
-      console.log("Task completion status saved to Firestore.");
+      // console.log('Task completion status saved to Firestore.');
     } catch (e) {
       console.error("Error saving task completion status: ", e);
     }
   };
 
-  const updateUserCountInFirestore = async (userId, newBalance) => {
+  const updateUserCountInFirestore = async (id, newBalance ) => {
     try {
       const userRef = collection(db, "telegramUsers");
       const querySnapshot = await getDocs(userRef);
       let userDocId = null;
       querySnapshot.forEach((doc) => {
-        if (doc.data().userId === userId) {
+        if (doc.data().userId === id) {
           userDocId = doc.id;
         }
       });
@@ -124,7 +165,7 @@ const TaskTwo = ({ showModal, setShowModal }) => {
       if (userDocId) {
         const userDocRef = doc(db, "telegramUsers", userDocId);
         await updateDoc(userDocRef, { balance: newBalance });
-        console.log("User count updated in Firestore.");
+        // console.log('User count updated in Firestore.');
       } else {
         console.error("User document not found.");
       }
@@ -144,17 +185,15 @@ const TaskTwo = ({ showModal, setShowModal }) => {
     }, 2000);
 
     if (isVerified) {
-      const newCount = balance + 100000; // Assuming balance is already defined
-      // Update balance in state
-      // setBalance(newCount); // Make sure balance is managed in state
+      const newCount = balance + 100000;
+      setBalance(newCount);
       setMessage("");
       setIsMissionButtonDisabled(true); // Optionally disable the button again after mission completion
-      await saveTaskCompletionToFirestore(userId, taskID, true);
+      await saveTaskCompletionToFirestore(id, taskID, true);
       // Update the user's count in Firestore
-      await updateUserCountInFirestore(userId, newCount);
+      await updateUserCountInFirestore(id, newCount);
 
-      // Set task completed
-      // setTaskCompleted(true); // Make sure taskCompleted is managed in state
+      setTaskCompleted(true);
     } else {
       setMessage("Please verify the task first.");
     }
@@ -162,7 +201,9 @@ const TaskTwo = ({ showModal, setShowModal }) => {
 
   const handleComplete = () => {
     setOpenComplete(true);
+    document.getElementById("footermain").style.zIndex = "";
   };
+
 
   return (
     <>
