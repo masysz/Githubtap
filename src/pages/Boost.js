@@ -464,7 +464,7 @@ const Boost = () => {
 
                     <div className="flex flex-1 flex-col text-left">
                       <span className="font-semibold tapguru">
-                        Tapping Guru
+                        Booster
                       </span>
                       {freeGuru > 0 ? (
    <span className="font-medium tapguru2">{freeGuru}/3</span>
@@ -876,7 +876,7 @@ const Boost = () => {
                     <img alt="claim" src={boost} className="w-[80px]" />
                   </div>
                   <h3 className="font-semibold text-[32px] py-4">
-                 Tapping Guru
+                 Booster
                   </h3>
                   <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
                  Multiply your tap income by x5 for 20 seconds. Do not use energy while active.
