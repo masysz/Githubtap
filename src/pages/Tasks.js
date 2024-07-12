@@ -3,7 +3,7 @@ import Animate from '../Components/Animate';
 import { Outlet } from 'react-router-dom';
 import coinsmall from "../images/coinsmall.webp";
 import taskbook from "../images/taskbook.webp";
-import youtubeicon from "../images/youtube.png";
+import youtubeicon from "../images/youtuben.gif";
 import telegramicon from "../images/telegram.png";
 import twittericon from "../images/twitter.png";
 import facebookicon from "../images/facebook.png";
