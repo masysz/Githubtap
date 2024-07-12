@@ -47,7 +47,7 @@ const Plutos = () => {
 
   const imageRef = useRef(null);
   const [clicks, setClicks] = useState([]);
-  const { balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
+  const { username, balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
 
   // eslint-disable-next-line
   const [points, setPoints] = useState(0);
@@ -375,6 +375,9 @@ const Plutos = () => {
             <div className="w-[50px] h-[50px]">
               <img src={coinsmall} className="w-full" alt="coin" />
             </div>
+            <h3 className="text-[#fff] text-[22px] font-extrabold">
+            {username} <br/>
+            </h3>
             <h1 className="text-[#fff] text-[42px] font-extrabold">
             {formatNumber(balance + refBonus)} <br/>
           
@@ -429,7 +432,7 @@ const Plutos = () => {
                   <img
                     onPointerDown={handleClickGuru}
                     ref={imageRef}
-                    src='/tapme1.webp'
+                    src='/coinsmall.webp'
                     alt="Wobble"
                     className="wobble-image !w-[250px] select-none"
                   />
