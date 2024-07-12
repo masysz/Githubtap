@@ -3,6 +3,7 @@ import ref from "../images/ref.webp";
 import boost from "../images/boost.webp";
 import tasks from "../images/tasks.webp";
 import stats from "../images/stats.webp";
+import tonwallet from "../images/tonwallet.png";
 import coinsmall from "../images/coinsmall.webp";
 import { NavLink } from "react-router-dom";
 
@@ -92,8 +93,8 @@ ${
     `;
         }}
       >
-        <img src={stats} className="w-[24px]" alt="stats" />
-        <span className="font-medium">Stats</span>
+        <img src={tonwallet} className="w-[24px]" alt="stats" />
+        <span className="font-medium">Wallet</span>
       </NavLink>
     </div>
   );
