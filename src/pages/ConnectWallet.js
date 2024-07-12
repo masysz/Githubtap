@@ -59,13 +59,14 @@ const Connect = () => {
               Distribution token soon.
             </p>
 
-            <div className="w-full justify-center flex-col space-y-3 px-5">
-              <div className="fixed top-0 left-0 right-0 pt-8 px-5">
-                <div className="w-full items-center justify-center pb-3 flex pt-2">
-                  <TonConnectButton />
-                </div>
-              </div>
-            </div>
+            <div className="w-full flex justify-center pb-6 pt-4">
+  <button
+    className="w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
+  >
+    <TonConnectButton />
+  </button>
+</div>
+
           </div>
         </div>
       </div>
