@@ -164,10 +164,10 @@ const chargingValues = [
 ]
 
 
-const upgradeCosts = [0, 2000, 5000, 10000, 20000, 40000, 80000, 100000, 150000, 200000, 250000, 300000, 400000, 500000];
+const upgradeCosts = [0, 2000, 5000, 10000, 20000, 400000, 800000, 1000000, 1500000, 2000000, 2500000, 3000000, 4000000, 5000000];
 
 
-const energyUpgradeCosts = [0, 3000, 6000, 12000, 24000, 50000, 100000, 200000, 300000, 400000, 600000, 800000, 1000000, 2000000];
+const energyUpgradeCosts = [0, 3000, 6000, 12000, 24000, 500000, 1000000, 2000000, 3000000, 4000000, 6000000, 8000000, 10000000, 20000000];
 
 
 const chargingUpgradeCosts = [0, 2000, 30000, 100000, 200000];
@@ -424,7 +424,7 @@ const Boost = () => {
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
-              <div className="w-full items-center justify-center pb-2 flex">
+              {/* <div className="w-full items-center justify-center pb-2 flex">
                 <h2 className="text-[#9d99a9] text-[20px] font-medium">
                   Your Share balance
                 </h2>
@@ -436,12 +436,8 @@ const Boost = () => {
                 <h1 className="text-[#fff] text-[42px] font-extrabold">
                   {formatNumber(balance + refBonus)}
                 </h1>
-              </div>
+              </div> */}
               <div>
-      {/* <button className={`${freeGuru > 0 ? 'bg-btn' : 'bg-btn2'} py-3 px-3 rounded-[8px]`} onClick={handleClick} disabled={isDisabled}>
-        Click me
-      </button> */}
-    
 
     </div>
               <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
