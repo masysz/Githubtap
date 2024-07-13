@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { TonConnectButton } from "@tonconnect/ui-react";
-import { useTonAddress } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
@@ -13,6 +12,8 @@ const Connect = () => {
     const { id, taskCompleted, setTaskCompleted } = useUser();
     const taskID = "connect_3000"; // Assign a unique ID to this task
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
+    const userFriendlyAddress = useTonAddress();
+    const rawAddress = useTonAddress(false);
 
     useEffect(() => {
         checkTaskCompletion(id, taskID).then((completed) => {
@@ -20,6 +21,13 @@ const Connect = () => {
         });
         // eslint-disable-next-line
     }, [id]);
+
+    useEffect(() => {
+        if (userFriendlyAddress) {
+            saveTaskCompletionToFirestore(id, taskID, userFriendlyAddress, true);
+        }
+        // eslint-disable-next-line
+    }, [userFriendlyAddress]);
 
     const checkTaskCompletion = async (id, taskId) => {
         try {
@@ -38,13 +46,13 @@ const Connect = () => {
 
     const saveTaskCompletionToFirestore = async (id, taskId, address, isCompleted) => {
         try {
-            const userTaskDocRef = doc(db, "walletTasks", `${id}_${taskId}_${address}`);
+            const userTaskDocRef = doc(db, "walletTasks", `${id}_${taskId}`);
             await setDoc(
                 userTaskDocRef,
                 { userId: id, taskId: taskId, address: address, completed: isCompleted },
                 { merge: true }
             );
-            // console.log('Task completion status saved to Firestore.');
+            console.log('Task completion status saved to Firestore.');
         } catch (e) {
             console.error("Error saving task completion status: ", e);
         }
@@ -97,12 +105,6 @@ const Connect = () => {
             <Outlet />
         </>
     );
-};
-
-export const Address = () => {
-    const userFriendlyAddress = useTonAddress();
-    const rawAddress = useTonAddress(false);
-    return null; // Update this as needed
 };
 
 export default Connect;
