@@ -72,22 +72,19 @@ const Connect = () => {
         }
     };
 
-    const handleCopyAddress = () => {
-        if (userFriendlyAddress) {
-            navigator.clipboard.writeText(userFriendlyAddress)
-                .then(() => {
-                    setIsCopied(true);
-                    // Reset copied status after 3 seconds
-                    setTimeout(() => {
-                        setIsCopied(false);
-                    }, 3000);
-                })
-                .catch(() => {
-                    alert("Something went wrong while copying the address.");
-                });
-        }
+    const handleCopyAddress = async () => {
+        try {
+        await navigator.clipboard.writeText(userFriendlyAddress);
+        setIsCopied(true);
+
+        // Reset copied status after 3 seconds
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
+    } catch (e) {
+        console.error("Error copy wallet: ", e);
+    }
     };
-    
 
     return (
         <>
