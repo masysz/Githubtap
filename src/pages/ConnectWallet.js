@@ -4,34 +4,79 @@ import { TonConnectButton } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
+import { useUser } from '../context/userContext';
 
 const Connect = () => {
+    const {id, taskCompleted, setTaskCompleted} = useUser();
+    const taskID = "connect_3000"; // Assign a unique ID to this task
   const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
+  useEffect(() => {
 
+
+    checkTaskCompletion(id, taskID).then((completed) => {
+      setTaskCompleted(completed);
+      if (completed) {
+          setMessage("");
+      }
+  });
+    
+  
+  console.log('my userid is:', id)
+  
+          // eslint-disable-next-line
+  }, []);
+  
+  const checkTaskCompletion = async (id, taskId) => {
+      try {
+          const userTaskDocRef = doc(db, 'userTasks', `${id}_${taskId}`);
+          const docSnap = await getDoc(userTaskDocRef);
+          if (docSnap.exists()) {
+              return docSnap.data().completed;
+          } else {
+              return false;
+          }
+      } catch (e) {
+          console.error('Error checking task completion: ', e);
+          return false;
+      }
+  };
   return (
     <>
-      <div className="w-full flex flex-col h-[50vh] pt-2 pb-[60px] overflow-y-auto">
-        <div className="flex alltaskscontainer flex-col w-full space-y-2 pb-20">
-          <button
-            onClick={() => setIsConnectModalVisible(true)}
-            className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center"
-          >
-            <div className="flex flex-1 items-center space-x-2">
-              <div>
-                <img src={tonwallet} alt="connect" className="w-[35px]" />
-              </div>
-              <div className="flex flex-col space-y-1 text-left">
-                <span className="font-semibold text-[17px]">
-                  Connect your TON wallet
-                </span>
-              </div>
-            </div>
-            <div>
-              <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
-            </div>
-          </button>
-        </div>
-      </div>
+    <div onClick={setIsConnectModalVisible(true)} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={tonwallet} alt="tonwallet" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+        Connect your TON wallet
+        </span>
+        
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+      
 
       {/* Connect Modal */}
       <div
