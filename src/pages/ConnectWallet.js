@@ -13,6 +13,7 @@ const Connect = () => {
     const { id, taskCompleted, setTaskCompleted } = useUser();
     const taskID = "connect_3000"; // Assign a unique ID to this task
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
+    const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
     const [tonConnectUI] = useTonConnectUI();
@@ -71,6 +72,16 @@ const Connect = () => {
         }
     };
 
+    const handleCopyAddress = () => {
+        navigator.clipboard.writeText(userFriendlyAddress);
+        setIsCopied(true);
+
+        // Reset copied status after 3 seconds
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
+    };
+
     return (
         <>
             <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center">
@@ -115,6 +126,12 @@ const Connect = () => {
                         </div>
                         {userFriendlyAddress && (
                             <div className="flex items-center mt-4 space-x-2">
+                                <button
+                                    onClick={handleCopyAddress}
+                                    className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
+                                >
+                                    {isCopied ? "Copied" : "Copy"}
+                                </button>
                                 <input
                                     type="text"
                                     value={userFriendlyAddress}
