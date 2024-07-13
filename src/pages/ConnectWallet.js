@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress, useTonConnect } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
@@ -15,6 +15,7 @@ const Connect = () => {
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
+    const tonConnect = useTonConnect();
 
     useEffect(() => {
         checkTaskCompletion(id, taskID).then((completed) => {
@@ -61,6 +62,15 @@ const Connect = () => {
         }
     };
 
+    const handleDisconnect = async () => {
+        try {
+            await tonConnect.disconnect();
+            setTaskCompleted(false);
+        } catch (e) {
+            console.error("Error disconnecting wallet: ", e);
+        }
+    };
+
     return (
         <>
             <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center">
@@ -104,12 +114,20 @@ const Connect = () => {
                             </button>
                         </div>
                         {userFriendlyAddress && (
-                            <input
-                                type="text"
-                                value={userFriendlyAddress}
-                                readOnly
-                                className="w-full p-3 mt-4 text-center rounded-[12px] bg-gray-200"
-                            />
+                            <div className="relative w-full mt-4">
+                                <input
+                                    type="text"
+                                    value={userFriendlyAddress}
+                                    readOnly
+                                    className="w-full p-3 text-center rounded-[12px] bg-gray-200"
+                                />
+                                <button
+                                    onClick={handleDisconnect}
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                                >
+                                    <IoClose size={24} className="text-[#9a96a6]" />
+                                </button>
+                            </div>
                         )}
                     </div>
                 </div>
