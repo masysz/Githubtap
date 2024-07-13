@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { TonConnectButton, useTonAddress, useTonConnect } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
@@ -15,7 +15,7 @@ const Connect = () => {
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
-    const tonConnect = useTonConnect();
+    const [tonConnectUI] = useTonConnectUI();
 
     useEffect(() => {
         checkTaskCompletion(id, taskID).then((completed) => {
@@ -64,7 +64,7 @@ const Connect = () => {
 
     const handleDisconnect = async () => {
         try {
-            await tonConnect.disconnect();
+            await tonConnectUI.disconnect();
             setTaskCompleted(false);
         } catch (e) {
             console.error("Error disconnecting wallet: ", e);
