@@ -1,5 +1,5 @@
 import plutos from '../images/plutotap.svg'
-import bronze from '../images/bronze.webp'
+import bronze from '../images/babyfire.png'
 import Silver from '../images/sliver.webp'
 import gold from '../images/gold.webp'
 import diamond from '../images/diamond.webp'
