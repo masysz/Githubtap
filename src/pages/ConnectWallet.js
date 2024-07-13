@@ -74,7 +74,9 @@ const Connect = () => {
                 </div>
                 <div>
                     {taskCompleted ? (
+                        <div className="checkmark-container">
                         <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                        </div>
                     ) : (
                         <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
                     )}
