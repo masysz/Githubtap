@@ -7,6 +7,7 @@ import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
 import { useUser } from "../context/userContext";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import "../App.css";
 
 const Connect = () => {
     const { id, taskCompleted, setTaskCompleted } = useUser();
