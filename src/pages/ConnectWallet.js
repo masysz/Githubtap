@@ -73,13 +73,15 @@ const Connect = () => {
     };
 
     const handleCopyAddress = () => {
-        navigator.clipboard.writeText(userFriendlyAddress);
-        setIsCopied(true);
+        if (userFriendlyAddress) {
+            navigator.clipboard.writeText(userFriendlyAddress);
+            setIsCopied(true);
 
-        // Reset copied status after 3 seconds
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 3000);
+            // Reset copied status after 3 seconds
+            setTimeout(() => {
+                setIsCopied(false);
+            }, 3000);
+        }
     };
 
     return (
