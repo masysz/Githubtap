@@ -7,7 +7,7 @@ import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
 import { useUser } from "../context/userContext";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import "../App.css";
+import "../App.css"; // Pastikan file CSS Anda terimport
 
 const Connect = () => {
     const { id, taskCompleted, setTaskCompleted } = useUser();
@@ -75,7 +75,7 @@ const Connect = () => {
                 <div>
                     {taskCompleted ? (
                         <div className="checkmark-container">
-                        <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                            <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
                         </div>
                     ) : (
                         <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
@@ -103,6 +103,14 @@ const Connect = () => {
                                 <TonConnectButton />
                             </button>
                         </div>
+                        {userFriendlyAddress && (
+                            <input
+                                type="text"
+                                value={userFriendlyAddress}
+                                readOnly
+                                className="w-full p-3 mt-4 text-center rounded-[12px] bg-gray-200"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
