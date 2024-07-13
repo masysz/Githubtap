@@ -15,7 +15,7 @@ const Connect = () => {
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
-    const tonConnectUI = useTonConnectUI();
+    const [tonConnectUI] = useTonConnectUI();
 
     useEffect(() => {
         checkTaskCompletion(id, taskID).then((completed) => {
