@@ -18,7 +18,6 @@ const Connect = () => {
     checkTaskCompletion(id, taskID).then((completed) => {
       setTaskCompleted(completed);
       if (completed) {
-          setMessage("");
       }
   });
     
