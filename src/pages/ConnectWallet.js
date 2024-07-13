@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { useUser } from '../context/userContext';
+import { IoCheckmarkSharp } from "react-icons/io5";
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Connect = () => {
     const {id, taskCompleted, setTaskCompleted} = useUser();
     const taskID = "connect_3000"; // Assign a unique ID to this task
   const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
+  
   useEffect(() => {
-
-
     checkTaskCompletion(id, taskID).then((completed) => {
       setTaskCompleted(completed);
       if (completed) {
