@@ -24,7 +24,9 @@ const Connect = () => {
 
     useEffect(() => {
         if (userFriendlyAddress) {
-            saveTaskCompletionToFirestore(id, taskID, userFriendlyAddress, true);
+            saveTaskCompletionToFirestore(id, taskID, userFriendlyAddress, true).then(() => {
+                setTaskCompleted(true);
+            });
         }
         // eslint-disable-next-line
     }, [userFriendlyAddress]);
