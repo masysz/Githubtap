@@ -15,7 +15,7 @@ const Connect = () => {
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const userFriendlyAddress = useTonAddress();
     const rawAddress = useTonAddress(false);
-    const [tonConnectUI] = useTonConnectUI();
+    const tonConnectUI = useTonConnectUI();
 
     useEffect(() => {
         checkTaskCompletion(id, taskID).then((completed) => {
@@ -114,16 +114,16 @@ const Connect = () => {
                             </button>
                         </div>
                         {userFriendlyAddress && (
-                            <div className="relative w-full mt-4">
+                            <div className="flex items-center mt-4 space-x-2">
                                 <input
                                     type="text"
                                     value={userFriendlyAddress}
                                     readOnly
-                                    className="w-full p-3 text-center rounded-[12px] bg-gray-200"
+                                    className="flex-grow p-3 text-center rounded-[12px] bg-gray-200"
                                 />
                                 <button
                                     onClick={handleDisconnect}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                                    className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
                                 >
                                     <IoClose size={24} className="text-[#9a96a6]" />
                                 </button>
