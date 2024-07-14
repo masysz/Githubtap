@@ -126,6 +126,12 @@ const Plutos = () => {
       'wobble-left',
       'wobble-right'
     );
+    bronzeRef.current.classList.remove(
+      'wobble-top',
+      'wobble-bottom',
+      'wobble-left',
+      'wobble-right'
+    );
 
     // Add the new animation class
     imageRef.current.classList.add(animationClass);
