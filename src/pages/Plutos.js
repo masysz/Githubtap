@@ -413,20 +413,22 @@ const Plutos = () => {
                 <div className="image-container">
                   {mainTap && (
                     <Container>
+                      <div onPointerDown={handleClick} >
                       <img
                         src={level.imgUrl}
-                        className="!w-[200px] absolute top-0 left-0"
+                        className="!w-[150px] absolute top-0 left-0"
                         alt="bronze"
                         style={{ zIndex: 10 }}
                       />
                       <img
-                        onPointerDown={handleClick}
+                        
                         ref={imageRef}
                         src="/coinsmall.webp"
                         alt="Wobble"
                         className="wobble-image !w-[250px] select-none"
                         style={{ zIndex: 5 }}
                       />
+                      </div>
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
                           +{tapValue.value}
