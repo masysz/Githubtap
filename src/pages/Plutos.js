@@ -46,6 +46,7 @@ const Container = styled.div`
 const Plutos = () => {
 
   const imageRef = useRef(null);
+  const bronzeRef = useRef(null);
   const [play] = useSound(boopSfx);
   const [play2] = useSound(burnSfx);
   const [clicks, setClicks] = useState([]);
@@ -128,10 +129,12 @@ const Plutos = () => {
 
     // Add the new animation class
     imageRef.current.classList.add(animationClass);
+    bronzeRef.current.classList.add(animationClass);
 
     // Remove the animation class after animation ends to allow re-animation on the same side
     setTimeout(() => {
       imageRef.current.classList.remove(animationClass);
+      bronzeRef.current.classList.remove(animationClass);
     }, 500); // duration should match the animation duration in CSS
 
     // Increment the count
@@ -415,7 +418,7 @@ const Plutos = () => {
                     <Container>
                       <div onPointerDown={handleClick} >
                       <img
-                          ref={imageRef}
+                          ref={bronzeRef}
                           src={level.imgUrl}
                           className="wobble-image !w-[150px] absolute"
                           alt="bronze"
