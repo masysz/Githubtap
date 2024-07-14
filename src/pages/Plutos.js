@@ -417,6 +417,7 @@ const Plutos = () => {
                         src={level.imgUrl}
                         className="!w-[200px] absolute top-0 left-0"
                         alt="bronze"
+                        style={{ zIndex: 10 }}
                       />
                       <img
                         onPointerDown={handleClick}
@@ -424,6 +425,7 @@ const Plutos = () => {
                         src="/coinsmall.webp"
                         alt="Wobble"
                         className="wobble-image !w-[250px] select-none"
+                        style={{ zIndex: 5 }}
                       />
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
@@ -438,6 +440,7 @@ const Plutos = () => {
                         src={level.imgUrl}
                         className="!w-[200px] absolute top-0 left-0"
                         alt="bronze"
+                        style={{ zIndex: 10 }}
                       />
                       <img
                         onPointerDown={handleClickGuru}
@@ -445,6 +448,7 @@ const Plutos = () => {
                         src="/coinsmall.webp"
                         alt="Wobble"
                         className="wobble-image !w-[250px] select-none"
+                        style={{ zIndex: 5 }}
                       />
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
