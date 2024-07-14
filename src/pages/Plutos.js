@@ -46,7 +46,6 @@ const Container = styled.div`
 const Plutos = () => {
 
   const imageRef = useRef(null);
-  const bronzeRef = useRef(null);
   const [play] = useSound(boopSfx);
   const [play2] = useSound(burnSfx);
   const [clicks, setClicks] = useState([]);
@@ -126,21 +125,13 @@ const Plutos = () => {
       'wobble-left',
       'wobble-right'
     );
-    bronzeRef.current.classList.remove(
-      'wobble-top',
-      'wobble-bottom',
-      'wobble-left',
-      'wobble-right'
-    );
 
     // Add the new animation class
     imageRef.current.classList.add(animationClass);
-    bronzeRef.current.classList.add(animationClass);
 
     // Remove the animation class after animation ends to allow re-animation on the same side
     setTimeout(() => {
       imageRef.current.classList.remove(animationClass);
-      bronzeRef.current.classList.remove(animationClass);
     }, 500); // duration should match the animation duration in CSS
 
     // Increment the count
@@ -424,9 +415,8 @@ const Plutos = () => {
                     <Container>
                       <div onPointerDown={handleClick} >
                       <img
-                          ref={bronzeRef}
                           src={level.imgUrl}
-                          className="wobble-image !w-[150px] absolute"
+                          className="!w-[150px] absolute"
                           alt="bronze"
                           style={{ zIndex: 10, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} // Center the image
                         />
@@ -447,22 +437,20 @@ const Plutos = () => {
                   )}
                   {tapGuru && (
                     <Container>
-                      <div onPointerDown={handleClickGuru} >
                       <img
-                          ref={imageRef}
-                          src={level.imgUrl}
-                          className="wobble-image !w-[150px] absolute"
-                          alt="bronze"
-                          style={{ zIndex: 10, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} // Center the image
-                        />
-                        <img
-                          ref={imageRef}
-                          src="/coinsmall.webp"
-                          alt="Wobble"
-                          className="wobble-image !w-[250px] select-none"
-                          style={{ zIndex: 5 }}
-                        />
-                      </div>
+                        src={level.imgUrl}
+                        className="!w-[200px] absolute top-0 left-0"
+                        alt="bronze"
+                        style={{ zIndex: 10 }}
+                      />
+                      <img
+                        onPointerDown={handleClickGuru}
+                        ref={imageRef}
+                        src="/coinsmall.webp"
+                        alt="Wobble"
+                        className="wobble-image !w-[250px] select-none"
+                        style={{ zIndex: 5 }}
+                      />
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
                           +{tapValue.value * 5}
