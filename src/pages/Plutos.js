@@ -416,7 +416,7 @@ const Plutos = () => {
                       <div onPointerDown={handleClick} >
                       <img
                           src={level.imgUrl}
-                          className="!w-[150px] absolute"
+                          className="wobble-image !w-[150px] absolute"
                           alt="bronze"
                           style={{ zIndex: 10, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} // Center the image
                         />
