@@ -415,7 +415,7 @@ const Plutos = () => {
                     <Container>
                       <img
                         src={level.imgUrl}
-                        className="w-[25px] absolute top-0 left-0"
+                        className="!w-[200px] absolute top-0 left-0"
                         alt="bronze"
                       />
                       <img
