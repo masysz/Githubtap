@@ -4,7 +4,7 @@ import { useUser } from '../context/userContext';
 
 
 const userLevels = [
-    { name: 'Bronze', icon: '/babyfire.png', tapBalanceRequired: 1000 },
+    { name: 'Bronze', icon: '/bronze.webp', tapBalanceRequired: 1000 },
     { name: 'Silver', icon: '/sliver.webp', tapBalanceRequired: 50000 },
     { name: 'Gold', icon: '/gold.webp', tapBalanceRequired: 500000 },
     { name: 'Platinum', icon: '/platinum.webp', tapBalanceRequired: 1000000 },
