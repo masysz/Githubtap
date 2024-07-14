@@ -120,9 +120,11 @@ const Connect = () => {
                             Distribution token soon.
                         </p>
                         <div className="w-full flex justify-center pb-6 pt-4">
-                            <button className="w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]">
-                                <TonConnectButton />
-                            </button>
+                            {!userFriendlyAddress && (
+                                <button className="w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]">
+                                    <TonConnectButton />
+                                </button>
+                            )}
                         </div>
                         {userFriendlyAddress && (
                             <div className="flex items-center mt-4 space-x-2">
