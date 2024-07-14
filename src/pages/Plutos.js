@@ -44,6 +44,7 @@ const Container = styled.div`
 `;
 
 const Plutos = () => {
+
   const imageRef = useRef(null);
   const [play] = useSound(boopSfx);
   const [play2] = useSound(burnSfx);
@@ -52,37 +53,321 @@ const Plutos = () => {
 
   // eslint-disable-next-line
   const [points, setPoints] = useState(0);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   const [isDisabled, setIsDisabled] = useState(false);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   const [openClaim, setOpenClaim] = useState(false);
   // eslint-disable-next-line
   const [congrats, setCongrats] = useState(false);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   const [glowBooster, setGlowBooster] = useState(false);
   const [showLevels, setShowLevels] = useState(false);
   const debounceTimerRef = useRef(null);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   const refillTimerRef = useRef(null);
   const isUpdatingRef = useRef(false);
   const accumulatedBalanceRef = useRef(balance);
   const accumulatedEnergyRef = useRef(energy);
   const accumulatedTapBalanceRef = useRef(tapBalance);
-  const refillTimeoutRef = useRef(null);
+  const refillTimeoutRef = useRef(null); // Add this line
+
+
+  function triggerHapticFeedback() {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  
+    if (isIOS && window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    } else if (isAndroid && 'vibrate' in navigator) {
+      // Use the vibration API on Android
+      navigator.vibrate(50); // Vibrate for 50ms
+    } else {
+      console.warn('Haptic feedback not supported on this device.');
+    }
+  }
+
+
+
 
   const handleClick = (e) => {
-    // Handle click functionality
-  };
 
+    // Play the sound
+    play();
+    triggerHapticFeedback();
+
+    if (energy <= 0 || isDisabled || isUpdatingRef.current) {
+      setGlowBooster(true); // Trigger glow effect if energy and points are 0
+      setTimeout(() => {
+        setGlowBooster(false); // Remove glow effect after 1 second
+      }, 300);
+      return; // Exit if no energy left or if clicks are disabled or if an update is in progress
+    }
+
+    const { offsetX, offsetY, target } = e.nativeEvent;
+    const { clientWidth, clientHeight } = target;
+
+    const horizontalMidpoint = clientWidth / 2;
+    const verticalMidpoint = clientHeight / 2;
+
+    const animationClass =
+      offsetX < horizontalMidpoint
+        ? 'wobble-left'
+        : offsetX > horizontalMidpoint
+        ? 'wobble-right'
+        : offsetY < verticalMidpoint
+        ? 'wobble-top'
+        : 'wobble-bottom';
+
+    // Remove previous animations
+    imageRef.current.classList.remove(
+      'wobble-top',
+      'wobble-bottom',
+      'wobble-left',
+      'wobble-right'
+    );
+
+    // Add the new animation class
+    imageRef.current.classList.add(animationClass);
+
+    // Remove the animation class after animation ends to allow re-animation on the same side
+    setTimeout(() => {
+      imageRef.current.classList.remove(animationClass);
+    }, 500); // duration should match the animation duration in CSS
+
+    // Increment the count
+    const rect = e.target.getBoundingClientRect();
+    const newClick = {
+      id: Date.now(), // Unique identifier
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+
+    setClicks((prevClicks) => [...prevClicks, newClick]);
+
+    // Update state immediately for UI
+    setEnergy((prevEnergy) => {
+      const newEnergy = Math.max(prevEnergy - tapValue.value, 0); // Ensure energy does not drop below zero
+      accumulatedEnergyRef.current = newEnergy;
+      return newEnergy;
+    });
+
+    setPoints((prevPoints) => prevPoints + tapValue.value);
+
+    setBalance((prevBalance) => {
+      const newBalance = prevBalance + tapValue.value;
+      accumulatedBalanceRef.current = newBalance;
+      return newBalance;
+    });
+
+    setTapBalance((prevTapBalance) => {
+      const newTapBalance = prevTapBalance + tapValue.value;
+      accumulatedTapBalanceRef.current = newTapBalance;
+      return newTapBalance;
+    });
+
+    // Remove the click after the animation duration
+    setTimeout(() => {
+      setClicks((prevClicks) =>
+        prevClicks.filter((click) => click.id !== newClick.id)
+      );
+    }, 1000); // Match this duration with the animation duration
+
+    // Reset the debounce timer
+    clearTimeout(debounceTimerRef.current);
+    debounceTimerRef.current = setTimeout(updateFirestore, 1000); // Adjust the delay as needed
+
+  // Reset the refill timer
+  clearInterval(refillIntervalRef.current); // Stop refilling while the user is active
+  setIsRefilling(false); // Set refilling state to false
+  clearTimeout(refillTimeoutRef.current);
+  refillTimeoutRef.current = setTimeout(() => {
+    if (energy < battery.energy) {
+      refillEnergy();
+    }
+  }, 1000); // Set the inactivity period to 3 seconds (adjust as needed)
+};
   const handleClickGuru = (e) => {
-    // Handle click functionality for guru tap
-  };
+    play2();
+    triggerHapticFeedback();
+
+    if (energy <= 0 || isDisabled || isUpdatingRef.current) {
+      setGlowBooster(true); // Trigger glow effect if energy and points are 0
+      setTimeout(() => {
+        setGlowBooster(false); // Remove glow effect after 1 second
+      }, 300);
+      return; // Exit if no energy left or if clicks are disabled or if an update is in progress
+    }
+
+    const { offsetX, offsetY, target } = e.nativeEvent;
+    const { clientWidth, clientHeight } = target;
+
+    const horizontalMidpoint = clientWidth / 2;
+    const verticalMidpoint = clientHeight / 2;
+
+    const animationClass =
+      offsetX < horizontalMidpoint
+        ? 'wobble-left'
+        : offsetX > horizontalMidpoint
+        ? 'wobble-right'
+        : offsetY < verticalMidpoint
+        ? 'wobble-top'
+        : 'wobble-bottom';
+
+    // Remove previous animations
+    imageRef.current.classList.remove(
+      'wobble-top',
+      'wobble-bottom',
+      'wobble-left',
+      'wobble-right'
+    );
+
+    // Add the new animation class
+    imageRef.current.classList.add(animationClass);
+
+    // Remove the animation class after animation ends to allow re-animation on the same side
+    setTimeout(() => {
+      imageRef.current.classList.remove(animationClass);
+    }, 500); // duration should match the animation duration in CSS
+
+    // Increment the count
+    const rect = e.target.getBoundingClientRect();
+    const newClick = {
+      id: Date.now(), // Unique identifier
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+
+    setClicks((prevClicks) => [...prevClicks, newClick]);
+
+    // Update state immediately for UI
+    setEnergy((prevEnergy) => {
+      const newEnergy = Math.max(prevEnergy - 0, 0); // Ensure energy does not drop below zero
+      accumulatedEnergyRef.current = newEnergy;
+      return newEnergy;
+    });
+
+    setPoints((prevPoints) => prevPoints + tapValue.value * 5);
+
+    setBalance((prevBalance) => {
+      const newBalance = prevBalance + tapValue.value * 5;
+      accumulatedBalanceRef.current = newBalance;
+      return newBalance;
+    });
+
+    setTapBalance((prevTapBalance) => {
+      const newTapBalance = prevTapBalance + tapValue.value * 5;
+      accumulatedTapBalanceRef.current = newTapBalance;
+      return newTapBalance;
+    });
+
+    // Remove the click after the animation duration
+    setTimeout(() => {
+      setClicks((prevClicks) =>
+        prevClicks.filter((click) => click.id !== newClick.id)
+      );
+    }, 1000); // Match this duration with the animation duration
+
+
+    // Reset the debounce timer
+    clearTimeout(debounceTimerRef.current);
+    debounceTimerRef.current = setTimeout(updateFirestore, 1000); // Adjust the delay as needed
+
+  // Reset the refill timer
+  clearInterval(refillIntervalRef.current); // Stop refilling while the user is active
+  setIsRefilling(false); // Set refilling state to false
+  clearTimeout(refillTimeoutRef.current);
+  refillTimeoutRef.current = setTimeout(() => {
+    if (energy < battery.energy) {
+      refillEnergy();
+    }
+  }, 1000); // Set the inactivity period to 3 seconds (adjust as needed)
+};
 
   const updateFirestore = async () => {
-    // Firestore update functionality
+    const telegramUser = window.Telegram.WebApp.initDataUnsafe?.user;
+    if (telegramUser) {
+      const { id: userId } = telegramUser;
+      const userRef = doc(db, 'telegramUsers', userId.toString());
+
+      // Set updating flag
+      isUpdatingRef.current = true;
+
+      try {
+        await updateDoc(userRef, {
+          balance: accumulatedBalanceRef.current,
+          energy: accumulatedEnergyRef.current,
+          tapBalance: accumulatedTapBalanceRef.current,
+        });
+
+        // No need to update state here as it is already updated immediately in handleClick
+
+        // Reset accumulated values to current state values
+        accumulatedBalanceRef.current = balance;
+        accumulatedEnergyRef.current = energy;
+        accumulatedTapBalanceRef.current = tapBalance;
+      } catch (error) {
+        console.error('Error updating balance and energy:', error);
+      } finally {
+        // Clear updating flag
+        isUpdatingRef.current = false;
+      }
+    }
   };
 
+
+  
   const energyPercentage = (energy / battery.energy) * 100;
+
+
+  // const handleClaim = async () => {
+  //   const telegramUser = window.Telegram.WebApp.initDataUnsafe?.user;
+  //   if (telegramUser) {
+  //     const { id: userId } = telegramUser;
+  //     const userRef = doc(db, 'telegramUsers', userId.toString());
+  //     try {
+  //       await updateDoc(userRef, {
+  //         balance: balance + points,
+  //         energy: energy,
+  //         tapBalance: tapBalance + points
+     
+  //       });
+  //       setBalance((prevBalance) => prevBalance + points);
+  //       setTapBalance((prevTapBalance) => prevTapBalance + points);
+  //       localStorage.setItem('energy', energy);
+
+  //       if (energy <= 0) {
+  //         setIsTimerVisible(true);
+  //       }
+  //       console.log('Points claimed successfully');
+  //     } catch (error) {
+  //       console.error('Error updating balance and energy:', error);
+  //     }
+  //   }
+  //   openClaimer();
+  // };
+
+
+
+  const formatNumber = (num) => {
+    if (num < 100000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    } else if (num < 1000000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    // } else {
+    //   return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+    } else {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    }
+  };
+
+      // // Remove the click after the animation duration
+      // setTimeout(() => {
+      //   setTapGuru(false);
+      //   setMainTap(true);
+      // }, 22000); // Match this duration with the animation duration
+  
+
+      
 
   return (
     <>
