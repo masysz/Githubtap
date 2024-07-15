@@ -417,7 +417,7 @@ const Plutos = () => {
                         <img 
                           onPointerDown={handleClick}
                           ref={imageRef}
-                          src={level.imgTap}
+                          src="/coin-1.png"
                           alt="Wobble"
                           className="wobble-image !w-[250px] select-none"
                           style={{ zIndex: 5 }}
