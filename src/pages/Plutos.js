@@ -406,7 +406,7 @@ const Plutos = () => {
               </div>
               <div className="w-[350px] h-[350px] relative flex items-center justify-center">
                 <img
-                  src="/lihgt.webp"
+                  src="/lihgt.gif"
                   alt="err"
                   className={`absolute w-[330px] rotate-45 ${tapGuru ? 'block' : 'hidden'}`}
                 />
@@ -437,20 +437,21 @@ const Plutos = () => {
                   )}
                   {tapGuru && (
                     <Container>
+                      <div onPointerDown={handleClickGuru} >
                       <img
-                        src={level.imgUrl}
-                        className="!w-[200px] absolute top-0 left-0"
-                        alt="bronze"
-                        style={{ zIndex: 10 }}
-                      />
-                      <img
-                        onPointerDown={handleClickGuru}
-                        ref={imageRef}
-                        src="/coinsmall.webp"
-                        alt="Wobble"
-                        className="wobble-image !w-[250px] select-none"
-                        style={{ zIndex: 5 }}
-                      />
+                          src={level.imgUrl}
+                          className="!w-[150px] absolute"
+                          alt="bronze"
+                          style={{ zIndex: 10, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} // Center the image
+                        />
+                        <img
+                          ref={imageRef}
+                          src="/coinsmall.webp"
+                          alt="Wobble"
+                          className="wobble-image !w-[250px] select-none"
+                          style={{ zIndex: 5 }}
+                        />
+                      </div>
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
                           +{tapValue.value * 5}
