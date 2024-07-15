@@ -1,9 +1,9 @@
 import React from "react";
-import ref from "../images/ref.webp";
-import boost from "../images/boost.webp";
-import tasks from "../images/tasks.webp";
+import ref from "../images/ref1.png";
+import boost from "../images/booster2.png";
+import tasks from "../images/tasks2.png";
 import stats from "../images/stats.webp";
-import tonwallet from "../images/tonwallet.png";
+import tonwallet from "../images/wallet2.png";
 import coinsmall from "../images/coinsmall.webp";
 import { NavLink } from "react-router-dom";
 

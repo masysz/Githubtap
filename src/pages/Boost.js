@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import Animate from "../Components/Animate";
 import { Outlet, useNavigate } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
-import battery3 from "../images/battery.webp";
-import multi from "../images/multi.webp";
-import flash from "../images/flash.webp";
+import gastank from "../images/battery1.png";
+import battery3 from "../images/energylimit.png";
+import multi from "../images/multitap1.png";
+import flash from "../images/flash1.png";
 import botr from "../images/bott.webp";
-import boost from "../images/boost.webp";
+import boost from "../images/booster2.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust the path as needed
@@ -479,7 +480,7 @@ const Boost = () => {
                     className={`${fullTank > 0 ? 'opacity-100' : 'opacity-[.5]'} bg-cards w-[48%] border-[1px] border-borders rounded-[8px] p-[8px] flex`}
                   >
                     <div className="w-[40px] flex items-center justify-center">
-                      <img src={flash} alt="flash" className={`w-[26px] ${fullTank > 0 ? '' : 'grayscale-[1]'}`} />
+                      <img src={gastank} alt="flash" className={`w-[26px] ${fullTank > 0 ? '' : 'grayscale-[1]'}`} />
                     </div>
 
                     <div className="flex flex-1 flex-col text-left">

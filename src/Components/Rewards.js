@@ -5,7 +5,7 @@ import { useUser } from '../context/userContext';
 import { IoCheckmarkCircle } from 'react-icons/io5';
 import congratspic from "../images/celebrate.gif";
 import Animate from '../Components/Animate';
-import ref from "../images/ref.webp";
+import ref from "../images/ref1.png";
 import coinsmall from "../images/coinsmall.webp";
 
 const friendsRewards = [
