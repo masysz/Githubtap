@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Animate from "../Components/Animate";
 import { Outlet, useNavigate } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
-import gastank from "../images/battery1.png";
+import gastank from "../images/baterai1.png";
 import battery3 from "../images/energylimit.png";
 import multi from "../images/multitap1.png";
 import flash from "../images/flash1.png";
