@@ -14,7 +14,7 @@ import { useUser } from "../context/userContext";
 // import { EnergyContext } from "../context/EnergyContext";
 
 const TaskOne = ({ showModal, setShowModal }) => {
-  const {id, balance, setBalance, tapBalance, setTapbalance, taskCompleted, setTaskCompleted} = useUser();
+  const {id, balance, setBalance, tapBalance, setTapBalance, taskCompleted, setTaskCompleted} = useUser();
 
   const [isVerified, setIsVerified] = useState(false);
   const [showCheckButton, setShowCheckButton] = useState(false);
