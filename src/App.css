@@ -1,6 +1,6 @@
 body{
   background: linear-gradient(to bottom, #191b33, #1b202d);
-  background-color: #dcbc169c;
+  background-color: #332519;
   color: #fff;
   height: var(--tg-viewport-stable-height);
   touch-action: none; /* Prevent touch actions */
