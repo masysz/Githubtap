@@ -435,7 +435,7 @@ const Plutos = () => {
                         <img
                           onPointerDown={handleClickGuru}
                           ref={imageRef}
-                          src={level.imgTap}
+                          src={level.imgBoost}
                           alt="Wobble"
                           className="wobble-image !w-[250px] select-none"
                           
