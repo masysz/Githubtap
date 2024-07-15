@@ -182,7 +182,7 @@ export const UserProvider = ({ children }) => {
           timeStaTank: null,
           tapValue: {level: 1, value: 1},
           timeRefill: {level: 1, duration: 10, step: 600},
-          level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp' }, // Set the initial level with id and name
+          level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp', imgTap: '/coin-1.png' }, // Set the initial level with id and name
           energy: 500,
           battery: {level: 1, energy: 500},
           refereeId: referrerId || null,
