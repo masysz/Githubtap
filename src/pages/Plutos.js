@@ -389,7 +389,7 @@ const Plutos = () => {
             </div>
             <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
               <img
-                src={level.imgTap}
+                src={level.imgUrl}
                 className="w-[25px] relative"
                 alt="bronze"
               />

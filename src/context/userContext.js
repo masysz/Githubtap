@@ -209,7 +209,7 @@ export const UserProvider = ({ children }) => {
                 userId: userId.toString(),
                 username: finalUsername,
                 balance: 0,
-                level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp' }, // Include level with id and name
+                level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp', imgTap: '/coin-1.png' }, // Include level with id and name
               })
             });
             console.log('Referrer updated in Firestore');
