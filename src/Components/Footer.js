@@ -4,7 +4,7 @@ import boost from "../images/booster2.png";
 import tasks from "../images/tasks2.png";
 import stats from "../images/stats.webp";
 import tonwallet from "../images/wallet2.png";
-import coinsmall from "../images/coinsmall.webp";
+import coinsmall from "../images/coins-6.png";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
