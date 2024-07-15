@@ -7,9 +7,9 @@ import congratspic from "../images/celebrate.gif";
 import coinsmall from "../images/coinsmall.webp";
 
 const milestones = [
-  { name: 'Bronze', icon: 'https://ucarecdn.com/074dadcb-6be1-47e7-92da-28d2bd3a9448/bronze.webp', tapBalanceRequired: 1000, reward: 50000 },
-  { name: 'Silver', icon: 'https://ucarecdn.com/6725a762-528a-4967-bde1-f4da9f4833ee/sliver.webp', tapBalanceRequired: 50000, reward: 100000 },
-  { name: 'Gold', icon: 'https://ucarecdn.com/06204717-97e6-4e54-86b7-6b17a6b59788/gold.webp', tapBalanceRequired: 500000, reward: 250000 },
+  { name: 'Warm', icon: '/warm.png', tapBalanceRequired: 1000, reward: 50000 },
+  { name: 'Light', icon: '/light.png', tapBalanceRequired: 50000, reward: 100000 },
+  { name: 'Blaze', icon: '/blaze.png', tapBalanceRequired: 500000, reward: 250000 },
  ];
 
 const MilestoneRewards = () => {

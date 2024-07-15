@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   const [balance, setBalance] = useState(0);
   // const [totalBalance, setTotalBalance] = useState(0);
   const [tapBalance, setTapBalance] = useState(0);
-  const [level, setLevel] = useState({ id: 1, name: "Bronze", imgUrl: '/bronze.webp', imgTap: '/coin-1.png' }); // Initial level as an object with id and name
+  const [level, setLevel] = useState({ id: 1, name: "Warm", imgUrl: '/warm.png', imgTap: '/coin-1.png' }); // Initial level as an object with id and name
   const [tapValue, setTapValue] = useState({level: 1, value: 1});
   const [timeRefill, setTimeRefill] = useState({level: 1, duration: 10, step: 600});
   const [id, setId] = useState("");
@@ -182,7 +182,7 @@ export const UserProvider = ({ children }) => {
           timeStaTank: null,
           tapValue: {level: 1, value: 1},
           timeRefill: {level: 1, duration: 10, step: 600},
-          level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp', imgTap: '/coin-1.png' }, // Set the initial level with id and name
+          level: { id: 1, name: "Warm", imgUrl: '/warm.png', imgTap: '/coin-1.png' }, // Set the initial level with id and name
           energy: 500,
           battery: {level: 1, energy: 500},
           refereeId: referrerId || null,
@@ -209,7 +209,7 @@ export const UserProvider = ({ children }) => {
                 userId: userId.toString(),
                 username: finalUsername,
                 balance: 0,
-                level: { id: 1, name: "Bronze", imgUrl: '/bronze.webp', imgTap: '/coin-1.png' }, // Include level with id and name
+                level: { id: 1, name: "Warm", imgUrl: '/warm.png', imgTap: '/coin-1.png' }, // Include level with id and name
               })
             });
             console.log('Referrer updated in Firestore');
@@ -308,18 +308,18 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUserLevel = async (userId, newTapBalance) => {
-    let newLevel = { id: 1, name: "Bronze", imgUrl: "/bronze.webp", imgTap: "/coin-1.png" };
+    let newLevel = { id: 1, name: "Warm", imgUrl: "/warm.png", imgTap: "/coin-1.png" };
 
     if (newTapBalance >= 1000 && newTapBalance < 50000) {
-      newLevel = { id: 2, name: "Silver", imgUrl: "/sliver.webp", imgTap: "/coin-2.png" };
+      newLevel = { id: 2, name: "Light", imgUrl: "/light.png", imgTap: "/coin-2.png" };
     } else if (newTapBalance >= 50000 && newTapBalance < 500000) {
-      newLevel = { id: 3, name: "Gold", imgUrl: "/gold.webp", imgTap: "/coin-3.png" };
+      newLevel = { id: 3, name: "Blaze", imgUrl: "/blaze.png", imgTap: "/coin-3.png" };
     } else if (newTapBalance >= 500000 && newTapBalance < 1000000) {
-      newLevel = { id: 4, name: "Platinum", imgUrl: "/platinum.webp", imgTap: "/coin-4.png" };
+      newLevel = { id: 4, name: "Flame", imgUrl: "/flame.png", imgTap: "/coin-4.png" };
     } else if (newTapBalance >= 1000000 && newTapBalance < 2500000) {
-      newLevel = { id: 5, name: "Diamond", imgUrl: "/diamond.webp", imgTap: "/coin-5.png" };
+      newLevel = { id: 5, name: "Hot", imgUrl: "/hot.png", imgTap: "/coin-5.png" };
     } else if (newTapBalance >= 2500000) {
-      newLevel = { id: 6, name: "Master", imgUrl: "/master.webp", imgTap: "/coin-1.png" };
+      newLevel = { id: 6, name: "Burning", imgUrl: "/burning.png", imgTap: "/coin-1.png" };
     }
 
     if (newLevel.id !== level.id) {

@@ -4,12 +4,12 @@ import { useUser } from '../context/userContext';
 
 
 const userLevels = [
-    { name: 'Bronze', icon: '/bronze.webp', tapBalanceRequired: 1000 },
-    { name: 'Silver', icon: '/sliver.webp', tapBalanceRequired: 50000 },
-    { name: 'Gold', icon: '/gold.webp', tapBalanceRequired: 500000 },
-    { name: 'Platinum', icon: '/platinum.webp', tapBalanceRequired: 1000000 },
-    { name: 'Diamond', icon: '/diamond.webp', tapBalanceRequired: 2500000 },
-    { name: 'Master', icon: '/master.webp', tapBalanceRequired: 5000000 },
+    { name: 'Warm', icon: '/warm.png', tapBalanceRequired: 1000 },
+    { name: 'Light', icon: '/light.png', tapBalanceRequired: 50000 },
+    { name: 'Blaze', icon: '/blaze.png', tapBalanceRequired: 500000 },
+    { name: 'Flame', icon: '/flame.png', tapBalanceRequired: 1000000 },
+    { name: 'Hot', icon: '/hot.png', tapBalanceRequired: 2500000 },
+    { name: 'Burning', icon: '/burning.png', tapBalanceRequired: 5000000 },
   ];
   
   

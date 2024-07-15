@@ -431,21 +431,16 @@ const Plutos = () => {
                   )}
                   {tapGuru && (
                     <Container>
-                      <div onPointerDown={handleClickGuru} >
-                      <img
-                          src={level.imgUrl}
-                          className="!w-[150px] absolute"
-                          alt="bronze"
-                          style={{ zIndex: 10, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} // Center the image
-                        />
+                      
                         <img
+                          onPointerDown={handleClickGuru}
                           ref={imageRef}
-                          src="/coinsmall.webp"
+                          src={level.imgTap}
                           alt="Wobble"
                           className="wobble-image !w-[250px] select-none"
-                          style={{ zIndex: 5 }}
+                          
                         />
-                      </div>
+                      
                       {clicks.map((click) => (
                         <SlideUpText key={click.id} x={click.x} y={click.y}>
                           +{tapValue.value * 5}
