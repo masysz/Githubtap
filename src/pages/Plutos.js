@@ -389,7 +389,7 @@ const Plutos = () => {
             </div>
             <div className="w-full ml-[6px] flex space-x-1 items-center justify-center">
               <img
-                src={level.imgUrl}
+                src={level.imgTap}
                 className="w-[25px] relative"
                 alt="bronze"
               />
@@ -417,10 +417,9 @@ const Plutos = () => {
                         <img 
                           onPointerDown={handleClick}
                           ref={imageRef}
-                          src="/coin-1.png"
+                          src={level.imgTap}
                           alt="Wobble"
                           className="wobble-image !w-[250px] select-none"
-                          style={{ zIndex: 5 }}
                         />
                       
                       {clicks.map((click) => (
