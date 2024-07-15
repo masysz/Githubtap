@@ -14,7 +14,7 @@ import { useUser } from "../context/userContext";
 // import { EnergyContext } from "../context/EnergyContext";
 
 const TaskTwo = ({ showModal, setShowModal }) => {
-  const {id, balance, setBalance, taskCompleted, setTaskCompleted} = useUser();
+  const {id, balance, setBalance, tapBalance, setTapBalance, taskCompleted, setTaskCompleted} = useUser();
 
   const [isVerified, setIsVerified] = useState(false);
   const [showCheckButton, setShowCheckButton] = useState(false);
@@ -164,7 +164,7 @@ const TaskTwo = ({ showModal, setShowModal }) => {
 
       if (userDocId) {
         const userDocRef = doc(db, "telegramUsers", userDocId);
-        await updateDoc(userDocRef, { balance: newBalance });
+        await updateDoc(userDocRef, { balance: newBalance, tapBalance: newBalance });
         // console.log('User count updated in Firestore.');
       } else {
         console.error("User document not found.");
@@ -186,12 +186,14 @@ const TaskTwo = ({ showModal, setShowModal }) => {
 
     if (isVerified) {
       const newCount = balance + 100000;
+      const newCount2 = tapBalance + 100000;
       setBalance(newCount);
+      setTapBalance(newCount2);
       setMessage("");
       setIsMissionButtonDisabled(true); // Optionally disable the button again after mission completion
       await saveTaskCompletionToFirestore(id, taskID, true);
       // Update the user's count in Firestore
-      await updateUserCountInFirestore(id, newCount);
+      await updateUserCountInFirestore(id, newCount, newCount2);
 
       setTaskCompleted(true);
     } else {
