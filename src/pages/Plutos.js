@@ -376,8 +376,8 @@ const Plutos = () => {
       ) : (
         <Animate>
           <div className="w-full flex justify-center flex-col overflow-hidden">
-            <h3 className="text-[#fff] text-[18px] font-extrabold text-center mb-2">
-              Welcome, {name}
+            <h3 className="text-[#fff] text-[12px] font-extrabold text-center mb-2">
+              Welcome, {name} | earn per tap +{tapValue}
             </h3>
             <div className="flex space-x-[2px] justify-center items-center">
               <div className="w-[50px] h-[50px]">
