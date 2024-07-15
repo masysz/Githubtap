@@ -308,18 +308,18 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUserLevel = async (userId, newTapBalance) => {
-    let newLevel = { id: 1, name: "Bronze", imgUrl: "/bronze.webp" };
+    let newLevel = { id: 1, name: "Bronze", imgUrl: "/bronze.webp", imgTap: "/coin-1.png" };
 
     if (newTapBalance >= 1000 && newTapBalance < 50000) {
-      newLevel = { id: 2, name: "Silver", imgUrl: "/sliver.webp" };
+      newLevel = { id: 2, name: "Silver", imgUrl: "/sliver.webp", imgTap: "/coin-2.png" };
     } else if (newTapBalance >= 50000 && newTapBalance < 500000) {
-      newLevel = { id: 3, name: "Gold", imgUrl: "/gold.webp" };
+      newLevel = { id: 3, name: "Gold", imgUrl: "/gold.webp", imgTap: "/coin-3.png" };
     } else if (newTapBalance >= 500000 && newTapBalance < 1000000) {
-      newLevel = { id: 4, name: "Platinum", imgUrl: "/platinum.webp" };
+      newLevel = { id: 4, name: "Platinum", imgUrl: "/platinum.webp", imgTap: "/coin-4.png" };
     } else if (newTapBalance >= 1000000 && newTapBalance < 2500000) {
-      newLevel = { id: 5, name: "Diamond", imgUrl: "/diamond.webp" };
+      newLevel = { id: 5, name: "Diamond", imgUrl: "/diamond.webp", imgTap: "/coin-5.png" };
     } else if (newTapBalance >= 2500000) {
-      newLevel = { id: 6, name: "Master", imgUrl: "/master.webp" };
+      newLevel = { id: 6, name: "Master", imgUrl: "/master.webp", imgTap: "/coin-1.png" };
     }
 
     if (newLevel.id !== level.id) {
