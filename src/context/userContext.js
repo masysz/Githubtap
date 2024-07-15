@@ -310,17 +310,28 @@ export const UserProvider = ({ children }) => {
   const updateUserLevel = async (userId, newTapBalance) => {
     let newLevel = { id: 1, name: "Warm", imgUrl: "/warm.png", imgTap: "/coin-1.png", imgBoost: "/coins-1.png" };
 
-    if (newTapBalance >= 1000 && newTapBalance < 50000) {
+    if (newTapBalance >= 500000 && newTapBalance < 1000000) {
       newLevel = { id: 2, name: "Light", imgUrl: "/light.png", imgTap: "/coin-2.png", imgBoost: "/coins-2.png" };
-    } else if (newTapBalance >= 50000 && newTapBalance < 500000) {
+    } else if (newTapBalance >= 1000000 && newTapBalance < 2000000) {
       newLevel = { id: 3, name: "Blaze", imgUrl: "/blaze.png", imgTap: "/coin-3.png", imgBoost: "/coins-3.png" };
-    } else if (newTapBalance >= 500000 && newTapBalance < 1000000) {
+    } else if (newTapBalance >= 2000000 && newTapBalance < 4000000) {
       newLevel = { id: 4, name: "Flame", imgUrl: "/flame.png", imgTap: "/coin-4.png", imgBoost: "/coins-4.png" };
-    } else if (newTapBalance >= 1000000 && newTapBalance < 2500000) {
+    } else if (newTapBalance >= 4000000 && newTapBalance < 8000000) {
       newLevel = { id: 5, name: "Hot", imgUrl: "/hot.png", imgTap: "/coin-5.png", imgBoost: "/coins-5.png" };
-    } else if (newTapBalance >= 2500000) {
+    } else if (newTapBalance >= 8000000 && newTapBalance < 25000000) {
       newLevel = { id: 6, name: "Burning", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
+    } else if (newTapBalance >= 25000000 && newTapBalance < 50000000) {
+      newLevel = { id: 7, name: "Burning1", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
+    } else if (newTapBalance >= 50000000 && newTapBalance < 100000000) {
+      newLevel = { id: 8, name: "Burning2", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
+    } else if (newTapBalance >= 100000000 && newTapBalance < 1000000000) {
+      newLevel = { id: 9, name: "Burning3", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
+    } else if (newTapBalance >= 1000000000 && newTapBalance < 10000000000) {
+      newLevel = { id: 10, name: "Burning4", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
+    } else if (newTapBalance >= 10000000000) {
+      newLevel = { id: 11, name: "Burning5", imgUrl: "/burning.png", imgTap: "/coin-6.png", imgBoost: "/coins-6.png" };
     }
+    
 
     if (newLevel.id !== level.id) {
       setLevel(newLevel);
