@@ -382,9 +382,9 @@ const Plutos = () => {
           <div className="w-full flex justify-center flex-col overflow-hidden">
           <div className="flex flex-row justify-center items-center mb-2">
   <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2">
-    Welcome, {name}
+  Welcome<br />{name}
   </div>
-  <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2">
+  <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2">
     Earn per tap +{tapValue.value}
   </div>
   <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2">
