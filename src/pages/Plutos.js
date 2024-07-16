@@ -418,7 +418,7 @@ const Plutos = () => {
                 <div className="before"></div>
                 <div className="after"></div>
               </div>
-              <div className="w-[350px] h-[350px] relative flex items-center justify-center">
+              <div className="w-[350px] h-[350px] relative flex items-center justify-center mb-[100px]">
                 <img
                   src="/lihgt.gif"
                   alt="err"
