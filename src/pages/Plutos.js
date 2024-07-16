@@ -41,7 +41,7 @@ const Container = styled.div`
   text-align: center;
   width: 100%;
   height: 100%;
-  margin-bottom:40px;
+  margin-bottom:100px;
 `;
 
 const Plutos = () => {
