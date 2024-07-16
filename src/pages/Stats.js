@@ -13,9 +13,11 @@ const { totalCount, dividedCount, users, dividedUsers } = useUser();
     if (num < 100000) {
       return new Intl.NumberFormat().format(num).replace(/,/g, " ");
     } else if (num < 1000000) {
-      return new Intl.NumberFormat().format(num).replace(/,/g, " ") + " K";
+      // return new Intl.NumberFormat().format(num).replace(/,/g, " ") + " K";
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
     } else {
-      return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+      // return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
     }
   };
 

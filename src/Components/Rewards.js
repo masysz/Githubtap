@@ -52,7 +52,8 @@ const ReferralRewards = () => {
         } else if (num < 10000000) {
             return new Intl.NumberFormat().format(num).replace(/,/g, " ");
           } else {
-          return (num / 10000000).toFixed(3).replace(".", ".") + " T";
+          // return (num / 10000000).toFixed(3).replace(".", ".") + " T";
+          return new Intl.NumberFormat().format(num).replace(/,/g, " ");
         }
       };
 
