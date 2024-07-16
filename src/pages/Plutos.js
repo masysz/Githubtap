@@ -41,6 +41,7 @@ const Container = styled.div`
   text-align: center;
   width: 100%;
   height: 100%;
+  margin-bottom:20px;
 `;
 
 const Plutos = () => {
@@ -475,7 +476,7 @@ const Plutos = () => {
                 </div>
                 <div className="flex w-full p-[4px] h-[20px] items-center bg-energybar rounded-[12px] border-[1px] border-borders2">
                   <div
-                    className="bg-[#e39725] h-full rounded-full transition-width duration-100"
+                    className="bg-[#9d0000] h-full rounded-full transition-width duration-100"
                     style={{ width: `${energyPercentage}%` }}
                   ></div>
                 </div>
