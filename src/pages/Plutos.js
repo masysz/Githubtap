@@ -380,8 +380,8 @@ const Plutos = () => {
       ) : (
         <Animate>
           <div className="w-full flex justify-center flex-col overflow-hidden">
-          <div className="flex flex-col items-center mb-2">
-  <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2 mb-1">
+          <div className="flex flex-row justify-center items-center mb-2">
+  <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2">
     Welcome, {name}
   </div>
   <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2">
