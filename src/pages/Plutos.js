@@ -385,7 +385,10 @@ const Plutos = () => {
     Welcome, {name}
   </div>
   <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2">
-    earn per tap +{tapValue.value}
+    Earn per tap +{tapValue.value}
+  </div>
+  <div className="bg-[#000] text-[#fff] text-[12px] font-extrabold text-center p-2">
+    Booster per tap +{tapValue.value * 5}
   </div>
 </div>
 
