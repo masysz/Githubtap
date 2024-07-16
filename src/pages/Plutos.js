@@ -92,7 +92,9 @@ const Plutos = () => {
   const handleClick = (e) => {
 
     // Play the sound
-    play();
+    if (tapValue.value > 0) {
+      play();
+    }
     triggerHapticFeedback();
 
     if (energy <= 0 || isDisabled || isUpdatingRef.current) {
