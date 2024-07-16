@@ -114,6 +114,15 @@ body{
   }
 }
 
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .spinner {
   width: 160px;
   height: 160px;
@@ -129,7 +138,6 @@ body{
 
 .spin1 {
   width: 140px;
-  border: 10px solid transparent;
   height: 140px;
   position: relative;
   border-radius: 50%;
@@ -139,91 +147,51 @@ body{
   animation: spin 1.8s linear infinite;
 }
 
-.spin2 {
-  border: 10px solid transparent;
+.flame {
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 20px;
+  height: 50px;
+  background: linear-gradient(0deg, #ff4500, #ff8c00);
   border-radius: 50%;
-  border-left-color: #ff4500; /* Bright orange color */
+  transform-origin: bottom center;
+  animation: flicker 0.5s infinite alternate;
 }
 
-.spin3 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-right-color: #ff6347; /* Tomato color */
-  transform: rotate(70deg);
-  z-index: 10;
+.flame1 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  animation-delay: 0s;
 }
 
-.spin4 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-right-color: #ff8c00; /* Dark orange color */
-  transform: rotate(140deg);
-  z-index: 10;
+.flame2 {
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, -100%) rotate(45deg);
+  animation-delay: 0.1s;
 }
 
-.spin5 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-top-color: #ffa500; /* Orange color */
-  transform: rotate(210deg);
-  z-index: 20;
+.flame3 {
+  top: 20%;
+  left: 40%;
+  transform: translate(-50%, -100%) rotate(-45deg);
+  animation-delay: 0.2s;
 }
 
-.spin6 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-top-color: #ff6347; /* Tomato color */
-  transform: rotate(280deg);
-  z-index: 20;
+.flame4 {
+  top: 25%;
+  left: 70%;
+  transform: translate(-50%, -100%) rotate(90deg);
+  animation-delay: 0.3s;
 }
 
-.spin7 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-top-color: #ff4500; /* Bright orange color */
-  transform: rotate(32deg);
-  z-index: 30;
+.flame5 {
+  top: 25%;
+  left: 30%;
+  transform: translate(-50%, -100%) rotate(-90deg);
+  animation-delay: 0.4s;
 }
 
-.spin8 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-top-color: #ff6347; /* Tomato color */
-  transform: rotate(-28deg);
-  z-index: 30;
-}
-
-.spin9 {
-  border: 10px solid transparent;
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border-top-color: #ff8c00; /* Dark orange color */
-  transform: rotate(41deg);
-  z-index: 25;
-}
 
 
 .taskbg{
