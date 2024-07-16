@@ -661,7 +661,7 @@ const Boost = () => {
                 </button>
 
                 {/*  */}
-                <button
+                {/* <button
                   onClick={() => setBot(true)}
                   className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center"
                 >
@@ -680,14 +680,14 @@ const Boost = () => {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/*  */}
 
-                  <div className="">
+                  {/* <div className="">
                     <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
                   </div>
-                </button>
+                </button> */}
 
                 {/*  */}
               </div>
