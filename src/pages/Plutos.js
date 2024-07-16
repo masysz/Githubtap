@@ -189,7 +189,9 @@ const Plutos = () => {
   }, 1000); // Set the inactivity period to 3 seconds (adjust as needed)
 };
   const handleClickGuru = (e) => {
-    play2();
+    if (tapValue.value > 0) {
+      play2();
+    }
     triggerHapticFeedback();
 
     if (energy <= 0 || isDisabled || isUpdatingRef.current) {
