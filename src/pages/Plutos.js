@@ -381,13 +381,13 @@ const Plutos = () => {
         <Animate>
           <div className="w-full flex justify-center flex-col overflow-hidden">
           <div className="flex flex-row justify-center items-center mb-2">
-  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px]">
+  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px] shadow-lg shadow-white/50">
   Welcome<br />{name}
   </div>
-  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px]">
+  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px] shadow-lg shadow-white/50">
     Earn per tap:<br /> +{tapValue.value}
   </div>
-  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 rounded-[10px]">
+  <div className="bg-[#6b0003] text-[#fff] text-[12px] font-extrabold text-center p-2 rounded-[10px] shadow-lg shadow-white/50">
     Booster per tap:<br /> +{tapValue.value * 5}
   </div>
 </div>
