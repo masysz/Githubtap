@@ -485,7 +485,7 @@ const Boost = () => {
                     </div>
 
                     <div className="flex flex-1 flex-col text-left">
-                      <span className="font-semibold tapguru">Full Tank</span>
+                      <span className="font-semibold tapguru">Full Energy</span>
                       {fullTank> 0 ? (
    <span className="font-medium tapguru2">{fullTank}/3</span>
                       ) : (
@@ -701,7 +701,7 @@ const Boost = () => {
             <div
               className={`${
                 isUpgradeModalVisible  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 border-8 border-red-500`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
