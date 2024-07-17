@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import Animate from "../Components/Animate";
 import { Outlet, useNavigate } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
-import gastank from "../images/baterai1.png";
-import battery3 from "../images/energylimit.png";
-import multi from "../images/multitap1.png";
-import flash from "../images/flash1.png";
+import gastank from "../images/baterai1.webp";
+import battery3 from "../images/energylimit.webp";
+import multi from "../images/multitap1.webp";
+import flash from "../images/flash1.webp";
 import botr from "../images/bott.webp";
-import boost from "../images/booster2.png";
+import boost from "../images/booster2.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust the path as needed

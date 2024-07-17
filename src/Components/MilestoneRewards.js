@@ -7,17 +7,17 @@ import congratspic from "../images/celebrate.gif";
 import coinsmall from "../images/coinsmall.webp";
 
 const milestones = [
-  { name: 'Warm', icon: '/warm.png', tapBalanceRequired: 500000, reward: 50000 },
-  { name: 'Light', icon: '/light.png', tapBalanceRequired: 1000000, reward: 100000 },
-  { name: 'Blaze', icon: '/blaze.png', tapBalanceRequired: 2000000, reward: 250000 },
-  { name: 'Flame', icon: '/flame.png', tapBalanceRequired: 4000000, reward: 500000 },
-  { name: 'Hot', icon: '/hot.png', tapBalanceRequired: 8000000, reward: 1000000 },
-  { name: 'Burning', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 1500000 },
-  { name: 'Burning1', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning2', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning3', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning4', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning5', icon: '/burning.png', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'Warm', icon: '/warm.webp', tapBalanceRequired: 500000, reward: 50000 },
+  { name: 'Light', icon: '/light.webp', tapBalanceRequired: 1000000, reward: 100000 },
+  { name: 'Blaze', icon: '/blaze.webp', tapBalanceRequired: 2000000, reward: 250000 },
+  { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000, reward: 500000 },
+  { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000, reward: 1000000 },
+  { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 1500000 },
+  { name: 'Burning1', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'Burning2', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'Burning3', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'Burning4', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'Burning5', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
  ];
 
 const MilestoneRewards = () => {

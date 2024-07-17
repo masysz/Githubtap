@@ -4,17 +4,17 @@ import { useUser } from '../context/userContext';
 
 
 const userLevels = [
-    { name: 'Warm', icon: '/warm.png', tapBalanceRequired: 500000 },
-    { name: 'Light', icon: '/light.png', tapBalanceRequired: 1000000 },
-    { name: 'Blaze', icon: '/blaze.png', tapBalanceRequired: 2000000 },
-    { name: 'Flame', icon: '/flame.png', tapBalanceRequired: 4000000 },
-    { name: 'Hot', icon: '/hot.png', tapBalanceRequired: 8000000 },
-    { name: 'Burning', icon: '/burning.png', tapBalanceRequired: 25000000 },
-    { name: 'Burning1', icon: '/burning.png', tapBalanceRequired: 50000000 },
-    { name: 'Burning2', icon: '/burning.png', tapBalanceRequired: 100000000 },
-    { name: 'Burning3', icon: '/burning.png', tapBalanceRequired: 1000000000 },
-    { name: 'Burning4', icon: '/burning.png', tapBalanceRequired: 10000000000 },
-    { name: 'Burning5', icon: '/burning.png', tapBalanceRequired: 20000000000 },
+    { name: 'Warm', icon: '/warm.webp', tapBalanceRequired: 500000 },
+    { name: 'Light', icon: '/light.webp', tapBalanceRequired: 1000000 },
+    { name: 'Blaze', icon: '/blaze.webp', tapBalanceRequired: 2000000 },
+    { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000 },
+    { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000 },
+    { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000 },
+    { name: 'Burning1', icon: '/burning.webp', tapBalanceRequired: 50000000 },
+    { name: 'Burning2', icon: '/burning.webp', tapBalanceRequired: 100000000 },
+    { name: 'Burning3', icon: '/burning.webp', tapBalanceRequired: 1000000000 },
+    { name: 'Burning4', icon: '/burning.webp', tapBalanceRequired: 10000000000 },
+    { name: 'Burning5', icon: '/burning.webp', tapBalanceRequired: 20000000000 },
   ];
   
   

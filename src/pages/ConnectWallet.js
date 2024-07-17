@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-import tonwallet from "../images/tonwallet.png";
+import tonwallet from "../images/tonwallet.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
 import { useUser } from "../context/userContext";
