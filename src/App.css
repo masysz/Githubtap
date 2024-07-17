@@ -245,5 +245,9 @@ body{
 }
 
 .custom-shadow {
-  box-shadow: 0 -4px 10px 0 rgba(255, 0, 0, 0.5);
+  box-shadow: 
+    0 -4px 10px 0 rgba(255, 0, 0, 0.5),
+    0 -4px 20px 0 rgba(255, 0, 0, 0.3),
+    0 -4px 30px 0 rgba(255, 0, 0, 0.2);
 }
+
