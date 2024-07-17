@@ -9,6 +9,7 @@ import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import "../App.css"; // Pastikan file CSS Anda terimport
 import Spinner from '../Components/Spinner';
+import Animate from '../Components/Animate';
 
 const Connect = () => {
     const { id, taskCompleted, setTaskCompleted, loading } = useUser();
