@@ -14,6 +14,7 @@ import { db } from '../firebase'; // Adjust the path as needed
 import { useUser } from "../context/userContext";
 import { IoClose } from "react-icons/io5";
 import { IoCheckmarkCircle } from "react-icons/io5";
+import Spinner from '../Components/Spinner';
 
 
 
@@ -176,7 +177,7 @@ const chargingUpgradeCosts = [0, 2000, 30000, 100000, 200000];
 
 const Boost = () => {
 
-  const { balance, id, freeGuru, refiller, setRefiller, setFreeGuru, setTapGuru, fullTank, setFullTank, setMainTap, startTimer, timeRefill, setTimeRefill, tapValue, setTapValue, battery, setEnergy, setBattery, setBalance, refBonus } = useUser();
+  const { balance, id, freeGuru, refiller, setRefiller, setFreeGuru, setTapGuru, fullTank, setFullTank, setMainTap, startTimer, timeRefill, setTimeRefill, tapValue, setTapValue, battery, setEnergy, setBattery, setBalance, refBonus, loading } = useUser();
   const [openInfo, setOpenInfo] = useState(false);
   const [openInfoTwo, setOpenInfoTwo] = useState(false);
   const [isUpgradeModalVisible, setIsUpgradeModalVisible] = useState(false);

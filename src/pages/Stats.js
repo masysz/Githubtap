@@ -3,10 +3,11 @@ import Animate from "../Components/Animate";
 import { Outlet } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
 import { useUser } from "../context/userContext";
+import Spinner from '../Components/Spinner';
 
 const Stats = () => {
   // eslint-disable-next-line
-const { totalCount, dividedCount, users, dividedUsers } = useUser();
+const { totalCount, dividedCount, users, dividedUsers, loading } = useUser();
 
 
   const formatNumber = (num) => {

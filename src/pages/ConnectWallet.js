@@ -8,9 +8,10 @@ import { useUser } from "../context/userContext";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import "../App.css"; // Pastikan file CSS Anda terimport
+import Spinner from '../Components/Spinner';
 
 const Connect = () => {
-    const { id, taskCompleted, setTaskCompleted } = useUser();
+    const { id, taskCompleted, setTaskCompleted, loading } = useUser();
     const taskID = "connect_3000"; // Assign a unique ID to this task
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
