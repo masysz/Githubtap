@@ -713,7 +713,7 @@ const Boost = () => {
 
 
                 <div className="w-full flex justify-center flex-col items-center">
-                  <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center">
+                  <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center shadow-lg shadow-red/50">
                     <img alt="claim" src={multi} className="w-[80px]" />
                   </div>
                   <h3 className="font-semibold text-[32px] py-4">
