@@ -753,7 +753,7 @@ const Boost = () => {
             <div
               className={`${
                 isUpgradeModalVisibleEn  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
@@ -805,7 +805,7 @@ const Boost = () => {
             <div
               className={`${
                 isUpgradeModalVisibleEnc  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
@@ -858,7 +858,7 @@ const Boost = () => {
             <div
               className={`${
                 guru  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
@@ -909,7 +909,7 @@ const Boost = () => {
             <div
               className={`${
                 tank  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
@@ -925,7 +925,7 @@ const Boost = () => {
                     <img alt="claim" src={gastank} className="w-[80px]" />
                   </div>
                   <h3 className="font-semibold text-[32px] py-4">
-                Full Tank
+                Full Energy
                   </h3>
                   <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
                 Fill your energy to the max
