@@ -896,7 +896,7 @@ const Boost = () => {
                   <button
                                         onClick={handleTapGuru}
                                        
-                    className={`bg-gradient-to-b gradient from-[#ffba4c] to-[#aa6900] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                    className={`bg-gradient-to-b gradient from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
                    Go ahead!
                   </button>
@@ -947,7 +947,7 @@ const Boost = () => {
                   <button
                                         onClick={handleFullTank}
                                        
-                    className={`bg-gradient-to-b gradient from-[#ffba4c] to-[#aa6900] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                    className={`bg-gradient-to-b gradient from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
                    Go ahead!
                   </button>
