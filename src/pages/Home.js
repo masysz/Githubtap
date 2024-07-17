@@ -4,13 +4,11 @@ import "../App.css";
 import "../fire.scss";
 import { AnimatePresence } from "framer-motion";
 import Footer from "../Components/Footer";
-import { UserProvider, useUser } from "../context/userContext";
-import Spinner from '../Components/Spinner';
+import { UserProvider } from "../context/userContext";
 
 
 const tele = window.Telegram.WebApp;
 const Home = () => {
-  const { loading } = useUser();
 
   useEffect(() => {
     const handleContextMenu = (event) => event.preventDefault();
@@ -48,9 +46,7 @@ const Home = () => {
 
   return (
 <>
-{loading ? (
-        <Spinner />
-      ) : (
+
 <div className="w-full flex justify-center">
         <div className="w-full flex justify-center">
           <div className="flex flex-col pt-8 space-y-3 w-full">
@@ -80,7 +76,6 @@ const Home = () => {
            </div>
            </div>
            </div>
-           )}
            </>
   );
 };
