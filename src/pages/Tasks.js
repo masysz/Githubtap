@@ -259,9 +259,9 @@ const levelsAction = () => {
             </div>
 
 
-            <div className='!mt-[80px] w-full h-[60vh] flex flex-col overflow-y-auto overflow-x-auto'>
+            <div className='!mt-[80px] w-full h-[60vh] flex flex-col'>
 
-            <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+            <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2 overflow-y-auto`}>
 
                 <div onClick={taskOne} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
 
