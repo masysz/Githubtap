@@ -31,7 +31,9 @@ const { totalCount, dividedCount, users, dividedUsers } = useUser();
 
   return (
     <>
-
+{loading ? (
+        <Spinner />
+      ) : (
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="fixed top-0 left-0 right-0 pt-8 px-5">
@@ -92,7 +94,7 @@ const { totalCount, dividedCount, users, dividedUsers } = useUser();
           </div>
           <Outlet />
         </Animate>
- 
+ )}
     </>
   );
 };

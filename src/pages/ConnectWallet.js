@@ -84,6 +84,10 @@ const Connect = () => {
 
     return (
         <>
+        {loading ? (
+        <Spinner />
+      ) : (
+        <Animate>
             <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center">
                 <div className="flex flex-1 items-center space-x-2">
                     <div>
@@ -153,6 +157,8 @@ const Connect = () => {
             </div>
 
             <Outlet />
+            </Animate>
+        )}
         </>
     );
 };

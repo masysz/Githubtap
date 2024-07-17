@@ -420,9 +420,9 @@ const Boost = () => {
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <Spinner />
-      ) : ( */}
+      ) : (
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
@@ -1045,7 +1045,7 @@ const Boost = () => {
           </div>
           <Outlet />
         </Animate>
-      {/* )} */}
+      )}
     </>
   );
 };
