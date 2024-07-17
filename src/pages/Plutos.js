@@ -376,9 +376,7 @@ const Plutos = () => {
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
+      
         <Animate>
           <div className="w-full flex justify-center flex-col overflow-hidden">
           <div className="flex flex-row justify-center items-center mb-2">
@@ -485,7 +483,7 @@ const Plutos = () => {
             <Levels showLevels={showLevels} setShowLevels={setShowLevels} />
           </div>
         </Animate>
-      )}
+      
     </>
   );
 };

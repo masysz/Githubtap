@@ -46,7 +46,9 @@ const Home = () => {
 
   return (
 <>
-
+{loading ? (
+        <Spinner />
+      ) : (
 <div className="w-full flex justify-center">
         <div className="w-full flex justify-center">
           <div className="flex flex-col pt-8 space-y-3 w-full">
@@ -71,11 +73,12 @@ const Home = () => {
             <div id="footermain" className={`flex flex-col bg-[#1a1f2e] space-y-6 fixed bottom-0 py-6 left-0 right-0 justify-center items-center px-5`}>
 
 
-           {/* <Footer/> */}
+           <Footer/>
            </div>
            </div>
            </div>
            </div>
+           )}
            </>
   );
 };
