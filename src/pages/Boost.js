@@ -701,7 +701,7 @@ const Boost = () => {
             <div
               className={`${
                 isUpgradeModalVisible  === true ? "visible" : "invisible"
-              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5`}
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 border-2 border-red-500`}
             >
               <div className="w-full flex flex-col justify-between py-8">
               <button
