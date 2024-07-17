@@ -3,7 +3,7 @@ import ref from "../images/ref4.webp";
 import boost from "../images/booster2.webp";
 import tasks from "../images/tasks2.webp";
 import stats from "../images/stats.webp";
-import tonwallet from "../images/tonwallet.webp";
+import tonwallet from "../images/wallet2.webp";
 import coinsmall from "../images/coins-6.webp";
 import { NavLink } from "react-router-dom";
 

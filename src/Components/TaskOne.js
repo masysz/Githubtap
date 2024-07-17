@@ -68,7 +68,7 @@ const TaskOne = ({ showModal, setShowModal }) => {
 
 
   const handleTaskLinkClick = () => {
-    window.open("https://t.me/teteknibos");
+    window.open("https://t.me/geto_spirit_announcement");
 
     setTimeout(() => {
       setShowTaskButton(false);
@@ -85,7 +85,7 @@ const TaskOne = ({ showModal, setShowModal }) => {
     }
 
     const response = await fetch(
-      `https://api.telegram.org/bot7436444125:AAGB8IwBNOvRbpW-AjR0HPvMOC0qGSTnILU/getChatMember?chat_id=@teteknibos&user_id=${id}`
+      `https://api.telegram.org/bot7436444125:AAGB8IwBNOvRbpW-AjR0HPvMOC0qGSTnILU/getChatMember?chat_id=@geto_spirit_announcement&user_id=${id}`
     );
     const data = await response.json();
 
