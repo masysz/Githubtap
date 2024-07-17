@@ -737,13 +737,17 @@ const Boost = () => {
                 </div>
 
                 <div className="w-full flex justify-center pb-6 pt-4">
-                  <button
-                                       onClick={handleUpgrade}
-                                       disabled={!hasSufficientBalance}
-                    className={`${!hasSufficientBalance ? 'bg-btn2 text-[#979797]' : 'bg-gradient-to-b gradient from-[#ffba4c] to-[#aa6900]'} w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                  >
-                    {isUpgrading ? 'Boosting...' : hasSufficientBalance ? 'Get it!' : 'Insufficient Balance'}
-                  </button>
+                <button
+  onClick={handleUpgrade}
+  disabled={!hasSufficientBalance}
+  className={`${!hasSufficientBalance ? 'bg-btn2 text-[#979797]' : 'w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]'}`}
+  style={{
+    background: hasSufficientBalance ? 'linear-gradient(180deg, rgba(15,0,42,1) 6%, rgba(121,9,49,1) 75%, rgba(255,59,0,1) 89%)' : undefined
+  }}
+>
+  {isUpgrading ? 'Boosting...' : hasSufficientBalance ? 'Get it!' : 'Insufficient Balance'}
+</button>
+
                 </div>
               </div>
             </div>
@@ -898,7 +902,7 @@ const Boost = () => {
                                        
                     className={`bg-gradient-to-b gradient from-[#ffba4c] to-[#aa6900] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
-                   Get it!
+                   Go ahead!
                   </button>
                 </div>
               </div>
@@ -949,7 +953,7 @@ const Boost = () => {
                                        
                     className={`bg-gradient-to-b gradient from-[#ffba4c] to-[#aa6900] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
-                   Get it!
+                   Go ahead!
                   </button>
                 </div>
               </div>
