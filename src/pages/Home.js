@@ -4,11 +4,13 @@ import "../App.css";
 import "../fire.scss";
 import { AnimatePresence } from "framer-motion";
 import Footer from "../Components/Footer";
-import { UserProvider } from "../context/userContext";
+import { UserProvider, useUser } from "../context/userContext";
+import Spinner from '../Components/Spinner';
 
 
 const tele = window.Telegram.WebApp;
 const Home = () => {
+  const { loading } = useUser();
 
   useEffect(() => {
     const handleContextMenu = (event) => event.preventDefault();
