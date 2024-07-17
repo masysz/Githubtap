@@ -1,10 +1,10 @@
 import React from "react";
-import ref from "../images/ref1.png";
-import boost from "../images/booster2.png";
-import tasks from "../images/tasks2.png";
+import ref from "../images/ref4.webp";
+import boost from "../images/booster2.webp";
+import tasks from "../images/tasks2.webp";
 import stats from "../images/stats.webp";
-import tonwallet from "../images/wallet2.png";
-import coinsmall from "../images/coins-6.png";
+import tonwallet from "../images/tonwallet.webp";
+import coinsmall from "../images/coins-6.webp";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
