@@ -133,10 +133,14 @@ const Tasks = () => {
 
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
-                          onClick={clickLink}
-                          className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
+                          disabled={hasWatched}
+                          className={`${
+                            hasWatched
+                              ? 'bg-gray-400 cursor-not-allowed' // Style for disabled state
+                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
+                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                         >
-                          {hasWatched ? 'Check' : 'Watch'}
+                          {hasWatched ? 'Watched' : 'Check'}
                         </button>
                       </div>
 
