@@ -321,15 +321,15 @@ export const UserProvider = ({ children }) => {
     } else if (newTapBalance >= 8000000 && newTapBalance < 25000000) {
       newLevel = { id: 6, name: "Burning", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
     } else if (newTapBalance >= 25000000 && newTapBalance < 50000000) {
-      newLevel = { id: 7, name: "Burning1", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 7, name: "OnFire", imgUrl: "/onfire.webp", imgTap: "/coin-7.webp", imgBoost: "/coins-7.webp" };
     } else if (newTapBalance >= 50000000 && newTapBalance < 100000000) {
-      newLevel = { id: 8, name: "Burning2", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 8, name: "Scorch", imgUrl: "/scorch.webp", imgTap: "/coin-8.webp", imgBoost: "/coins-8.webp" };
     } else if (newTapBalance >= 100000000 && newTapBalance < 1000000000) {
-      newLevel = { id: 9, name: "Burning3", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 9, name: "Broiling", imgUrl: "/broiling.webp", imgTap: "/coin-9.webp", imgBoost: "/coins-9.webp" };
     } else if (newTapBalance >= 1000000000 && newTapBalance < 10000000000) {
-      newLevel = { id: 10, name: "Burning4", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 10, name: "Eternal", imgUrl: "/eternal.webp", imgTap: "/coin-10.webp", imgBoost: "/coins-10.webp" };
     } else if (newTapBalance >= 10000000000) {
-      newLevel = { id: 11, name: "Burning5", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 11, name: "Hellfire", imgUrl: "/hellfire.webp", imgTap: "/coin-11.webp", imgBoost: "/coins-11.webp" };
     }
     
 

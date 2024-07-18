@@ -13,11 +13,11 @@ const milestones = [
   { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000, reward: 500000 },
   { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000, reward: 1000000 },
   { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 1500000 },
-  { name: 'Burning1', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning2', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning3', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning4', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
-  { name: 'Burning5', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 250000 },
+  { name: 'OnFire', icon: '/onfire.webp', tapBalanceRequired: 75000000, reward: 1750000 },
+  { name: 'Scorch', icon: '/scorch.webp', tapBalanceRequired: 150000000, reward: 2000000 },
+  { name: 'Broiling', icon: '/broiling.webp', tapBalanceRequired: 250000000, reward: 2500000 },
+  { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 500000000, reward: 3000000 },
+  { name: 'Hellfire', icon: '/hellfire.webp', tapBalanceRequired: 1000000000, reward: 3500000 },
  ];
 
 const MilestoneRewards = () => {
