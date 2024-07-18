@@ -13,6 +13,7 @@ import facebookicon from "../images/facebook.png";
 import instagramicon from "../images/instagram.png";
 import tiktokicon from "../images/tiktok.png";
 import { useUser } from "../context/userContext";
+import MilestoneRewards from '../Components/MilestoneRewards';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
