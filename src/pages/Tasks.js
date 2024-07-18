@@ -15,7 +15,7 @@ import tiktokicon from "../images/tiktok.png";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { loading } = useUser();
   const [isopenModalVisible, setIsopenModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
