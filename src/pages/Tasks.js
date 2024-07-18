@@ -6,12 +6,12 @@ import { collection, query, onSnapshot } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
-import youtubeicon from "../images/youtube.gif";
-import telegramicon from "../images/telegram.gif";
-import twittericon from "../images/twitter.gif";
-import facebookicon from "../images/facebook.gif";
-import instagramicon from "../images/instagram.gif";
-import tiktokicon from "../images/tiktok.gif";
+import youtubeicon from "../images/youtube.png";
+import telegramicon from "../images/telegram.png";
+import twittericon from "../images/twitter.png";
+import facebookicon from "../images/facebook.png";
+import instagramicon from "../images/instagram.png";
+import tiktokicon from "../images/tiktok.png";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -50,9 +50,12 @@ const Tasks = () => {
   };
 
   const clickLink = () => {
-    // Logic to handle link click
-    setHasWatched(true);
+    if (selectedTask && selectedTask.link) {
+      window.open(selectedTask.link, '_blank');
+      setHasWatched(true); // Assuming you want to update `hasWatched` after the link is opened
+    }
   };
+  
 
   const getImage = (icon) => {
     switch (icon) {
