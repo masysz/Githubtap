@@ -46,36 +46,46 @@ const Tasks = () => {
   };
 
   const claimPoints = async () => {
-    if (watchedTasks[selectedTask.id]) {
-      setIsClaiming(true);
+    if (!watchedTasks[selectedTask.id]) {
+      console.error('Task not watched yet.');
+      return;
+    }
+    
+    setIsClaiming(true);
+    
+    try {
+      // Update balance and claimed status
       const newBalance = balance + selectedTask.points;
       const newBalanceTap = tapBalance + selectedTask.points;
-
-      try {
-        const userRef = doc(db, 'telegramUsers', id);
-        await updateDoc(userRef, {
-          balance: newBalance,
-          tapBalance: newBalanceTap,
-          claimedWatch: [...claimedWatch, selectedTask.id],
-        });
-        setBalance(newBalance);
-        setTapBalance(newBalanceTap);
-        setClaimedWatch([...claimedWatch, selectedTask.id]);
-        setCongrats(true);
-
-        setTimeout(() => {
-          setCongrats(false);
-        }, 4000);
-      } catch (error) {
-        console.error('Error claiming reward:', error);
-      } finally {
-        setHasClaimed(true);
-        setIsClaiming(false);
-      }
-    } else {
-      console.error('Task has not been watched yet');
+      
+      const userRef = doc(db, 'telegramUsers', id);
+      await updateDoc(userRef, {
+        balance: newBalance,
+        tapBalance: newBalanceTap,
+        claimedWatch: [...claimedWatch, selectedTask.id],
+      });
+      
+      // Update local state
+      setBalance(newBalance);
+      setTapBalance(newBalanceTap);
+      setClaimedWatch([...claimedWatch, selectedTask.id]);
+      setHasClaimed(true);
+      
+      // Show congratulations message
+      setCongrats(true);
+      setTimeout(() => {
+        setCongrats(false);
+      }, 4000);
+      
+      // Close modal after successful claim
+      setIsopenModalVisible(false);
+    } catch (error) {
+      console.error('Error claiming reward:', error);
+    } finally {
+      setIsClaiming(false);
     }
   };
+  
 
   const clickLink = () => {
     if (selectedTask && selectedTask.link) {
