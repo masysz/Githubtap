@@ -20,6 +20,7 @@ const Tasks = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
+  const [hasWatched, setHasWatched] = useState(false); // Assuming you have this state
 
   useEffect(() => {
     const q = query(collection(db, 'tasks'));
@@ -48,12 +49,25 @@ const Tasks = () => {
     setIsClaiming(false);
   };
 
+  const clickLink = () => {
+    // Logic to handle link click
+    setHasWatched(true);
+  };
+
   const getImage = (icon) => {
     switch (icon) {
       case 'youtube':
         return youtubeicon;
       case 'telegram':
         return telegramicon;
+      case 'twitter':
+        return twittericon;
+      case 'facebook':
+        return facebookicon;
+      case 'instagram':
+        return instagramicon;
+      case 'tiktok':
+        return tiktokicon;
       default:
         return null; // Return a default image or null if no match is found
     }
@@ -82,7 +96,7 @@ const Tasks = () => {
                       <div className="flex items-center space-x-1">
                         <img src={coinsmall} className="w-[20px]" alt="coin" />
                         <span className="font-medium flex items-center text-[15px]">
-                          {task.points}
+                          +{task.points}
                         </span>
                       </div>
                     </div>
@@ -114,26 +128,35 @@ const Tasks = () => {
                         {selectedTask.desc}
                       </p>
 
+                      <div className="w-full flex justify-center pb-6 pt-4">
+                        <button
+                          onClick={clickLink}
+                          className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
+                        >
+                          {hasWatched ? 'Watch' : 'Check'}
+                        </button>
+                      </div>
+
                       <div className="flex flex-1 items-center space-x-2">
                         <img src={coinsmall} className="w-[25px]" alt="Coin Icon" />
                         <div className="font-bold text-[26px] flex items-center">
-                          {selectedTask.points}
+                          +{selectedTask.points}
                         </div>
                       </div>
-                    </div>
 
-                    <div className="w-full flex justify-center pb-6 pt-4">
-                      <button
-                        onClick={claimPoints}
-                        disabled={!hasClaimed}
-                        className={`${
-                          !hasClaimed
-                            ? 'bg-btn2 text-[#979797]'
-                            : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
-                        } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                      >
-                        {isClaiming ? 'Claiming...' : hasClaimed ? 'Go ahead!' : 'Claim'}
-                      </button>
+                      <div className="w-full flex justify-center pb-6 pt-4">
+                        <button
+                          onClick={claimPoints}
+                          disabled={!hasClaimed}
+                          className={`${
+                            !hasClaimed
+                              ? 'bg-btn2 text-[#979797]'
+                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
+                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                        >
+                          {isClaiming ? 'Claiming...' : hasClaimed ? 'Go ahead!' : 'Claim'}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
