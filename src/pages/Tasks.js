@@ -133,7 +133,7 @@ const Tasks = () => {
                           onClick={clickLink}
                           className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
                         >
-                          {hasWatched ? 'Watch' : 'Check'}
+                          {hasWatched ? 'Check' : 'Watch'}
                         </button>
                       </div>
 
