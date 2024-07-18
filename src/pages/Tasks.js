@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Animate from '../Components/Animate';
 import coinsmall from "../images/coinsmall.webp";
 import { db } from '../firebase';
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
+import { IoCheckmarkCircle } from 'react-icons/io5';
 import youtubeicon from "../images/youtube.png";
 import telegramicon from "../images/telegram.png";
 import twittericon from "../images/twitter.png";
@@ -14,15 +15,17 @@ import instagramicon from "../images/instagram.png";
 import tiktokicon from "../images/tiktok.png";
 import { useUser } from "../context/userContext";
 import MilestoneRewards from '../Components/MilestoneRewards';
+import congratspic from "../images/celebrate.gif";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
-  const { loading } = useUser();
+  const { tapBalance, setTapBalance, balance, setBalance, id, claimedWatch, setClaimedWatch, loading } = useUser();
   const [isopenModalVisible, setIsopenModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
   const [watchedTasks, setWatchedTasks] = useState({});
+  const [congrats, setCongrats] = useState(false);
 
   useEffect(() => {
     const q = query(collection(db, 'tasks'));
@@ -42,12 +45,36 @@ const Tasks = () => {
     setIsopenModalVisible(true);
   };
 
-  const claimPoints = () => {
-    setIsClaiming(true);
-    // Add logic to claim points
-    // After claiming
-    setHasClaimed(true);
-    setIsClaiming(false);
+  const claimPoints = async () => {
+    if (watchedTasks[selectedTask.id]) {
+      setIsClaiming(true);
+      const newBalance = balance + selectedTask.points;
+      const newBalanceTap = tapBalance + selectedTask.points;
+
+      try {
+        const userRef = doc(db, 'telegramUsers', id);
+        await updateDoc(userRef, {
+          balance: newBalance,
+          tapBalance: newBalanceTap,
+          claimedWatch: [...claimedWatch, selectedTask.name],
+        });
+        setBalance(newBalance);
+        setTapBalance(newBalanceTap);
+        setClaimedWatch([...claimedWatch, selectedTask.name]);
+        setCongrats(true);
+
+        setTimeout(() => {
+          setCongrats(false);
+        }, 4000);
+      } catch (error) {
+        console.error('Error claiming reward:', error);
+      } finally {
+        setHasClaimed(true);
+        setIsClaiming(false);
+      }
+    } else {
+      console.error('Task has not been watched yet');
+    }
   };
 
   const clickLink = () => {
@@ -56,7 +83,6 @@ const Tasks = () => {
       setWatchedTasks(prev => ({ ...prev, [selectedTask.id]: true }));
     }
   };
-  
 
   const getImage = (icon) => {
     switch (icon) {
@@ -73,7 +99,7 @@ const Tasks = () => {
       case 'tiktok':
         return tiktokicon;
       default:
-        return null; // Return a default image or null if no match is found
+        return null;
     }
   };
 
@@ -133,18 +159,17 @@ const Tasks = () => {
                       </p>
 
                       <div className="w-full flex justify-center pb-6 pt-4">
-                      <button
-  onClick={clickLink}
-  disabled={watchedTasks[selectedTask?.id]}
-  className={`${
-    watchedTasks[selectedTask?.id]
-      ? 'bg-gray-400 cursor-not-allowed'
-      : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
-  } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
->
-  {watchedTasks[selectedTask?.id] ? 'Completed' : 'Watch'}
-</button>
-
+                        <button
+                          onClick={clickLink}
+                          disabled={watchedTasks[selectedTask.id]}
+                          className={`${
+                            watchedTasks[selectedTask.id]
+                              ? 'bg-gray-400 cursor-not-allowed'
+                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
+                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                        >
+                          {watchedTasks[selectedTask.id] ? 'Completed' : 'Watch'}
+                        </button>
                       </div>
 
                       <div className="flex flex-1 items-center space-x-2">
@@ -157,9 +182,9 @@ const Tasks = () => {
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
                           onClick={claimPoints}
-                          disabled={!hasClaimed}
+                          disabled={!watchedTasks[selectedTask.id] || isClaiming}
                           className={`${
-                            !hasClaimed
+                            !watchedTasks[selectedTask.id] || isClaiming
                               ? 'bg-btn2 text-[#979797]'
                               : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
                           } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
@@ -171,7 +196,13 @@ const Tasks = () => {
                   </div>
                 </div>
               )}
-              <MilestoneRewards/>
+              <div className={`w-full fixed left-0 right-0 px-4 z-20 ${congrats ? "visible bottom-6" : "invisible bottom-[-10px]"} ease-in duration-300`}>
+                <div className="w-full text-[#54d192] flex items-center space-x-2 px-4 bg-[#121620ef] h-[50px] rounded-[8px]">
+                  <IoCheckmarkCircle size={24} />
+                  <span className="font-medium">Good</span>
+                </div>
+              </div>
+              {/* <MilestoneRewards /> */}
             </div>
           </div>
         </Animate>

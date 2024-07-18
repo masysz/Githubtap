@@ -30,6 +30,7 @@ export const UserProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]); // State to hold completed tasks
   const [claimedMilestones, setClaimedMilestones] = useState([]);
+  const [claimedWatch, setClaimedWatch] = useState([]);
   const [claimedReferralRewards, setClaimedReferralRewards] = useState([]);
   const [referrals, setReferrals] = useState([]); // State to hold referrals
   const telegramUser = window.Telegram.WebApp.initDataUnsafe?.user;
@@ -152,6 +153,7 @@ export const UserProvider = ({ children }) => {
           setTimeSta(userData.timeSta);
           setTimeStaTank(userData.timeStaTank);
           setClaimedMilestones(userData.claimedMilestones || []);
+          setClaimedWatch(userData.claimedWatch || []);
           setClaimedReferralRewards(userData.claimedReferralRewards || []);
           // setEnergy(userData.energy);
           setBattery(userData.battery);
@@ -583,7 +585,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ balance, battery, freeGuru, fullTank, taskCompleted, setTaskCompleted, taskCompleted2, setTaskCompleted2, setFullTank, timeStaTank, setTimeStaTank, timeSta, setFreeGuru, time, setTime, startTimer, tapGuru, setTapGuru, mainTap, setMainTap, timeRefill, setTimeRefill, refiller, setRefiller, count, setCount, isRefilling, setIsRefilling, refillIntervalRef, setBattery, refillEnergy, tapValue, setTapValue, tapBalance, setTapBalance, level, energy, setEnergy, setBalance, setLevel, loading, setLoading, id, setId, sendUserData, initialized, setInitialized, refBonus, SetRefBonus, manualTasks, setManualTasks, userManualTasks, setUserManualTasks, tasks, setTasks, completedTasks, setCompletedTasks, claimedMilestones, setClaimedMilestones, referrals, claimedReferralRewards, setClaimedReferralRewards, idme, setIdme, totalCount, setTotalCount, dividedCount, setDividedCount, users, setUsers, dividedUsers, setDividedUsers, username, setUsername, name, setName }}>
+    <UserContext.Provider value={{ balance, battery, freeGuru, fullTank, taskCompleted, setTaskCompleted, taskCompleted2, setTaskCompleted2, setFullTank, timeStaTank, setTimeStaTank, timeSta, setFreeGuru, time, setTime, startTimer, tapGuru, setTapGuru, mainTap, setMainTap, timeRefill, setTimeRefill, refiller, setRefiller, count, setCount, isRefilling, setIsRefilling, refillIntervalRef, setBattery, refillEnergy, tapValue, setTapValue, tapBalance, setTapBalance, level, energy, setEnergy, setBalance, setLevel, loading, setLoading, id, setId, sendUserData, initialized, setInitialized, refBonus, SetRefBonus, manualTasks, setManualTasks, userManualTasks, setUserManualTasks, tasks, setTasks, completedTasks, setCompletedTasks, claimedMilestones, setClaimedMilestones,claimedWatch,setClaimedWatch, referrals, claimedReferralRewards, setClaimedReferralRewards, idme, setIdme, totalCount, setTotalCount, dividedCount, setDividedCount, users, setUsers, dividedUsers, setDividedUsers, username, setUsername, name, setName }}>
       {children}
     </UserContext.Provider>
   );
