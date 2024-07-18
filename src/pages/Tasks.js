@@ -21,7 +21,6 @@ const Tasks = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
-  const [hasWatched, setHasWatched] = useState(false);
   const [watchedTasks, setWatchedTasks] = useState({});
 
   useEffect(() => {
@@ -142,7 +141,7 @@ const Tasks = () => {
       : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
   } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
 >
-  {watchedTasks[selectedTask?.id] ? 'Watched' : 'Check'}
+  {watchedTasks[selectedTask?.id] ? 'Completed' : 'Watch'}
 </button>
 
                       </div>
@@ -171,6 +170,7 @@ const Tasks = () => {
                   </div>
                 </div>
               )}
+              <MilestoneRewards/>
             </div>
           </div>
         </Animate>
