@@ -6,6 +6,12 @@ import { collection, query, onSnapshot } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
+import youtubeicon from "../images/youtube.gif";
+import telegramicon from "../images/telegram.gif";
+import twittericon from "../images/twitter.gif";
+import facebookicon from "../images/facebook.gif";
+import instagramicon from "../images/instagram.gif";
+import tiktokicon from "../images/tiktok.gif";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -42,12 +48,14 @@ const Tasks = () => {
     setIsClaiming(false);
   };
 
-  const getImagePath = (path) => {
-    try {
-      return require(`${path}`).default;
-    } catch (err) {
-      console.error(`Image not found: ${path}`);
-      return null;
+  const getImage = (icon) => {
+    switch (icon) {
+      case 'youtube':
+        return youtubeicon;
+      case 'telegram':
+        return telegramicon;
+      default:
+        return null; // Return a default image or null if no match is found
     }
   };
 
@@ -66,7 +74,7 @@ const Tasks = () => {
                   className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center"
                 >
                   <div className="flex flex-1 items-center space-x-2">
-                    <img src={getImagePath(task.icon)} className="w-[35px]" alt={task.name} />
+                    <img src={getImage(task.icon)} className="w-[35px]" alt={task.name} />
                     <div className="flex flex-col space-y-1 text-left">
                       <span className="font-semibold text-[17px]">
                         {task.name}
@@ -97,7 +105,7 @@ const Tasks = () => {
 
                     <div className="w-full flex justify-center flex-col items-center">
                       <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center shadow-lg shadow-red/50">
-                        <img alt="claim" src={getImagePath(selectedTask.icon)} className="w-[80px]" />
+                        <img alt="claim" src={getImage(selectedTask.icon)} className="w-[80px]" />
                       </div>
                       <h3 className="font-semibold text-[32px] py-4">
                         {selectedTask.name}
