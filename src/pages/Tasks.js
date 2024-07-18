@@ -192,14 +192,14 @@ const Tasks = () => {
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
                           onClick={claimPoints}
-                          disabled={!watchedTasks[selectedTask.id] || isClaiming}
+                          disabled={!watchedTasks[selectedTask.id] || isClaiming || hasClaimed}
                           className={`${
                             !watchedTasks[selectedTask.id] || isClaiming
                               ? 'bg-btn2 text-[#979797]'
                               : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
                           } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                         >
-                          {isClaiming ? 'Claiming...' : hasClaimed ? 'Go ahead!' : 'Claim'}
+                          {isClaiming ? 'Claiming...' : hasClaimed ? 'Claimed' : 'Claim'}
                         </button>
                       </div>
                     </div>
