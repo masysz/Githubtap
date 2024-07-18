@@ -69,7 +69,6 @@ const Tasks = () => {
       setBalance(newBalance);
       setTapBalance(newBalanceTap);
       setClaimedWatch([...claimedWatch, selectedTask.id]);
-      setHasClaimed(true);
       
       // Show congratulations message
       setCongrats(true);
