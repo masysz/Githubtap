@@ -263,164 +263,313 @@ const levelsAction = () => {
 
             <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
 
-            {!taskCompleted && (
-  <div onClick={taskOne} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
-        <img src={telegramicon} alt="tasks" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
-        <span className='font-semibold'>
-          Join Telegram Channel
-        </span>
-        <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            50 000
-          </span>
-        </div>
-      </div>
-    </div>
-    <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
-    </div>
-  </div>
-)}
+                <div onClick={taskOne} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
 
-{!taskCompleted2 && (
-  <div onClick={taskTwo} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
+                    <div className='flex flex-1 items-center space-x-2'>
+
+                        <div className=''>
+                            <img src={telegramicon} alt="tasks" className='w-[50px]'/>
+                        </div>
+                        <div className='flex flex-col space-y-1'>
+                            <span className='font-semibold'>
+                                Join Telegram Channel
+                            </span>
+                            <div className='flex items-center space-x-1'>
+                            <span className="w-[20px] h-[20px]">
+                <img src={coinsmall} className="w-full" alt="coin"/>
+              </span>
+              <span className='font-medium'>
+                50 000
+              </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/*  */}
+
+                    <div className=''>
+                    {taskCompleted ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+
+                                    
+                    </div>
+
+                </div>
+
+                {/*  */}
+
+                <div onClick={taskTwo} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
         <img src={youtubeicon} alt="taskbook" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
+    </div>
+    <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
-          Subscribe Youtube
+            Subscribe Youtube
         </span>
         <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            100 000
-          </span>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+100 000
+</span>
         </div>
-      </div>
     </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted2 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskThree} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
     <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+        <img src={twittericon} alt="taskbook" className='w-[50px]'/>
     </div>
-  </div>
-)}
-
-
-{!taskCompleted3 && (
-  <div onClick={taskThree} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
-        <img src={twittericon} alt="tasks" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
+    <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
-          Follow on X
+            Follow on X
         </span>
         <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            50 000
-          </span>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
         </div>
-      </div>
     </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted3 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+{/* <div onClick={taskFour} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
     <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+        <img src={vkicon} alt="taskbook" className='w-[50px]'/>
     </div>
-  </div>
-)}
-
-
-{!taskCompleted5 && (
-  <div onClick={taskFive} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
-        <img src={tiktokicon} alt="tasks" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
+    <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
-          Follow on Tiktok
+            Follow us on VK
         </span>
         <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            50 000
-          </span>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
         </div>
-      </div>
     </div>
+
+</div> */}
+
+{/*  */}
+
+{/* <div className=''>
+{taskCompleted4 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div> */}
+
+{/*  */}
+
+<div onClick={taskFive} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
     <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+        <img src={tiktokicon} alt="taskbook" className='w-[50px]'/>
     </div>
-  </div>
-)}
-
-
-{!taskCompleted6 && (
-  <div onClick={taskSix} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
-        <img src={instagramicon} alt="tasks" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
+    <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
-          Follow on Instagram
+            Follow on TikTok
         </span>
         <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            50 000
-          </span>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
         </div>
-      </div>
     </div>
-    <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
-    </div>
-  </div>
-)}
 
-{!taskCompleted7 && (
-  <div onClick={taskSeven} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-    <div className='flex flex-1 items-center space-x-2'>
-      <div className=''>
-        <img src={facebookicon} alt="tasks" className='w-[50px]'/>
-      </div>
-      <div className='flex flex-col space-y-1'>
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted5 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskSix} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={instagramicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
         <span className='font-semibold'>
-          Follow on Facebook
+            Follow on Instagram
         </span>
         <div className='flex items-center space-x-1'>
-          <span className="w-[20px] h-[20px]">
-            <img src={coinsmall} className="w-full" alt="coin"/>
-          </span>
-          <span className='font-medium'>
-            50 000
-          </span>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
         </div>
-      </div>
     </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted6 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskSeven} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
     <div className=''>
-      <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+        <img src={facebookicon} alt="taskbook" className='w-[50px]'/>
     </div>
-  </div>
-)}
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow on Facebook
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted7 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
 
 
 
