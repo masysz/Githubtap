@@ -21,7 +21,8 @@ const Tasks = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
   const [hasClaimed, setHasClaimed] = useState(false);
-  const [hasWatched, setHasWatched] = useState(false); // Assuming you have this state
+  const [hasWatched, setHasWatched] = useState(false);
+  const [watchedTasks, setWatchedTasks] = useState({});
 
   useEffect(() => {
     const q = query(collection(db, 'tasks'));
@@ -52,7 +53,7 @@ const Tasks = () => {
   const clickLink = () => {
     if (selectedTask && selectedTask.link) {
       window.open(selectedTask.link, '_blank');
-      setHasWatched(true); // Assuming you want to update `hasWatched` after the link is opened
+      setWatchedTasks(prev => ({ ...prev, [selectedTask.id]: true }));
     }
   };
   
@@ -132,17 +133,18 @@ const Tasks = () => {
                       </p>
 
                       <div className="w-full flex justify-center pb-6 pt-4">
-                        <button
-                          onClick={clickLink}
-                          disabled={hasWatched}
-                          className={`${
-                            hasWatched
-                              ? 'bg-gray-400 cursor-not-allowed' // Style for disabled state
-                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
-                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                        >
-                          {hasWatched ? 'Watched' : 'Check'}
-                        </button>
+                      <button
+  onClick={clickLink}
+  disabled={watchedTasks[selectedTask?.id]}
+  className={`${
+    watchedTasks[selectedTask?.id]
+      ? 'bg-gray-400 cursor-not-allowed'
+      : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
+  } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+>
+  {watchedTasks[selectedTask?.id] ? 'Watched' : 'Check'}
+</button>
+
                       </div>
 
                       <div className="flex flex-1 items-center space-x-2">
