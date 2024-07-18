@@ -133,6 +133,7 @@ const Tasks = () => {
 
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
+                          onClick={clickLink}
                           disabled={hasWatched}
                           className={`${
                             hasWatched
