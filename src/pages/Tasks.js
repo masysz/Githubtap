@@ -31,7 +31,6 @@ const Tasks = () => {
         ...doc.data()
       }));
       setTasks(tasksData);
-      setLoading(false);
     });
 
     return () => unsubscribe();
