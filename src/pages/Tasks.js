@@ -56,11 +56,11 @@ const Tasks = () => {
         await updateDoc(userRef, {
           balance: newBalance,
           tapBalance: newBalanceTap,
-          claimedWatch: [...claimedWatch, selectedTask.name],
+          claimedWatch: [...claimedWatch, selectedTask.id],
         });
         setBalance(newBalance);
         setTapBalance(newBalanceTap);
-        setClaimedWatch([...claimedWatch, selectedTask.name]);
+        setClaimedWatch([...claimedWatch, selectedTask.id]);
         setCongrats(true);
 
         setTimeout(() => {
