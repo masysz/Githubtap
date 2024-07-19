@@ -21,19 +21,22 @@ const milestones = [
  ];
 
 const MilestoneRewards = () => {
-  const { tapBalance, balance, setBalance, id, claimedMilestones, setClaimedMilestones } = useUser();
+  const { tapBalance,setTapBalance, balance, setBalance, id, claimedMilestones, setClaimedMilestones } = useUser();
   const [congrats, setCongrats] = useState(false)
 
   const handleClaim = async (milestone) => {
     if (tapBalance >= milestone.tapBalanceRequired && !claimedMilestones.includes(milestone.name)) {
       const newBalance = balance + milestone.reward;
+      const newBalanceTap = tapBalance + milestone.reward;
       try {
         const userRef = doc(db, 'telegramUsers', id);
         await updateDoc(userRef, {
           balance: newBalance,
+          tapBalance: newBalanceTap,
           claimedMilestones: [...claimedMilestones, milestone.name],
         });
         setBalance(newBalance);
+        setTapBalance(newBalanceTap);
         setClaimedMilestones([...claimedMilestones, milestone.name]);
         setCongrats(true)
   

@@ -15,20 +15,23 @@ const friendsRewards = [
 ];
 
 const ReferralRewards = () => {
-  const { referrals, balance, setBalance, id, claimedReferralRewards, setClaimedReferralRewards } = useUser();
+  const { referrals, tapBalance, setTapBalance, balance, setBalance, id, claimedReferralRewards, setClaimedReferralRewards } = useUser();
   const [congrats, setCongrats] = useState(false);
 
 
   const handleClaim = async (reward) => {
     if (referrals.length >= reward.referralsRequired && !claimedReferralRewards.includes(reward.title)) {
       const newBalance = balance + reward.bonusAward;
+      const newBalanceTap = tapBalance + reward.bonusAward;
       try {
         const userRef = doc(db, 'telegramUsers', id);
         await updateDoc(userRef, {
           balance: newBalance,
+          tapBalance: newBalanceTap,
           claimedReferralRewards: [...claimedReferralRewards, reward.title],
         });
         setBalance(newBalance);
+        setTapBalance(newBalanceTap);
         setClaimedReferralRewards([...claimedReferralRewards, reward.title]);
     
         setCongrats(true);
