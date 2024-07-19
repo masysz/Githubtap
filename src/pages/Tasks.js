@@ -10,6 +10,7 @@ import TaskOne from '../Components/TaskOne';
 import ClaimLeveler from '../Components/ClaimLeveler';
 import Levels from '../Components/Levels';
 import { IoCheckmarkSharp } from "react-icons/io5";
+import { IoCheckmarkCircle } from 'react-icons/io5';
 import congrats from "../images/celebrate.gif";
 import { useUser } from '../context/userContext';
 import MilestoneRewards from '../Components/MilestoneRewards';
@@ -175,7 +176,7 @@ const levelsAction = () => {
                     {taskCompleted ? (
                                     <>
 
-                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                    <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
                                     </>
                                     ) : (
                                     
