@@ -120,7 +120,7 @@ const Tasks = () => {
         <Spinner />
       ) : (
         <Animate>
-          <div className='w-full h-full flex flex-col px-5'>
+          <div className='w-full h-full flex flex-col px-2'>
           <h1 className="text-2xl font-bold text-center py-2">Youtube Geto Spirit</h1>
             <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
               {tasks.map(task => (
