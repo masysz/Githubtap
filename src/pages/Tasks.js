@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Animate from '../Components/Animate';
 import coinsmall from "../images/coinsmall.webp";
-import telegramicon from "../images/telegram.gif";
+import telegramicon from "../images/telegram.png";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
