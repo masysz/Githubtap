@@ -69,9 +69,9 @@ const Ref = () => {
             <h1 className="text-[#fff] -mb-2 text-[42px] font-semibold">
             {referrals.length} Friends
             </h1>
-            <span className="text-[#6ed86e] font-semibold text-[16px]">
-              Invite friends and get bonus 25000 for you and your friends.
-            </span>
+            <span className="text-[#6ed86e] font-semibold text-[16px] bg-orange-500 p-2 rounded">
+      Invite friends and get bonus +25000 for you and your friends.
+    </span>
           </div>
 
           <div className="w-full bg-cards rounded-[12px] px-3 py-4 flex flex-col">
