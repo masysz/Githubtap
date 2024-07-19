@@ -3,6 +3,7 @@ import coinsmall from "../images/coinsmall.webp";
 import { db } from '../firebase';
 import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import { IoCheckmarkSharp } from "react-icons/io5";
 import { IoClose } from 'react-icons/io5';
 import youtubeicon from "../images/youtube.png";
 import telegramicon from "../images/telegram.png";
