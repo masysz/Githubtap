@@ -208,7 +208,9 @@ export const UserProvider = ({ children }) => {
           const referrerRef = doc(db, 'telegramUsers', referrerId);
           const referrerDoc = await getDoc(referrerRef);
           if (referrerDoc.exists()) {
+            const newReferrerBalance = (referrerData.balance || 0) + 35000;
             await updateDoc(referrerRef, {
+              balance: newReferrerBalance,
               referrals: arrayUnion({
                 userId: userId.toString(),
                 username: finalUsername,
