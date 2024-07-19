@@ -170,13 +170,14 @@ export const UserProvider = ({ children }) => {
           return;
         }
 
+        const initialBalance = referrerId ? 25000 : 0;
         const userData = {
           userId: userId.toString(),
           username: finalUsername,
           firstName,
           lastName,
           totalBalance: 0,
-          balance: 0,
+          balance: initialBalance,
           freeGuru: 3,
           fullTank: 3,
           tapBalance: 0,
@@ -195,6 +196,7 @@ export const UserProvider = ({ children }) => {
         console.log('User saved in Firestore');
         setEnergy(500);
         setBattery(userData.battery);
+        setBalance(initialBalance);
         setRefiller(userData.battery.energy);
         setTapValue(userData.tapValue);
         setTimeRefill(userData.timeRefill);
@@ -210,7 +212,7 @@ export const UserProvider = ({ children }) => {
               referrals: arrayUnion({
                 userId: userId.toString(),
                 username: finalUsername,
-                balance: 0,
+                balance: initialBalance,
                 level: { id: 1, name: "Warm", imgUrl: '/warm.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
               })
             });
@@ -343,42 +345,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const handleNewUserRegistration = async (referrerId, newUser) => {
-    try {
-      // Referensi ke koleksi users
-      const usersRef = db.collection('users');
   
-      // Perbarui saldo pengguna baru
-      await usersRef.doc(newUser.id).set({
-        balance: 25000, // saldo awal untuk referral baru
-        referredBy: referrerId
-      }, { merge: true });
-  
-      // Dapatkan dokumen pengguna yang mengajak
-      const referrerDoc = await usersRef.doc(referrerId).get();
-      if (referrerDoc.exists) {
-        const referrerData = referrerDoc.data();
-  
-        // Hitung saldo baru untuk pengguna yang mengajak
-        const newBalance = referrerData.balance + 25000; // misalnya, bonus 100 untuk setiap referral baru
-  
-        // Perbarui saldo pengguna yang mengajak
-        await usersRef.doc(referrerId).update({
-          balance: newBalance
-        });
-      }
-    } catch (error) {
-      console.error("Error updating balances: ", error);
-    }
-  };
-  
-  // Misalnya, panggil fungsi ini ketika pengguna baru mendaftar
-  useEffect(() => {
-    const newUser = { id: 'newUserId' }; // ID pengguna baru yang mendaftar
-    const referrerId = 'referrerId'; // ID pengguna yang mengajak
-  
-    handleNewUserRegistration(referrerId, newUser);
-  }, []);
   
 
 
