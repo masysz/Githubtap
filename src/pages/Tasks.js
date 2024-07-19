@@ -6,7 +6,6 @@ import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestor
 import Spinner from '../Components/Spinner';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
-import { IoCheckmarkCircle } from 'react-icons/io5';
 import youtubeicon from "../images/youtube.png";
 import telegramicon from "../images/telegram.png";
 import twittericon from "../images/twitter.png";
@@ -16,6 +15,7 @@ import tiktokicon from "../images/tiktok.png";
 import { useUser } from "../context/userContext";
 import MilestoneRewards from '../Components/MilestoneRewards';
 import congratspic from "../images/celebrate.gif";
+import { IoCheckmarkCircle } from 'react-icons/io5';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -23,7 +23,6 @@ const Tasks = () => {
   const [isopenModalVisible, setIsopenModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isClaiming, setIsClaiming] = useState(false);
-  const [hasClaimed, setHasClaimed] = useState(false);
   const [watchedTasks, setWatchedTasks] = useState({});
   const [congrats, setCongrats] = useState(false);
 
@@ -35,10 +34,17 @@ const Tasks = () => {
         ...doc.data()
       }));
       setTasks(tasksData);
+
+      // Set watched status based on task IDs
+      const watchedTasksData = {};
+      tasksData.forEach(task => {
+        watchedTasksData[task.id] = claimedWatch.includes(task.id);
+      });
+      setWatchedTasks(watchedTasksData);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [claimedWatch]);
 
   const openModal = (task) => {
     setSelectedTask(task);
@@ -54,7 +60,6 @@ const Tasks = () => {
     setIsClaiming(true);
     
     try {
-      // Update balance and claimed status
       const newBalance = balance + selectedTask.points;
       const newBalanceTap = tapBalance + selectedTask.points;
       
@@ -65,18 +70,16 @@ const Tasks = () => {
         claimedWatch: [...claimedWatch, selectedTask.id],
       });
       
-      // Update local state
       setBalance(newBalance);
       setTapBalance(newBalanceTap);
       setClaimedWatch([...claimedWatch, selectedTask.id]);
-      
-      // Show congratulations message
+      setWatchedTasks(prev => ({ ...prev, [selectedTask.id]: true }));
       setCongrats(true);
+      
       setTimeout(() => {
         setCongrats(false);
       }, 4000);
       
-      // Close modal after successful claim
       setIsopenModalVisible(false);
     } catch (error) {
       console.error('Error claiming reward:', error);
@@ -84,7 +87,6 @@ const Tasks = () => {
       setIsClaiming(false);
     }
   };
-  
 
   const clickLink = () => {
     if (selectedTask && selectedTask.link) {
@@ -145,9 +147,7 @@ const Tasks = () => {
               ))}
 
               {isopenModalVisible && selectedTask && (
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow"
-                >
+                <div className="absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow">
                   <div className="w-full flex flex-col justify-between py-8">
                     <button
                       onClick={() => setIsopenModalVisible(false)}
@@ -181,37 +181,36 @@ const Tasks = () => {
                         </button>
                       </div>
 
-                      <div className="flex flex-1 items-center space-x-2">
-                        <img src={coinsmall} className="w-[25px]" alt="Coin Icon" />
-                        <div className="font-bold text-[26px] flex items-center">
-                          +{selectedTask.points}
-                        </div>
-                      </div>
-
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
                           onClick={claimPoints}
-                          disabled={!watchedTasks[selectedTask.id] || isClaiming || hasClaimed}
+                          disabled={!watchedTasks[selectedTask.id] || isClaiming || claimedWatch.includes(selectedTask.id)}
                           className={`${
-                            !watchedTasks[selectedTask.id] || isClaiming
+                            !watchedTasks[selectedTask.id] || isClaiming || claimedWatch.includes(selectedTask.id)
                               ? 'bg-btn2 text-[#979797]'
                               : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
                           } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                         >
-                          {isClaiming ? 'Claiming...' : hasClaimed ? 'Claimed' : 'Claim'}
+                          {isClaiming ? 'Claiming...' : claimedWatch.includes(selectedTask.id) ? 'Claimed' : 'Claim'}
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-              <div className={`w-full fixed left-0 right-0 px-4 z-20 ${congrats ? "visible bottom-6" : "invisible bottom-[-10px]"} ease-in duration-300`}>
+
+              <div className="w-full absolute top-[-35px] left-0 right-0 flex justify-center z-20 pointer-events-none select-none">
+                {congrats ? <img src={congratspic} alt="congrats" className="w-[80%]" /> : null}
+              </div>
+
+              <div className={`${congrats === true ? "visible bottom-6" : "invisible bottom-[-10px]"} z-[60] ease-in duration-300 w-full fixed left-0 right-0 px-4`}>
                 <div className="w-full text-[#54d192] flex items-center space-x-2 px-4 bg-[#121620ef] h-[50px] rounded-[8px]">
                   <IoCheckmarkCircle size={24} />
                   <span className="font-medium">Good</span>
                 </div>
               </div>
-              {/* <MilestoneRewards /> */}
+
+              <MilestoneRewards />
             </div>
           </div>
         </Animate>
