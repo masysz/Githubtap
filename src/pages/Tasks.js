@@ -181,6 +181,13 @@ const Tasks = () => {
                         </button>
                       </div>
 
+                      <div className="flex flex-1 items-center space-x-2">
+                        <img src={coinsmall} className="w-[25px]" alt="Coin Icon" />
+                        <div className="font-bold text-[26px] flex items-center">
+                          +{selectedTask.points}
+                        </div>
+                      </div>
+
                       <div className="w-full flex justify-center pb-6 pt-4">
                         <button
                           onClick={claimPoints}
