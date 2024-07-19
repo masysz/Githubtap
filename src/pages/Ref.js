@@ -67,7 +67,7 @@ const Ref = () => {
         <div className="w-full justify-center flex-col space-y-3 px-5">
           <div className="flex space-y-0 flex-col justify-center items-center">
             <h1 className="text-[#fff] -mb-2 text-[42px] font-semibold">
-            {referrals.length} Users
+            {referrals.length} Friends
             </h1>
             <span className="text-[#6ed86e] font-semibold text-[16px]">
               {/* + 0 */}
