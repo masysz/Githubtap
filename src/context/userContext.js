@@ -210,7 +210,7 @@ export const UserProvider = ({ children }) => {
               referrals: arrayUnion({
                 userId: userId.toString(),
                 username: finalUsername,
-                balance: 0,
+                balance: 25000,
                 level: { id: 1, name: "Warm", imgUrl: '/warm.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
               })
             });
