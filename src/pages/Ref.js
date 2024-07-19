@@ -70,7 +70,7 @@ const Ref = () => {
             {referrals.length} Friends
             </h1>
             <span className="text-[#6ed86e] font-semibold text-[16px]">
-              {/* + 0 */}
+              Invite friends and get bonus 25000 for you and your friends.
             </span>
           </div>
 
