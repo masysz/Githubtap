@@ -15,6 +15,7 @@ import { useUser } from '../context/userContext';
 import MilestoneRewards from '../Components/MilestoneRewards';
 import ReferralRewards from '../Components/Rewards';
 import YoutubeWatch from '../Components/YoutubeWatch';
+import SocmedTasks from '../Components/Socmed';
 
 
 const Tasks = () => {
@@ -197,7 +198,7 @@ const levelsAction = () => {
 
             </div>
 
-
+<SocmedTasks />
 
 {/*  */}
 
