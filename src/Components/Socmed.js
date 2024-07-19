@@ -114,9 +114,9 @@ const SocmedTasks = () => {
   return (
     <>
       
-          <div className='w-full h-full flex justify-center px-5'>
+          <div className='w-full h-full flex flex-col space-y-5'>
           {/* <h1 className="text-xl font-bold text-center">Youtube Geto Spirit</h1> */}
-            <div className="w-full flex flex-col h-[50vh] pt-2 pb-[60px] overflow-y-auto">
+            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
               {tasks.map(task => (
                 <button
                   key={task.id}
