@@ -137,7 +137,13 @@ const YoutubeWatch = () => {
                       </div>
                     </div>
                   </div>
+                  <div>
+                {claimedWatch.includes(task.id) ? (
+                  <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                ) : (
                   <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
+                )}
+              </div>
                 </button>
               ))}
 
@@ -208,7 +214,7 @@ const YoutubeWatch = () => {
               <div className={`${congrats === true ? "visible bottom-6" : "invisible bottom-[-10px]"} z-[60] ease-in duration-300 w-full fixed left-0 right-0 px-4`}>
                 <div className="w-full text-[#54d192] flex items-center space-x-2 px-4 bg-[#121620ef] h-[50px] rounded-[8px]">
                   <IoCheckmarkCircle size={24} />
-                  <span className="font-medium">Good</span>
+                  <span className="font-medium">{selectedTask.succesLabel}</span>
                 </div>
               </div>
 
