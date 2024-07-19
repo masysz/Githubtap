@@ -25,6 +25,7 @@ const Tasks = () => {
   const [isClaiming, setIsClaiming] = useState(false);
   const [watchedTasks, setWatchedTasks] = useState({});
   const [congrats, setCongrats] = useState(false);
+  const [showMilestoneRewards, setShowMilestoneRewards] = useState(false);
 
   useEffect(() => {
     const q = query(collection(db, 'tasks'));
@@ -120,8 +121,8 @@ const Tasks = () => {
         <Spinner />
       ) : (
         <Animate>
-          <div className='w-full h-full flex flex-col px-2'>
-          <h1 className="text-2xl font-bold text-center py-2">Youtube Geto Spirit</h1>
+          <div className='w-full h-full flex flex-col space-y-3'>
+          <h1 className="text-xl font-bold text-center">Youtube Geto Spirit</h1>
             <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
               {tasks.map(task => (
                 <button
@@ -217,8 +218,16 @@ const Tasks = () => {
                   <span className="font-medium">Good</span>
                 </div>
               </div>
+              <button
+              onClick={() => setShowMilestoneRewards(true)}
+              className="bg-gradient-to-b from-[#f96800] to-[#c30000] text-white py-2 px-4 rounded-md mb-4"
+            >
+              Show Milestone Rewards
+            </button>
 
+              {showMilestoneRewards && (
               <MilestoneRewards />
+            )}
             </div>
           </div>
         </Animate>
