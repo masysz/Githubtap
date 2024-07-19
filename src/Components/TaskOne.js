@@ -223,7 +223,7 @@ const TaskOne = ({ showModal, setShowModal }) => {
             <div className="flex w-full flex-col">
               <h1 className="text-[20px] font-semibold">Join Our Socials</h1>
               <p className="text-[#9a96a6] text-[16px] font-medium pt-1 pb-10">
-                Join our social page to get regular updates about this airdrop
+                Join our telegram channel to get regular updates about this airdrop
                 bot and its great potentials
               </p>
 
