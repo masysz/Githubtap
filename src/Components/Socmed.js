@@ -140,7 +140,7 @@ const SocmedTasks = () => {
                   </div>
                   <div>
                 {claimedWatch.includes(task.id) ? (
-                  <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                  <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
                 ) : (
                   <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
                 )}
