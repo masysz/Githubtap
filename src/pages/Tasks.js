@@ -1,239 +1,651 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import Animate from '../Components/Animate';
+import { Outlet } from 'react-router-dom';
 import coinsmall from "../images/coinsmall.webp";
-import { db } from '../firebase';
-import { collection, query, onSnapshot, doc, updateDoc } from 'firebase/firestore';
-import Spinner from '../Components/Spinner';
+import taskbook from "../images/taskbook.webp";
+import youtubeicon from "../images/youtube.gif";
+import telegramicon from "../images/telegram.gif";
+import twittericon from "../images/twitter.gif";
+import facebookicon from "../images/facebook.gif";
+import instagramicon from "../images/instagram.gif";
+import tiktokicon from "../images/tiktok.gif";
+import vkicon from "../images/vk.gif";
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
-import { IoClose } from 'react-icons/io5';
-import youtubeicon from "../images/youtube.png";
-import telegramicon from "../images/telegram.png";
-import twittericon from "../images/twitter.png";
-import facebookicon from "../images/facebook.png";
-import instagramicon from "../images/instagram.png";
-import tiktokicon from "../images/tiktok.png";
-import { useUser } from "../context/userContext";
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import Spinner from '../Components/Spinner';
+import TaskOne from '../Components/TaskOne';
+import TaskTwo from '../Components/TaskTwo';
+import TaskThree from '../Components/TaskThree';
+import TaskFour from '../Components/TaskFour';
+import TaskFive from '../Components/TaskFive';
+import TaskSix from '../Components/TaskSix';
+import TaskSeven from '../Components/TaskSeven';
+import ClaimLeveler from '../Components/ClaimLeveler';
+import Levels from '../Components/Levels';
+import { IoCheckmarkSharp } from "react-icons/io5";
+import congrats from "../images/celebrate.gif";
+import { useUser } from '../context/userContext';
 import MilestoneRewards from '../Components/MilestoneRewards';
-import congratspic from "../images/celebrate.gif";
-import { IoCheckmarkCircle } from 'react-icons/io5';
+import ReferralRewards from '../Components/Rewards';
+import YoutubeWatch from '../Components/YoutubeWatch';
+
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
-  const { tapBalance, setTapBalance, balance, setBalance, id, claimedWatch, setClaimedWatch, loading } = useUser();
-  const [isopenModalVisible, setIsopenModalVisible] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [isClaiming, setIsClaiming] = useState(false);
-  const [watchedTasks, setWatchedTasks] = useState({});
-  const [congrats, setCongrats] = useState(false);
-  const [showMilestoneRewards, setShowMilestoneRewards] = useState(false);
 
+
+    
+
+    const {id, balance, refBonus, taskCompleted, level, 
+      setTaskCompleted, taskCompleted2, setTaskCompleted2, taskCompleted3, setTaskCompleted3, taskCompleted4, setTaskCompleted4, taskCompleted5, setTaskCompleted5, taskCompleted6, setTaskCompleted6, taskCompleted7, setTaskCompleted7} = useUser();
+      // eslint-disable-next-line
+    const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
+    const [showModal4, setShowModal4] = useState(false);
+    const [showModal5, setShowModal5] = useState(false);
+    const [showModal6, setShowModal6] = useState(false);
+    const [showModal7, setShowModal7] = useState(false);
+      // eslint-disable-next-line
+    const [claimLevel, setClaimLevel] = useState(false);
+    const [showLevels, setShowLevels] = useState(false);
+    // eslint-disable-next-line
+    const [message, setMessage] = useState("");
+    const taskID = "task_3100"; // Assign a unique ID to this task
+    const taskID2 = "task_3101"; // Assign a unique ID to this task
+    const taskID3 = "task_3102"; // Assign a unique ID to this task
+    const taskID4 = "task_3103"; // Assign a unique ID to this task
+    const taskID5 = "task_3104"; // Assign a unique ID to this task
+    const taskID6 = "task_3105"; // Assign a unique ID to this task
+    const taskID7 = "task_3106"; // Assign a unique ID to this task
+
+
+  const [activeIndex, setActiveIndex] = useState(1);
+
+  
+
+  const handleMenu = (index) => {
+    setActiveIndex(index);
+  };
+
+
+const taskOne = () => {
+    setShowModal(true)
+    document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskTwo = () => {
+    setShowModal2(true)
+    document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskThree = () => {
+  setShowModal3(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskFour = () => {
+  setShowModal4(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskFive = () => {
+  setShowModal5(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskSix = () => {
+  setShowModal6(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
+
+const taskSeven = () => {
+  setShowModal7(true)
+  document.getElementById("footermain").style.zIndex = "50";
+}
+  
   useEffect(() => {
-    const q = query(collection(db, 'tasks'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const tasksData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setTasks(tasksData);
 
-      // Set watched status based on task IDs
-      const watchedTasksData = {};
-      tasksData.forEach(task => {
-        watchedTasksData[task.id] = claimedWatch.includes(task.id);
-      });
-      setWatchedTasks(watchedTasksData);
-    });
 
-    return () => unsubscribe();
-  }, [claimedWatch]);
-
-  const openModal = (task) => {
-    setSelectedTask(task);
-    setIsopenModalVisible(true);
-  };
-
-  const claimPoints = async () => {
-    if (!watchedTasks[selectedTask.id]) {
-      console.error('Task not watched yet.');
-      return;
+  checkTaskCompletion(id, taskID).then((completed) => {
+    setTaskCompleted(completed);
+    if (completed) {
+        setMessage("");
     }
-    
-    setIsClaiming(true);
-    
+});
+  checkTaskCompletion(id, taskID2).then((completed) => {
+    setTaskCompleted2(completed);
+    if (completed) {
+        setMessage("");
+    }
+});
+checkTaskCompletion(id, taskID3).then((completed) => {
+  setTaskCompleted3(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
+checkTaskCompletion(id, taskID4).then((completed) => {
+  setTaskCompleted4(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
+checkTaskCompletion(id, taskID5).then((completed) => {
+  setTaskCompleted5(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
+checkTaskCompletion(id, taskID6).then((completed) => {
+  setTaskCompleted6(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
+checkTaskCompletion(id, taskID7).then((completed) => {
+  setTaskCompleted7(completed);
+  if (completed) {
+      setMessage("");
+  }
+});
+
+console.log('my userid is:', id)
+
+        // eslint-disable-next-line
+}, []);
+
+const checkTaskCompletion = async (id, taskId, taskId2, taskId3, taskId4, taskId5, taskId6, taskId7) => {
     try {
-      const newBalance = balance + selectedTask.points;
-      const newBalanceTap = tapBalance + selectedTask.points;
-      
-      const userRef = doc(db, 'telegramUsers', id);
-      await updateDoc(userRef, {
-        balance: newBalance,
-        tapBalance: newBalanceTap,
-        claimedWatch: [...claimedWatch, selectedTask.id],
-      });
-      
-      setBalance(newBalance);
-      setTapBalance(newBalanceTap);
-      setClaimedWatch([...claimedWatch, selectedTask.id]);
-      setWatchedTasks(prev => ({ ...prev, [selectedTask.id]: true }));
-      setCongrats(true);
-      
-      setTimeout(() => {
-        setCongrats(false);
-      }, 4000);
-      
-      setIsopenModalVisible(false);
-    } catch (error) {
-      console.error('Error claiming reward:', error);
-    } finally {
-      setIsClaiming(false);
+        const userTaskDocRef = doc(db, 'userTasks', `${id}_${taskId}`);
+        const userTaskDocRef2 = doc(db, 'userTasks', `${id}_${taskId2}`);
+        const userTaskDocRef3 = doc(db, 'userTasks', `${id}_${taskId3}`);
+        const userTaskDocRef4 = doc(db, 'userTasks', `${id}_${taskId4}`);
+        const userTaskDocRef5 = doc(db, 'userTasks', `${id}_${taskId5}`);
+        const userTaskDocRef6 = doc(db, 'userTasks', `${id}_${taskId6}`);
+        const userTaskDocRef7 = doc(db, 'userTasks', `${id}_${taskId7}`);
+        const docSnap = await getDoc(userTaskDocRef, userTaskDocRef2, userTaskDocRef3, userTaskDocRef4, userTaskDocRef5, userTaskDocRef6, userTaskDocRef7);
+        if (docSnap.exists()) {
+            return docSnap.data().completed;
+        } else {
+            return false;
+        }
+    } catch (e) {
+        console.error('Error checking task completion: ', e);
+        return false;
     }
-  };
-
-  const clickLink = () => {
-    if (selectedTask && selectedTask.link) {
-      window.open(selectedTask.link, '_blank');
-      setWatchedTasks(prev => ({ ...prev, [selectedTask.id]: true }));
-    }
-  };
-
-  const getImage = (icon) => {
-    switch (icon) {
-      case 'youtube':
-        return youtubeicon;
-      case 'telegram':
-        return telegramicon;
-      case 'twitter':
-        return twittericon;
-      case 'facebook':
-        return facebookicon;
-      case 'instagram':
-        return instagramicon;
-      case 'tiktok':
-        return tiktokicon;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Animate>
-          <div className='w-full h-full flex flex-col space-y-3'>
-          <h1 className="text-xl font-bold text-center">Youtube Geto Spirit</h1>
-            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
-              {tasks.map(task => (
-                <button
-                  key={task.id}
-                  onClick={() => openModal(task)}
-                  className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center"
-                >
-                  <div className="flex flex-1 items-center space-x-2">
-                    <img src={getImage(task.icon)} className="w-[35px]" alt={task.name} />
-                    <div className="flex flex-col space-y-1 text-left">
-                      <span className="font-semibold text-[17px]">
-                        {task.name}
-                      </span>
-                      <div className="flex items-center space-x-1">
-                        <img src={coinsmall} className="w-[20px]" alt="coin" />
-                        <span className="font-medium flex items-center text-[15px]">
-                          +{task.points}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
-                </button>
-              ))}
-
-              {isopenModalVisible && selectedTask && (
-                <div className="absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow">
-                  <div className="w-full flex flex-col justify-between py-8">
-                    <button
-                      onClick={() => setIsopenModalVisible(false)}
-                      className="flex items-center justify-center absolute right-8 top-8 text-center rounded-[12px] font-medium text-[16px]"
-                    >
-                      <IoClose size={24} className="text-[#9a96a6]" />
-                    </button>
-
-                    <div className="w-full flex justify-center flex-col items-center">
-                      <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center shadow-lg shadow-red/50">
-                        <img alt="claim" src={getImage(selectedTask.icon)} className="w-[80px]" />
-                      </div>
-                      <h3 className="font-semibold text-[32px] py-4">
-                        {selectedTask.name}
-                      </h3>
-                      <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
-                        {selectedTask.desc}
-                      </p>
-
-                      <div className="w-full flex justify-center pb-6 pt-4">
-                        <button
-                          onClick={clickLink}
-                          disabled={watchedTasks[selectedTask.id]}
-                          className={`${
-                            watchedTasks[selectedTask.id]
-                              ? 'bg-gray-400 cursor-not-allowed'
-                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
-                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                        >
-                          {watchedTasks[selectedTask.id] ? 'Completed' : 'Watch'}
-                        </button>
-                      </div>
-
-                      <div className="flex flex-1 items-center space-x-2">
-                        <img src={coinsmall} className="w-[25px]" alt="Coin Icon" />
-                        <div className="font-bold text-[26px] flex items-center">
-                          +{selectedTask.points}
-                        </div>
-                      </div>
-
-                      <div className="w-full flex justify-center pb-6 pt-4">
-                        <button
-                          onClick={claimPoints}
-                          disabled={!watchedTasks[selectedTask.id] || isClaiming || claimedWatch.includes(selectedTask.id)}
-                          className={`${
-                            !watchedTasks[selectedTask.id] || isClaiming || claimedWatch.includes(selectedTask.id)
-                              ? 'bg-btn2 text-[#979797]'
-                              : 'bg-gradient-to-b from-[#f96800] to-[#c30000]'
-                          } w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                        >
-                          {isClaiming ? 'Claiming...' : claimedWatch.includes(selectedTask.id) ? 'Claimed' : 'Claim'}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div className="w-full absolute top-[-35px] left-0 right-0 flex justify-center z-20 pointer-events-none select-none">
-                {congrats ? <img src={congratspic} alt="congrats" className="w-[80%]" /> : null}
-              </div>
-
-              <div className={`${congrats === true ? "visible bottom-6" : "invisible bottom-[-10px]"} z-[60] ease-in duration-300 w-full fixed left-0 right-0 px-4`}>
-                <div className="w-full text-[#54d192] flex items-center space-x-2 px-4 bg-[#121620ef] h-[50px] rounded-[8px]">
-                  <IoCheckmarkCircle size={24} />
-                  <span className="font-medium">Good</span>
-                </div>
-              </div>
-              <button
-              onClick={() => setShowMilestoneRewards(true)}
-              className="bg-gradient-to-b from-[#f96800] to-[#c30000] text-white py-2 px-4 rounded-md mb-4"
-            >
-              Show Milestone Rewards
-            </button>
-
-              {showMilestoneRewards && (
-              <MilestoneRewards />
-            )}
-            </div>
-          </div>
-        </Animate>
-      )}
-    </>
-  );
 };
 
-export default Tasks;
+
+const levelsAction = () => {
+
+    setShowLevels(true);
+
+    document.getElementById("footermain").style.zIndex = "50";
+
+  }
+
+  const formatNumber = (num) => {
+    if (num < 100000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    } else if (num < 1000000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    } else {
+      // return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    }
+  };
+
+
+  return (
+
+    <>
+
+    {loading ? (
+        <Spinner />
+      ) : (
+    <Animate>
+ <div className='w-full justify-center flex-col space-y-3 px-5'>
+
+
+
+<div className='fixed top-0 left-0 right-0 pt-8 px-5'>
+
+
+    <div className="flex space-x-2 justify-center items-center relative">
+    <div id="congrat" className='opacity-0 invisible w-[80%] absolute pl-10 ease-in-out duration-500 transition-all'>
+        <img src={congrats} alt="congrats" className="w-full"/>
+        </div>
+        {/* <Congratulations showCongrats={showCongrats} setShowCongrats={setShowCongrats} /> */}
+              {/* <div className="w-[50px] h-[50px]">
+                <img src={coinsmall} className="w-full" alt="coin"/>
+              </div>
+              <h1 className="text-[#fff] text-[42px] font-extrabold">
+              {formatNumber(balance + refBonus)}
+              </h1> */}
+            </div>
+            {/* <div className="w-full flex space-x-1 items-center justify-center">
+              <img src={bronze} className="w-[30px] h-[30px] relative" alt="bronze"/>
+              <h2 className="text-[#9d99a9] text-[20px] font-medium">Wood</h2>
+              <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]"/>
+            </div>*/}
+
+            {/* <div onClick={levelsAction} className="w-full flex ml-[6px] space-x-1 items-center justify-center">
+                                <img src={level.imgUrl} className="w-[25px] relative" alt="bronze" />
+                                <h2 className="text-[#9d99a9] text-[20px] font-medium">{level.name}</h2>
+                                <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#9d99a9] mt-[2px]" />
+                            </div> */}
+
+
+            {/* <div className='bg-borders w-full px-5 h-[1px] !mt-5 !mb-5'></div> */}
+            
+            <div className='w-full border-[1px] border-borders rounded-[10px] p-1 flex items-center'>
+
+                
+                <div onClick={() => handleMenu(1)} className={`${activeIndex === 1 ? 'bg-cards' : ''}  rounded-[6px] py-[12px] px-3 w-[33%] flex justify-center text-center items-center`}>
+                    Tasks Bonus
+                </div>
+
+                <div onClick={() => handleMenu(2)} className={`${activeIndex === 2 ? 'bg-cards' : ''}  rounded-[6px] py-[12px] px-3 w-[33%] flex justify-center text-center items-center`}>
+                    Lvl Bonus
+                </div>
+
+                <div onClick={() => handleMenu(3)} className={`${activeIndex === 3 ? 'bg-cards' : ''}  rounded-[6px] py-[12px] px-3 w-[33%] flex justify-center text-center items-center`}>
+                    Ref Bonus
+                </div>
+                <div onClick={() => handleMenu(4)} className={`${activeIndex === 4 ? 'bg-cards' : ''}  rounded-[6px] py-[12px] px-3 w-[33%] flex justify-center text-center items-center`}>
+                    Youtube
+                </div>
+
+            </div>
+
+            </div>
+
+
+            <div className='!mt-[80px] w-full h-[60vh] flex flex-col overflow-y-auto'>
+
+            <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+
+                <div onClick={taskOne} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+                    <div className='flex flex-1 items-center space-x-2'>
+
+                        <div className=''>
+                            <img src={telegramicon} alt="tasks" className='w-[50px]'/>
+                        </div>
+                        <div className='flex flex-col space-y-1'>
+                            <span className='font-semibold'>
+                                Join Telegram Channel
+                            </span>
+                            <div className='flex items-center space-x-1'>
+                            <span className="w-[20px] h-[20px]">
+                <img src={coinsmall} className="w-full" alt="coin"/>
+              </span>
+              <span className='font-medium'>
+                50 000
+              </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/*  */}
+
+                    <div className=''>
+                    {taskCompleted ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+
+                                    
+                    </div>
+
+                </div>
+
+                {/*  */}
+
+                <div onClick={taskTwo} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={youtubeicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Subscribe Youtube
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+100 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted2 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskThree} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={twittericon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow on X
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted3 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+{/* <div onClick={taskFour} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={vkicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow us on VK
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div> */}
+
+{/*  */}
+
+{/* <div className=''>
+{taskCompleted4 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div> */}
+
+{/*  */}
+
+<div onClick={taskFive} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={tiktokicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow on TikTok
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted5 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskSix} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={instagramicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow on Instagram
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted6 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+{/*  */}
+
+<div onClick={taskSeven} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
+
+<div className='flex flex-1 items-center space-x-2'>
+
+    <div className=''>
+        <img src={facebookicon} alt="taskbook" className='w-[50px]'/>
+    </div>
+    <div className='flex flex-col space-y-1'>
+        <span className='font-semibold'>
+            Follow on Facebook
+        </span>
+        <div className='flex items-center space-x-1'>
+        <span className="w-[20px] h-[20px]">
+<img src={coinsmall} className="w-full" alt="coin"/>
+</span>
+<span className='font-medium'>
+50 000
+</span>
+        </div>
+    </div>
+
+</div>
+
+{/*  */}
+
+<div className=''>
+{taskCompleted7 ? (
+                                    <>
+
+                    <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
+                                    </>
+                                    ) : (
+                                    
+                                    <>
+                      
+                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
+                                    </>
+                                    )}
+</div>
+
+</div>
+
+
+
+            </div>
+
+
+
+{/*  */}
+
+
+            <div className={`${activeIndex === 2 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+
+
+
+<MilestoneRewards/>
+
+
+
+</div>
+
+
+{/*  */}
+
+
+            <div className={`${activeIndex === 3 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+
+
+<ReferralRewards/>
+
+
+
+
+
+
+
+</div>
+<div className={`${activeIndex === 4 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
+
+
+<YoutubeWatch/>
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+<TaskOne showModal={showModal} setShowModal={setShowModal} />
+<TaskTwo showModal={showModal2} setShowModal={setShowModal2} />
+<TaskThree showModal={showModal3} setShowModal={setShowModal3} />
+<TaskFour showModal={showModal4} setShowModal={setShowModal4} />
+<TaskFive showModal={showModal5} setShowModal={setShowModal5} />
+<TaskSix showModal={showModal6} setShowModal={setShowModal6} />
+<TaskSeven showModal={showModal7} setShowModal={setShowModal7} />
+<ClaimLeveler claimLevel={claimLevel} setClaimLevel={setClaimLevel} />
+<Levels showLevels={showLevels} setShowLevels={setShowLevels} />
+
+
+
+    </div>
+    <Outlet />
+    </Animate>
+      )}
+      </>
+  )
+}
+
+export default Tasks
