@@ -26,6 +26,8 @@ const JoinTelegram = () => {
   const [showDoneButton, setShowDoneButton] = useState(false);
   const [message, setMessage] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const [counter, setCounter] = useState(null);
+const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, 'tgtasks'));
@@ -97,26 +99,44 @@ const JoinTelegram = () => {
   };
 
   const handleVerify = async () => {
+    // Clear any existing interval
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  
     setShowCheckButton(false);
     setMessage("Verifying...");
-
+  
     const response = await fetch(
       `https://api.telegram.org/bot7436444125:AAGB8IwBNOvRbpW-AjR0HPvMOC0qGSTnILU/getChatMember?chat_id=@geto_spirit_announcement&user_id=${id}`
     );
     const data = await response.json();
-
+  
     if (data.ok && (data.result.status === "member" || data.result.status === "administrator" || data.result.status === "creator")) {
       setIsVerified(true);
-      setShowDoneButton(true);
-      setMessage("Verification successful!");
+      setCounter(15);
+      setTimeout(() => {
+        setShowDoneButton(true);
+      }, 3000);
+      setTimeout(() => {
+        setShowCheckButton(false);
+        setMessage("");
+      }, 3000);
     } else {
-      setShowCheckButton(true);
       setMessage("Please join the Telegram channel first before you can claim this task bonus.");
+      setCounter(15);
+      const newIntervalId = setInterval(() => {
+        setCounter((prevCounter) => {
+          if (prevCounter === 1) {
+            clearInterval(newIntervalId);
+            setShowCheckButton(true);
+            setCounter(null);
+          }
+          return prevCounter - 1;
+        });
+      }, 1000);
+      setIntervalId(newIntervalId);
     }
-
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
   };
 
   const getImage = (icon) => {
@@ -187,20 +207,25 @@ const JoinTelegram = () => {
                     </button>
                   )}
 
-                  {watchedTasks[selectedTask.id] && !isVerified && (
-                    <>
-                      {showCheckButton ? (
-                        <button
-                          onClick={handleVerify}
-                          className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
-                        >
-                          Check
-                        </button>
-                      ) : (
-                        <div className="text-center"></div>
-                      )}
-                    </>
-                  )}
+{watchedTasks[selectedTask.id] && !isVerified && (
+  <>
+    {showCheckButton ? (
+      <button
+        onClick={handleVerify}
+        className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
+      >
+        Check
+        {counter !== null && (
+          <span className="text-[#b0b0b0] ml-2 pointer-events-none select-none">
+            {counter}s
+          </span>
+        )}
+      </button>
+    ) : (
+      <div className="text-center">{message}</div>
+    )}
+  </>
+)}
 
                   {isVerified && showDoneButton && (
                     <button
