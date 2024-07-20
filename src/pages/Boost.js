@@ -428,10 +428,10 @@ const Boost = () => {
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
               <div className="w-full items-center justify-center pb-2 flex">
-                <img src={boost} className="w[24px]" />
+                <img src={boost} className="w[14px]" />
               </div>
               <div className="flex space-x-1 ml-[-8px] justify-center items-center">
-                <h1 className="text-[#fff] text-[12px] font-semibold">
+                <h1 className="text-[#fff] text-[18px] font-semibold">
                   Earn more coins with booster and other tools.
                 </h1>
               </div>
