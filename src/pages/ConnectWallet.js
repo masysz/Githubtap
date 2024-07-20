@@ -90,14 +90,12 @@ const Connect = () => {
         <Spinner />
       ) : (
         <Animate>
-            <div className='w-full h-full flex flex-col space-y-5'>
-            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
-            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center">
-                
-            <div className="flex flex-1 items-center space-x-2">
+            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center px-[20px]">
+                <div className="flex flex-1 items-center space-x-2">
+                    <div>
                         <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
-                   
-                    <div className="flex flex-col space-y-1 text-left">
+                    </div>
+                    <div className="flex flex-col space-y-1">
                         <span className="font-semibold">Connect your TON wallet</span>
                     </div>
                 </div>
@@ -109,8 +107,7 @@ const Connect = () => {
                     )}
                 </div>
             </div>
-            </div>
-            </div>
+
             {/* Connect Modal */}
             <div className={`${isConnectModalVisible ? "visible" : "invisible"} absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}>
                 <div className="w-full flex flex-col justify-between py-8">
