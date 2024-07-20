@@ -115,7 +115,6 @@ const JoinTelegram = () => {
     }
 
     setTimeout(() => {
-      setMessage("");
     }, 3000);
   };
 
