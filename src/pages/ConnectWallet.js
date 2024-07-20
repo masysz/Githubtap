@@ -90,74 +90,85 @@ const Connect = () => {
         <Spinner />
       ) : (
         <Animate>
-            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
-                <div className="flex flex-1 items-center space-x-2">
-                    <div>
-                        <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
-                    </div>
-                    <div className="flex flex-col space-y-1">
-                        <span className="font-semibold">Connect your TON wallet</span>
-                    </div>
-                </div>
-                <div>
-                    {taskCompleted ? (
-                            <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
-                    ) : (
-                        <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
-                    )}
-                </div>
-            </div>
+            <div className="w-full justify-center flex-col space-y-3 px-5">
+                        <div className="flex flex-col w-full">
+                            <div className="w-full items-center justify-center pb-2 flex">
+                                <img src={boost} className="w-[40px]" />
+                            </div>
+                            <div className="flex space-x-1 ml-[-8px] justify-center items-center">
+                                <h1 className="text-[#fff] text-[18px] font-semibold">
+                                    Earn more coins with booster and other tools.
+                                </h1>
+                            </div>
+                            <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
+                            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
+                                <div className="flex flex-1 items-center space-x-2">
+                                    <div>
+                                        <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
+                                    </div>
+                                    <div className="flex flex-col space-y-1">
+                                        <span className="font-semibold">Connect your TON wallet</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    {taskCompleted ? (
+                                        <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                                    ) : (
+                                        <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
+                                    )}
+                                </div>
+                            </div>
+                        </div>
 
-            {/* Connect Modal */}
-            <div className={`${isConnectModalVisible ? "visible" : "invisible"} absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}>
-                <div className="w-full flex flex-col justify-between py-8">
-                    <button onClick={() => setIsConnectModalVisible(false)} className="flex items-center justify-center absolute right-8 top-8 text-center rounded-[12px] font-medium text-[16px]">
-                        <IoClose size={24} className="text-[#9a96a6]" />
-                    </button>
-                    <div className="w-full flex justify-center flex-col items-center">
-                        <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center">
-                            <img alt="claim" src={tonwallet} className="w-[80px]" />
-                        </div>
-                        <h3 className="font-semibold text-[32px] py-4">Connect your TON wallet</h3>
-                        <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
-                            Don't forget to connect your TON wallet <br />
-                            Distribution token soon.
-                        </p>
-                        <div className="w-full flex justify-center pb-6 pt-4">
-                            {!userFriendlyAddress && (
-                                <button className="w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]">
-                                    <TonConnectButton />
-                                </button>
-                            )}
-                        </div>
-                        {userFriendlyAddress && (
-                            <div className="flex items-center mt-4 space-x-2">
-                                <button
-                                    onClick={handleCopyAddress}
-                                    className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
-                                >
-                                    {isCopied ? "Copied" : "Copy"}
-                                </button>
-                                <input
-                                    type="text"
-                                    value={userFriendlyAddress}
-                                    readOnly
-                                    className="flex-grow p-3 text-center rounded-[12px] bg-gray-200"
-                                />
-                                <button
-                                    onClick={handleDisconnect}
-                                    className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
-                                >
+                        {/* Connect Modal */}
+                        <div className={`${isConnectModalVisible ? "visible" : "invisible"} absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}>
+                            <div className="w-full flex flex-col justify-between py-8">
+                                <button onClick={() => setIsConnectModalVisible(false)} className="flex items-center justify-center absolute right-8 top-8 text-center rounded-[12px] font-medium text-[16px]">
                                     <IoClose size={24} className="text-[#9a96a6]" />
                                 </button>
+                                <div className="w-full flex justify-center flex-col items-center">
+                                    <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center">
+                                        <img alt="claim" src={tonwallet} className="w-[80px]" />
+                                    </div>
+                                    <h3 className="font-semibold text-[32px] py-4">Connect your TON wallet</h3>
+                                    <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
+                                        Don't forget to connect your TON wallet <br />
+                                        Distribution token soon.
+                                    </p>
+                                    <div className="w-full flex justify-center pb-6 pt-4">
+                                        {!userFriendlyAddress && (
+                                            <button className="w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]">
+                                                <TonConnectButton />
+                                            </button>
+                                        )}
+                                    </div>
+                                    {userFriendlyAddress && (
+                                        <div className="flex items-center mt-4 space-x-2">
+                                            <button
+                                                onClick={handleCopyAddress}
+                                                className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
+                                            >
+                                                {isCopied ? "Copied" : "Copy"}
+                                            </button>
+                                            <input
+                                                type="text"
+                                                value={userFriendlyAddress}
+                                                readOnly
+                                                className="flex-grow p-3 text-center rounded-[12px] bg-gray-200"
+                                            />
+                                            <button
+                                                onClick={handleDisconnect}
+                                                className="p-3 rounded-[12px] bg-gray-200 flex items-center justify-center"
+                                            >
+                                                <IoClose size={24} className="text-[#9a96a6]" />
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <Outlet />
-            </Animate>
+                </Animate>
         )}
         </>
     );
