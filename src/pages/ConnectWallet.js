@@ -93,7 +93,7 @@ const Connect = () => {
             <div className="w-full justify-center flex-col space-y-3 px-5">
                         <div className="flex flex-col w-full">
                             <div className="w-full items-center justify-center pb-2 flex">
-                                <img src={boost} className="w-[40px]" />
+                                <img src={tonwallet} className="w-[40px]" />
                             </div>
                             <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                                 <h1 className="text-[#fff] text-[18px] font-semibold">
@@ -111,7 +111,7 @@ const Connect = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    {taskCompleted ? (
+                                    {userFriendlyAddress ? (
                                         <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
                                     ) : (
                                         <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
