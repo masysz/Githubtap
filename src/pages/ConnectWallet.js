@@ -11,7 +11,7 @@ import Spinner from '../Components/Spinner';
 import Animate from '../Components/Animate';
 
 const Connect = () => {
-    const { loading, address, id } = useUser();
+    const { loading, address, setAddress, id } = useUser();
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
     const userFriendlyAddress = useTonAddress();
@@ -19,11 +19,12 @@ const Connect = () => {
 
     useEffect(() => {
         if (userFriendlyAddress) {
+            setAddress(userFriendlyAddress);
             saveWalletToFirestore(id, userFriendlyAddress).then(() => {
                 console.log('Wallet address saved to Firestore.');
             });
         }
-    }, [userFriendlyAddress, id]);
+    }, [userFriendlyAddress, id, setAddress]);
 
     const saveWalletToFirestore = async (id, address) => {
         try {
@@ -47,13 +48,21 @@ const Connect = () => {
     };
 
     const handleCopyAddress = () => {
-        navigator.clipboard.writeText(address);
-        setIsCopied(true);
-
-        // Reset copied status after 3 seconds
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 3000);
+        if (address) {
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    console.log('Address copied to clipboard:', address); // Debugging
+                    setIsCopied(true);
+                    setTimeout(() => {
+                        setIsCopied(false);
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy text:', err);
+                });
+        } else {
+            console.error('Address is not available to copy');
+        }
     };
 
     return (
