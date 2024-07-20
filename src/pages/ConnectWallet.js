@@ -91,8 +91,9 @@ const Connect = () => {
       ) : (
         <Animate>
             <div className='w-full h-full flex flex-col space-y-5'>
+            <div className="flex flex-1 items-center space-x-2">
             <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center">
-                <div className="flex flex-1 items-center space-x-2">
+                
                     <div>
                         <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
                     </div>
