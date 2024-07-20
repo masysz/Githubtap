@@ -428,7 +428,7 @@ const Boost = () => {
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
               <div className="w-full items-center justify-center pb-2 flex">
-                <img src={boost} className="w[6px]" />
+                <img src={boost} className="w-[6px]" />
               </div>
               <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                 <h1 className="text-[#fff] text-[18px] font-semibold">
@@ -438,7 +438,7 @@ const Boost = () => {
               <div>
 
     </div>
-              {/* <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div> */}
+              <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
 
               <div className="w-full flex flex-col">
                 <h3 className="text-[18px] font-semibold pb-4">
