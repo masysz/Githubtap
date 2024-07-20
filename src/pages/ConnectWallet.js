@@ -48,21 +48,13 @@ const Connect = () => {
     };
 
     const handleCopyAddress = () => {
-        if (address) {
-            navigator.clipboard.writeText(address)
-                .then(() => {
-                    console.log('Address copied to clipboard:', address); // Debugging
-                    setIsCopied(true);
-                    setTimeout(() => {
-                        setIsCopied(false);
-                    }, 3000);
-                })
-                .catch(err => {
-                    console.error('Failed to copy text:', err);
-                });
-        } else {
-            console.error('Address is not available to copy');
-        }
+        navigator.clipboard.writeText(address);
+        setIsCopied(true);
+
+        // Reset copied status after 3 seconds
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
     };
 
     return (
