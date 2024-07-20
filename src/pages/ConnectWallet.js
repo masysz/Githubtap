@@ -47,14 +47,30 @@ const Connect = () => {
     };
 
     const handleCopyAddress = () => {
-        navigator.clipboard.writeText(userFriendlyAddress);
-        setIsCopied(true);
-
-        // Reset copied status after 3 seconds
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 3000);
-    };
+        const wallet = userFriendlyAddress;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(wallet).then(() => {
+              setIsCopied(true);
+              setTimeout(() => setIsCopied(false), 3000);
+            }).catch(err => {
+              console.error('Failed to copy text: ', err);
+            });
+          } else {
+            // Fallback method
+            const textArea = document.createElement('textarea');
+            textArea.value = wallet;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+              document.execCommand('copy');
+              setIsCopied(true);
+              setTimeout(() => setCopied(false), 3000);
+            } catch (err) {
+              console.error('Failed to copy', err);
+            }
+            document.body.removeChild(textArea);
+          }
+        };
 
     return (
         <>
