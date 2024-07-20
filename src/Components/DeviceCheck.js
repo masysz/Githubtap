@@ -9,7 +9,7 @@ const DeviceCheck = ({ children }) => {
         <p className='text-[28px] font-semibold'>
             Mobile rocks for gaming 😎 Open on your mobile device to play now!
         </p>
-        <img src='/getoqr.svg'
+        <img src='/getoqr.png'
         alt="getotaps"
         className='w-[250px] rounded-[25px] border-[2px] border-[#0000ff]'
         />
