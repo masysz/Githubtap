@@ -431,7 +431,7 @@ const Boost = () => {
                 <img src={boost} className="w[24px]" />
               </div>
               <div className="flex space-x-1 ml-[-8px] justify-center items-center">
-                <h1 className="text-[#fff] text-[42px] font-extrabold">
+                <h1 className="text-[#fff] text-[12px] font-semibold">
                   Earn more coins with booster and other tools.
                 </h1>
               </div>
