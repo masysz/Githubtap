@@ -12,7 +12,7 @@ import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
 import Stats from "./pages/Stats";
 import Connect from "./pages/ConnectWallet";
-// import DeviceCheck from "./Components/DeviceCheck";
+import DeviceCheck from "./Components/DeviceCheck";
 import Plutos from "./pages/Plutos";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
@@ -55,12 +55,12 @@ root.render(
 
 
 
-  // <DeviceCheck>
+  <DeviceCheck>
   <TonConnectUIProvider manifestUrl={manifestUrl}>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
   </TonConnectUIProvider>
-// </DeviceCheck>
+</DeviceCheck>
 
 );
