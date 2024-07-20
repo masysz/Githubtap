@@ -148,7 +148,7 @@ const Connect = () => {
                                             </button>
                                             <input
                                                 type="text"
-                                                value={userFriendlyAddress}
+                                                value={firestoreAddress}
                                                 readOnly
                                                 className="flex-grow p-3 text-center rounded-[12px] bg-gray-200"
                                             />
