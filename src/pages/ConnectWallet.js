@@ -64,7 +64,7 @@ const Connect = () => {
             try {
               document.execCommand('copy');
               setIsCopied(true);
-              setTimeout(() => setCopied(false), 3000);
+              setTimeout(() => setIsCopied(false), 3000);
             } catch (err) {
               console.error('Failed to copy', err);
             }
