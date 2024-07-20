@@ -48,30 +48,11 @@ const Connect = () => {
 
     const handleCopyAddress = () => {
         const wallet = userFriendlyAddress;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(wallet)
                 .then(() => {
                     setIsCopied(true);
                     setTimeout(() => setIsCopied(false), 3000);
                 })
-                .catch(err => {
-                    console.error('Failed to copy text: ', err);
-                });
-        } else {
-            // Fallback method
-            const textArea = document.createElement('textarea');
-            textArea.value = wallet;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                setIsCopied(true);
-                setTimeout(() => setIsCopied(false), 3000);
-            } catch (err) {
-                console.error('Failed to copy', err);
-            }
-            document.body.removeChild(textArea);
-        }
     };
 
 
