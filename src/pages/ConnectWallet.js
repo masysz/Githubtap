@@ -90,7 +90,7 @@ const Connect = () => {
         <Spinner />
       ) : (
         <Animate>
-            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center px-[20px]">
+            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
                 <div className="flex flex-1 items-center space-x-2">
                     <div>
                         <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
