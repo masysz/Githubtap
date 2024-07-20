@@ -91,13 +91,13 @@ const Connect = () => {
       ) : (
         <Animate>
             <div className='w-full h-full flex flex-col space-y-5'>
-            <div className="flex flex-1 items-center space-x-2">
+            <div className="w-full flex flex-col space-y-3 overflow-y-auto max-h-[90vh]">
             <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center">
                 
-                    <div>
+            <div className="flex flex-1 items-center space-x-2">
                         <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
-                    </div>
-                    <div className="flex flex-col space-y-1">
+                   
+                    <div className="flex flex-col space-y-1 text-left">
                         <span className="font-semibold">Connect your TON wallet</span>
                     </div>
                 </div>
@@ -108,6 +108,7 @@ const Connect = () => {
                         <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
                     )}
                 </div>
+            </div>
             </div>
             </div>
             {/* Connect Modal */}
