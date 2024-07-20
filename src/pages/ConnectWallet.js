@@ -1,74 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { IoClose, IoCheckmarkSharp, IoCheckmarkCircle } from "react-icons/io5";
+import { IoClose, IoCheckmarkCircle } from "react-icons/io5";
 import { useUser } from "../context/userContext";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import "../App.css"; // Pastikan file CSS Anda terimport
 import Spinner from '../Components/Spinner';
 import Animate from '../Components/Animate';
 
 const Connect = () => {
-    const { id, taskCompleted, setTaskCompleted, loading } = useUser();
-    const taskID = "connect_3000"; // Assign a unique ID to this task
+    const { loading, address, id } = useUser();
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
     const userFriendlyAddress = useTonAddress();
-    const rawAddress = useTonAddress(false);
     const [tonConnectUI] = useTonConnectUI();
 
     useEffect(() => {
-        checkTaskCompletion(id, taskID).then((completed) => {
-            setTaskCompleted(completed);
-        });
-        // eslint-disable-next-line
-    }, [id]);
-
-    useEffect(() => {
         if (userFriendlyAddress) {
-            saveTaskCompletionToFirestore(id, taskID, userFriendlyAddress, true).then(() => {
-                setTaskCompleted(true);
+            saveWalletToFirestore(id, userFriendlyAddress).then(() => {
+                console.log('Wallet address saved to Firestore.');
             });
         }
-        // eslint-disable-next-line
-    }, [userFriendlyAddress]);
+    }, [userFriendlyAddress, id]);
 
-    const checkTaskCompletion = async (id, taskId) => {
+    const saveWalletToFirestore = async (id, address) => {
         try {
-            const userTaskDocRef = doc(db, "walletTasks", `${id}_${taskId}`);
-            const docSnap = await getDoc(userTaskDocRef);
-            if (docSnap.exists()) {
-                return docSnap.data().completed;
-            } else {
-                return false;
-            }
+            const userWallet = doc(db, 'telegramUsers', id);
+            await updateDoc(userWallet, {
+                address: address,
+            });
+            console.log('Wallet saved to Firestore.');
         } catch (e) {
-            console.error("Error checking task completion: ", e);
-            return false;
-        }
-    };
-
-    const saveTaskCompletionToFirestore = async (id, taskId, address, isCompleted) => {
-        try {
-            const userTaskDocRef = doc(db, "walletTasks", `${id}_${taskId}`);
-            await setDoc(
-                userTaskDocRef,
-                { userId: id, taskId: taskId, address: address, completed: isCompleted },
-                { merge: true }
-            );
-            console.log('Task completion status saved to Firestore.');
-        } catch (e) {
-            console.error("Error saving task completion status: ", e);
+            console.error("Error saving wallet: ", e);
         }
     };
 
     const handleDisconnect = async () => {
         try {
             await tonConnectUI.disconnect();
-            setTaskCompleted(false);
+            console.log('Disconnected from wallet.');
         } catch (e) {
             console.error("Error disconnecting wallet: ", e);
         }
@@ -93,7 +65,7 @@ const Connect = () => {
             <div className="w-full justify-center flex-col space-y-3 px-5">
                         <div className="flex flex-col w-full">
                             <div className="w-full items-center justify-center pb-2 flex">
-                                <img src={tonwallet} className="w-[40px]" />
+                                <img src={tonwallet} className="w-[80px]" />
                             </div>
                             <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                                 <h1 className="text-[#fff] text-[18px] font-semibold">
