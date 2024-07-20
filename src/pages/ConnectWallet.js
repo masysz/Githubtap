@@ -65,19 +65,13 @@ const Connect = () => {
 
     const handleCopyAddress = async () => {
   const addressToCopy = firestoreAddress || userFriendlyAddress;
-  if (addressToCopy) {
-    try {
-      await navigator.clipboard.writeText(addressToCopy);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 3000);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-    }
-  } else {
-    console.log("No address available to copy");
-  }
+  navigator.clipboard.writeText(addressToCopy);
+        setIsCopied(true);
+
+        // Reset copied status after 3 seconds
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
 };
 
     return (
