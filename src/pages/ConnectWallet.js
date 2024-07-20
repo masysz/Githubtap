@@ -47,14 +47,14 @@ const Connect = () => {
     };
 
     const handleCopyAddress = () => {
-        const wallet = userFriendlyAddress;
-            navigator.clipboard.writeText(wallet)
-                .then(() => {
-                    setIsCopied(true);
-                    setTimeout(() => setIsCopied(false), 3000);
-                })
-    };
+        navigator.clipboard.writeText(userFriendlyAddress);
+        setIsCopied(true);
 
+        // Reset copied status after 3 seconds
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
+    };
 
     return (
         <>
