@@ -197,7 +197,12 @@ const JoinTelegram = () => {
                           Check
                         </button>
                       ) : (
-                        <div className="text-center"></div>
+                        <button
+                          disabled
+                          className="bg-gradient-to-b from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]"
+                        >
+                          Checking...
+                        </button>
                       )}
                     </>
                   )}
