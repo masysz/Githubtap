@@ -5,26 +5,26 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkCircle } from "react-icons/io5";
 import { useUser } from "../context/userContext";
 import { db } from "../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import "../App.css"; // Pastikan file CSS Anda terimport
 import Spinner from '../Components/Spinner';
 import Animate from '../Components/Animate';
 
 const Connect = () => {
-    const { loading, address, setAddress, id } = useUser();
+    const { loading, address, id } = useUser();
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
     const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
     const userFriendlyAddress = useTonAddress();
     const [tonConnectUI] = useTonConnectUI();
+    const [firestoreAddress, setFirestoreAddress] = useState("");
 
     useEffect(() => {
         if (userFriendlyAddress) {
-            setAddress(userFriendlyAddress);
             saveWalletToFirestore(id, userFriendlyAddress).then(() => {
                 console.log('Wallet address saved to Firestore.');
             });
         }
-    }, [userFriendlyAddress, id, setAddress]);
+    }, [userFriendlyAddress, id]);
 
     const saveWalletToFirestore = async (id, address) => {
         try {
@@ -47,15 +47,38 @@ const Connect = () => {
         }
     };
 
-    const handleCopyAddress = () => {
-        navigator.clipboard.writeText(address);
-        setIsCopied(true);
+    const fetchAddressFromFirestore = async () => {
+        try {
+          const userDoc = await getDoc(doc(db, 'telegramUsers', id));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            setFirestoreAddress(data.address || "");
+          }
+        } catch (error) {
+          console.error("Error fetching address from Firestore:", error);
+        }
+      };
 
-        // Reset copied status after 3 seconds
-        setTimeout(() => {
-            setIsCopied(false);
-        }, 3000);
-    };
+      useEffect(() => {
+        fetchAddressFromFirestore();
+      }, [id]);
+
+    const handleCopyAddress = async () => {
+  const addressToCopy = firestoreAddress || userFriendlyAddress;
+  if (addressToCopy) {
+    try {
+      await navigator.clipboard.writeText(addressToCopy);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  } else {
+    console.log("No address available to copy");
+  }
+};
 
     return (
         <>
