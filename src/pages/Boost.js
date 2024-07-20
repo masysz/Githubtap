@@ -427,19 +427,14 @@ const Boost = () => {
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
-              {/* <div className="w-full items-center justify-center pb-2 flex">
-                <h2 className="text-[#9d99a9] text-[20px] font-medium">
-                  Your Share balance
-                </h2>
+              <div className="w-full items-center justify-center pb-2 flex">
+                <img src={boost} className="w[24px]" />
               </div>
               <div className="flex space-x-1 ml-[-8px] justify-center items-center">
-                <div className="w-[50px] h-[50px]">
-                  <img src={coinsmall} className="w-full" alt="coin" />
-                </div>
                 <h1 className="text-[#fff] text-[42px] font-extrabold">
-                  {formatNumber(balance + refBonus)}
+                  Earn more coins with booster and other tools.
                 </h1>
-              </div> */}
+              </div>
               <div>
 
     </div>
