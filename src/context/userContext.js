@@ -180,7 +180,7 @@ export const UserProvider = ({ children }) => {
           balance: initialBalance,
           freeGuru: 3,
           fullTank: 3,
-          tapBalance: 0,
+          tapBalance: initialBalance,
           timeSta: null,
           timeStaTank: null,
           tapValue: {level: 1, value: 1},
@@ -209,9 +209,11 @@ export const UserProvider = ({ children }) => {
           const referrerDoc = await getDoc(referrerRef);
           if (referrerDoc.exists()) {
             const referrerData = referrerDoc.data();
-            const newReferrerBalance = (referrerData.balance || 0) + 35000;
+            const newReferrerBalance = (referrerData.balance || 0) + 25000;
+            const newReferrerBalanceTap = (referrerData.tapBalance || 0) + 25000;
             await updateDoc(referrerRef, {
               balance: newReferrerBalance,
+              tapBalance: newReferrerBalanceTap,
               referrals: arrayUnion({
                 userId: userId.toString(),
                 username: finalUsername,

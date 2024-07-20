@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { IoClose, IoCheckmarkSharp, IoCheckmarkCircle } from "react-icons/io5";
+import { IoClose, IoCheckmarkSharp } from "react-icons/io5";
 import { useUser } from "../context/userContext";
 import { db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -101,7 +101,9 @@ const Connect = () => {
                 </div>
                 <div>
                     {taskCompleted ? (
-                            <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                        <div className="checkmark-container">
+                            <IoCheckmarkSharp className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]" />
+                        </div>
                     ) : (
                         <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]" />
                     )}
