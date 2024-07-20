@@ -69,7 +69,7 @@ const Connect = () => {
                             </div>
                             <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                                 <h1 className="text-[#fff] text-[18px] font-semibold">
-                                    Earn more coins with booster and other tools.
+                                Connect your TON wallet to receive the airdrop distribution.
                                 </h1>
                             </div>
                             <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
