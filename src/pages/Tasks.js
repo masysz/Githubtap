@@ -17,6 +17,7 @@ import MilestoneRewards from '../Components/MilestoneRewards';
 import ReferralRewards from '../Components/Rewards';
 import YoutubeWatch from '../Components/YoutubeWatch';
 import SocmedTasks from '../Components/Socmed';
+import JoinTelegram from '../Components/JoinTelegram';
 
 
 const Tasks = () => {
@@ -147,52 +148,7 @@ const levelsAction = () => {
 
             <div className={`${activeIndex === 1 ? 'flex' : 'hidden'} alltaskscontainer flex-col w-full space-y-2`}>
                 <YoutubeWatch />
-                <div onClick={taskOne} className='bg-cards rounded-[10px] p-[14px] flex justify-between items-center'>
-
-                    <div className='flex flex-1 items-center space-x-2'>
-
-                        <div className=''>
-                            <img src={telegramicon} alt="tasks" className='w-[50px]'/>
-                        </div>
-                        <div className='flex flex-col space-y-1'>
-                            <span className='font-semibold'>
-                                Join Telegram Channel
-                            </span>
-                            <div className='flex items-center space-x-1'>
-                            <span className="w-[20px] h-[20px]">
-                <img src={coinsmall} className="w-full" alt="coin"/>
-              </span>
-              <span className='font-medium'>
-                50 000
-              </span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {/*  */}
-
-                    <div className=''>
-                    {taskCompleted ? (
-                                    <>
-
-                    <IoCheckmarkCircle className="w-[20px] h-[20px] text-[#5bd173] mt-[2px]"/>
-                                    </>
-                                    ) : (
-                                    
-                                    <>
-                      
-                    <MdOutlineKeyboardArrowRight className="w-[20px] h-[20px] text-[#e0e0e0] mt-[2px]"/>
-                                    </>
-                                    )}
-
-                                    
-                    </div>
-
-                </div>
-
-                {/*  */}
-
+                <JoinTelegram />
                 
 
                 <SocmedTasks />
