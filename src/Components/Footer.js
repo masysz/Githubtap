@@ -94,7 +94,7 @@ ${
         }}
       >
         <img src={tonwallet} className="w-[24px]" alt="connect" />
-        <span className="font-medium">Wallet</span>
+        <span className="font-medium">Airdrop</span>
       </NavLink>
     </div>
   );
