@@ -92,7 +92,7 @@ const Connect = () => {
                                 </h1>
                             </div>
                             <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
-                            <div onClick={() => setIsConnectModalVisible(true)} className="bg-cards rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
+                            <div onClick={() => setIsConnectModalVisible(true)} className="bg-[#3cb8f7] rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
                                 <div className="flex flex-1 items-center space-x-2">
                                     <div>
                                         <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
