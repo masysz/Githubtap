@@ -84,10 +84,10 @@ const Connect = () => {
             <div className="w-full justify-center flex-col space-y-3 px-5">
                         <div className="flex flex-col w-full">
                             <div className="w-full items-center justify-center pb-2 flex">
-                                <img src={getocoin} className="w-[100px]" />
+                                <img src={getocoin} className="w-[200px]" />
                             </div>
                             <div className="flex space-x-1 ml-[-8px] justify-center items-center">
-                                <h1 className="text-[#fff] text-[18px] font-semibold">
+                                <h1 className="text-[#fff] text-[18px] font-semibold text-center">
                                 Connect your TON wallet to receive the airdrop distribution.
                                 </h1>
                             </div>
