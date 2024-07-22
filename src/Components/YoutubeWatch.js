@@ -110,6 +110,17 @@ const YoutubeWatch = () => {
         return null;
     }
   };
+  const formatNumber = (num) => {
+    if (num < 100000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    } else if (num < 1000000) {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    // } else {
+    //   return (num / 1000000).toFixed(3).replace(".", ".") + " M";
+    } else {
+      return new Intl.NumberFormat().format(num).replace(/,/g, " ");
+    }
+  };
 
   return (
     <>
@@ -132,7 +143,7 @@ const YoutubeWatch = () => {
                       <div className="flex items-center space-x-1">
                         <img src={coinsmall} className="w-[20px]" alt="coin" />
                         <span className="font-medium flex items-center text-[15px]">
-                          +{task.points}
+                          +{formatNumber(task.points)}
                         </span>
                       </div>
                     </div>
@@ -185,7 +196,7 @@ const YoutubeWatch = () => {
                       <div className="flex flex-1 items-center space-x-2">
                         <img src={coinsmall} className="w-[25px]" alt="Coin Icon" />
                         <div className="font-bold text-[26px] flex items-center">
-                          +{selectedTask.points}
+                          +{formatNumber(selectedTask.points)}
                         </div>
                       </div>
 
