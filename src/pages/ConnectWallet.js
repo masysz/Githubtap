@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import tonwallet from "../images/tonwallet.webp";
+import getocoin from "../images/getocoin.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoClose, IoCheckmarkCircle } from "react-icons/io5";
 import { useUser } from "../context/userContext";
@@ -83,7 +84,7 @@ const Connect = () => {
             <div className="w-full justify-center flex-col space-y-3 px-5">
                         <div className="flex flex-col w-full">
                             <div className="w-full items-center justify-center pb-2 flex">
-                                <img src={tonwallet} className="w-[80px]" />
+                                <img src={getocoin} className="w-[100px]" />
                             </div>
                             <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                                 <h1 className="text-[#fff] text-[18px] font-semibold">
