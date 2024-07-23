@@ -93,7 +93,7 @@ const Ref = () => {
           <div className="w-full flex flex-col">
             <h3 className="text-[22px] font-semibold pb-[16px]">My Referrals:</h3>
 
-            <div className="w-full flex flex-col space-y-3">
+            <div className="w-full flex flex-col space-y-3 h-[50px] overflow-y-auto">
 
             {loading ? (
         <p className='w-full text-center'>checking...</p>
@@ -112,7 +112,7 @@ const Ref = () => {
 
 <div
                       key={index}
-                      className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center overflow-y-auto"
+                      className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
                     >
                       <div className="flex flex-1 flex-col space-y-1">
                         <div className="text-[#fff] pl-1 text-[16px] font-semibold">
