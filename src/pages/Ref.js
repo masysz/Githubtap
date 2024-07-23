@@ -112,7 +112,7 @@ const Ref = () => {
 
 <div
                       key={index}
-                      className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center"
+                      className="bg-cards rounded-[10px] p-[14px] flex flex-wrap justify-between items-center overflow-y-auto"
                     >
                       <div className="flex flex-1 flex-col space-y-1">
                         <div className="text-[#fff] pl-1 text-[16px] font-semibold">
