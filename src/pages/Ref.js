@@ -93,7 +93,7 @@ const Ref = () => {
           <div className="w-full flex flex-col">
             <h3 className="text-[22px] font-semibold pb-[16px]">My Referrals:</h3>
 
-            <div className="w-full flex flex-col space-y-3 h-[50px] overflow-y-auto">
+            <div className="w-full flex flex-col space-y-3 h-[70px] overflow-y-auto">
 
             {loading ? (
         <p className='w-full text-center'>checking...</p>
