@@ -10,7 +10,7 @@ const userLevels = [
     { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000 },
     { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000 },
     { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000 },
-    { name: 'OnFire', icon: '/onfire.webp', tapBalanceRequired: 50000000 },
+    { name: 'Fire', icon: '/fire.webp', tapBalanceRequired: 50000000 },
     { name: 'Scorch', icon: '/scorch.webp', tapBalanceRequired: 100000000 },
     { name: 'Broiling', icon: '/broiling.webp', tapBalanceRequired: 1000000000 },
     { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 10000000000 },

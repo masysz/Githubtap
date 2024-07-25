@@ -332,7 +332,7 @@ export const UserProvider = ({ children }) => {
     } else if (newTapBalance >= 8000000 && newTapBalance < 25000000) {
       newLevel = { id: 6, name: "Burning", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
     } else if (newTapBalance >= 25000000 && newTapBalance < 50000000) {
-      newLevel = { id: 7, name: "OnFire", imgUrl: "/onfire.webp", imgTap: "/coin-7.webp", imgBoost: "/coins-7.webp" };
+      newLevel = { id: 7, name: "Fire", imgUrl: "/fire.webp", imgTap: "/coin-7.webp", imgBoost: "/coins-7.webp" };
     } else if (newTapBalance >= 50000000 && newTapBalance < 100000000) {
       newLevel = { id: 8, name: "Scorch", imgUrl: "/scorch.webp", imgTap: "/coin-8.webp", imgBoost: "/coins-8.webp" };
     } else if (newTapBalance >= 100000000 && newTapBalance < 1000000000) {
