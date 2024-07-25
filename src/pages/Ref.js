@@ -17,9 +17,9 @@ const Ref = () => {
   const copyToClipboard = () => {
 
    const reflink = `https://t.me/geto_spirit_bot?start=r${id}
-   Play with me, and get free token airdrop! 
-   Tap Geto for more coin and invite friends… 
-   More friends more coin!!
+Play with me, and get free token airdrop! 
+Tap Geto for more coin and invite friends… 
+More friends more coin!!
 🪙+25k Coins as a first-time gift
 🔥+25k Coins for referral`
 
