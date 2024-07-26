@@ -129,8 +129,8 @@ body{
 }
 
 .spinner {
-  width: 100px;
-  height: 100px;
+  width: 80px; /* Half of 160px */
+  height: 80px; /* Half of 160px */
   position: fixed;
   border-radius: 50%;
   top: 50%;
@@ -142,9 +142,9 @@ body{
 }
 
 .spin1 {
-  width: 90px;
-  border: 10px solid transparent;
-  height: 90px;
+  width: 70px; /* Half of 140px */
+  border: 5px solid transparent; /* Half of 10px */
+  height: 70px; /* Half of 140px */
   position: relative;
   border-radius: 50%;
   display: flex;
@@ -154,19 +154,19 @@ body{
 }
 
 .spin2 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-left-color: #ff4500; /* Bright orange color */
 }
 
 .spin3 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-right-color: #ff6347; /* Tomato color */
   transform: rotate(70deg);
@@ -174,10 +174,10 @@ body{
 }
 
 .spin4 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-right-color: #ff8c00; /* Dark orange color */
   transform: rotate(140deg);
@@ -185,10 +185,10 @@ body{
 }
 
 .spin5 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-top-color: #ffa500; /* Orange color */
   transform: rotate(210deg);
@@ -196,10 +196,10 @@ body{
 }
 
 .spin6 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-top-color: #ff6347; /* Tomato color */
   transform: rotate(280deg);
@@ -207,10 +207,10 @@ body{
 }
 
 .spin7 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-top-color: #ff4500; /* Bright orange color */
   transform: rotate(32deg);
@@ -218,10 +218,10 @@ body{
 }
 
 .spin8 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-top-color: #ff6347; /* Tomato color */
   transform: rotate(-28deg);
@@ -229,15 +229,16 @@ body{
 }
 
 .spin9 {
-  border: 10px solid transparent;
+  border: 5px solid transparent; /* Half of 10px */
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 70px; /* Half of 140px */
+  height: 70px; /* Half of 140px */
   border-radius: 50%;
   border-top-color: #ff8c00; /* Dark orange color */
   transform: rotate(41deg);
   z-index: 25;
 }
+
 
 
 
