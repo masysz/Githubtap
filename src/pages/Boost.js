@@ -437,7 +437,7 @@ const Boost = () => {
                 </h1>
               </div> */}
               <button
-                             onClick={() => setIsUpgradeModalVisibleEnMy(true)} 
+                             onClick={() => (true)} 
                              disabled
                   className={`${battery.level >= energyValues.length ? 'opacity-[.7]' : 'opacity-100'} bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center`}
                 >
