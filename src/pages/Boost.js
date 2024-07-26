@@ -191,6 +191,7 @@ const Boost = () => {
   const [guru, setGuru] = useState(false);
   const [tank, setTank] = useState(false);
   const [bot, setBot] = useState(false);
+  const [mybox, setMyBox] = useState(false);
 
 
   const infoRef = useRef(null);
@@ -371,6 +372,11 @@ const Boost = () => {
     };
   };
  
+  const handleMyBox = async () => {
+    if (id) {
+    
+    };
+  };
   const handleFullTank = async () => {
     if (id) {
     if (fullTank > 0) {
@@ -882,6 +888,57 @@ const Boost = () => {
                     className={`${!hasSufficientBalanceEnc ? 'bg-btn2 text-[#979797]' : 'bg-gradient-to-b gradient from-[#f96800] to-[#c30000]'} w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
                     {isUpgrading ? 'Boosting...' : hasSufficientBalanceEnc ? 'Go ahead!' : 'Insufficient Balance'}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* myterybox Modal */}
+
+            <div
+              className={`${
+                mybox  === true ? "visible" : "invisible"
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
+            >
+              <div className="w-full flex flex-col justify-between py-8">
+              <button
+                      onClick={() =>  setMyBox(false)}
+                      className="flex items-center justify-center absolute right-8 top-8 text-center rounded-[12px] font-medium text-[16px]"
+                    >
+                     <IoClose size={24} className="text-[#9a96a6]"/>
+                    </button>
+
+
+                <div className="w-full flex justify-center flex-col items-center">
+                  <div className="w-[120px] h-[120px] rounded-[25px] bg-[#252e57] flex items-center justify-center">
+                    <img alt="claim" src={mysterybox} className="w-[80px]" />
+                  </div>
+                  <h3 className="font-semibold text-[32px] py-4">
+                 Mystery Box
+                  </h3>
+                  <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
+                  Claim your box with a random reward of up to 100 USDT. Invite 10 friends to unlock the box.
+                  </p>
+
+                  <div className="flex flex-1 items-center space-x-2">
+                    <div className="">
+                      <img
+                        src={coinsmall}
+                        className="w-[25px]"
+                        alt="Coin Icon"
+                      />
+                    </div>
+                    <div className="font-bold text-[26px] flex items-center">Free</div>
+                  </div>
+                </div>
+
+                <div className="w-full flex justify-center pb-6 pt-4">
+                  <button
+                                        onClick={handleTapGuru}
+                                       
+                    className={`bg-gradient-to-b gradient from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                  >
+                   Go ahead!
                   </button>
                 </div>
               </div>
