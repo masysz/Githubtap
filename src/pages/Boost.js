@@ -461,7 +461,7 @@ const Boost = () => {
                         </span>
                         <span className="font-medium flex items-center">
                           <span className="text-[15px]">
-                            Coming Soon
+                          🔒 Invite 10 friends
                           
                    
 
