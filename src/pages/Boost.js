@@ -936,7 +936,7 @@ const Boost = () => {
                   <button
                                         onClick={handleMyBox}
                                        
-                    className={`bg-gray-400 cursor-not-allowed`}
+                    className={`bg-gray-400 cursor-not-allowed w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
                    Invite 10 friends
                   </button>
