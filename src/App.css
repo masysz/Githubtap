@@ -129,8 +129,8 @@ body{
 }
 
 .spinner {
-  width: 160px;
-  height: 160px;
+  width: 100px;
+  height: 100px;
   position: fixed;
   border-radius: 50%;
   top: 50%;
@@ -142,9 +142,9 @@ body{
 }
 
 .spin1 {
-  width: 140px;
+  width: 90px;
   border: 10px solid transparent;
-  height: 140px;
+  height: 90px;
   position: relative;
   border-radius: 50%;
   display: flex;
