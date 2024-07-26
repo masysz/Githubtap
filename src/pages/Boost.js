@@ -479,8 +479,8 @@ const Boost = () => {
     </div>
               {/* <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div> */}
 
-              <div className="w-full flex flex-col">
-                <h3 className="text-[18px] font-semibold pb-4">
+              <div className="w-full flex flex-col pt-4">
+                <h3 className="text-[18px] font-semibold pb-2">
                   Your daily boosters:
                 </h3>
 
