@@ -456,9 +456,9 @@ const Boost = () => {
                         Mystery Box
                       </span>
                       <div className="flex items-center space-x-1">
-                        <span className="w-[20px] h-[20px]">
+                        {/* <span className="w-[20px] h-[20px]">
                           <img src={coinsmall} className="w-full" alt="coin" />
-                        </span>
+                        </span> */}
                         <span className="font-medium flex items-center">
                           <span className="text-[15px]">
                           🔒 Invite 10 friends
@@ -893,7 +893,7 @@ const Boost = () => {
               </div>
             </div>
 
-            {/* myterybox Modal */}
+            {/* mysterybox Modal */}
 
             <div
               className={`${
@@ -936,9 +936,9 @@ const Boost = () => {
                   <button
                                         onClick={handleMyBox}
                                        
-                    className={`bg-gradient-to-b gradient from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
+                    className={`bg-gray-400 cursor-not-allowed`}
                   >
-                   Go ahead!
+                   Invite 10 friends
                   </button>
                 </div>
               </div>
