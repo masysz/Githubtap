@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Animate from "../Components/Animate";
 import { Outlet, useNavigate } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
+import mysterybox from "../images/mysterybox.webp"
 import gastank from "../images/baterai1.webp";
 import battery3 from "../images/energylimit.webp";
 import multi from "../images/multitap1.webp";
@@ -427,18 +428,56 @@ const Boost = () => {
         <Animate>
           <div className="w-full justify-center flex-col space-y-3 px-5">
             <div className="flex flex-col w-full">
-              <div className="w-full items-center justify-center pb-2 flex">
+              {/* <div className="w-full items-center justify-center pb-2 flex">
                 <img src={boost} className="w-[40px]" />
               </div>
               <div className="flex space-x-1 ml-[-8px] justify-center items-center">
                 <h1 className="text-[#fff] text-[18px] font-semibold">
                   Earn more coins with booster and other tools.
                 </h1>
-              </div>
+              </div> */}
+              <button
+                             onClick={() => setIsUpgradeModalVisibleEnMy(true)} 
+                             disabled
+                  className={`${battery.level >= energyValues.length ? 'opacity-[.7]' : 'opacity-100'} bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center`}
+                >
+                  <div className="flex flex-1 items-center space-x-2">
+                    <div className="">
+                      <img src={mysterybox} alt="battery" className="w-[35px]" />
+                    </div>
+                    <div className="flex flex-col space-y-1 text-left">
+                      <span className="font-semibold text-[17px]">
+                        Mystery Box
+                      </span>
+                      <div className="flex items-center space-x-1">
+                        <span className="w-[20px] h-[20px]">
+                          <img src={coinsmall} className="w-full" alt="coin" />
+                        </span>
+                        <span className="font-medium flex items-center">
+                          <span className="text-[15px]">
+                            Coming Soon
+                          
+                   
+
+                        
+                            
+                            
+                            </span>{" "}
+                          
+                          
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/*  */}
+
+                  
+                </button>
               <div>
 
     </div>
-              <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div>
+              {/* <div className="bg-borders w-full px-5 h-[1px] !mt-3 !mb-5"></div> */}
 
               <div className="w-full flex flex-col">
                 <h3 className="text-[18px] font-semibold pb-4">
