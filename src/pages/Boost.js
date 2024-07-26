@@ -443,8 +443,8 @@ const Boost = () => {
                 </h1>
               </div> */}
               <button
-                             onClick={() => (true)} 
-                             disabled
+                             onClick={() => setMyBox(true)} 
+                             
                   className={`${battery.level >= energyValues.length ? 'opacity-[.7]' : 'opacity-100'} bg-cards rounded-[10px] px-[14px] py-[8px] flex justify-between items-center`}
                 >
                   <div className="flex flex-1 items-center space-x-2">
@@ -934,7 +934,7 @@ const Boost = () => {
 
                 <div className="w-full flex justify-center pb-6 pt-4">
                   <button
-                                        onClick={handleTapGuru}
+                                        onClick={handleMyBox}
                                        
                     className={`bg-gradient-to-b gradient from-[#f96800] to-[#c30000] w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
                   >
