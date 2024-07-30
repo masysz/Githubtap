@@ -14,10 +14,12 @@ import Animate from '../Components/Animate';
 const Connect = () => {
     const { loading, address, id } = useUser();
     const [isConnectModalVisible, setIsConnectModalVisible] = useState(false);
+    const [isHistory, setIsHistory] = useState(false);
     const [isCopied, setIsCopied] = useState(false); // State untuk menandai apakah alamat sudah dicopy
     const userFriendlyAddress = useTonAddress();
     const [tonConnectUI] = useTonConnectUI();
     const [firestoreAddress, setFirestoreAddress] = useState("");
+    const [claimRequests, setClaimRequests] = useState([]);
 
     useEffect(() => {
         if (userFriendlyAddress) {
@@ -75,6 +77,32 @@ const Connect = () => {
         }, 3000);
 };
 
+const fetchClaimRequests = async () => {
+    try {
+      const userRef = doc(db, 'telegramUsers', id.toString());
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        setClaimRequests(data.claimRequests || []);
+      }
+    } catch (error) {
+      console.error('Error fetching claim requests:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (isHistory) {
+      fetchClaimRequests();
+    }
+  }, [isHistory]);
+
+  const formatClaimAddress = (address) => {
+    if (!address) return '';
+    const start = address.substring(0, 5);
+    const end = address.substring(address.length - 5);
+    return `${start}...${end}`;
+  };
+
     return (
         <>
         {loading ? (
@@ -110,6 +138,18 @@ const Connect = () => {
                                 </div>
                             </div>
                         </div>
+
+                            <div onClick={() => setIsHistory(true)} className="bg-[#3cb8f7] rounded-[10px] p-[14px] flex justify-between items-center mx-[20px]">
+                                <div className="flex flex-1 items-center space-x-2">
+                                    <div>
+                                        <img src={tonwallet} alt="tonwallet" className="w-[50px]" />
+                                    </div>
+                                    <div className="flex flex-col space-y-1">
+                                        <span className="font-semibold">Reward History</span>
+                                    </div>
+                                </div>
+                            </div>
+
 
                         {/* Connect Modal */}
                         <div className={`${isConnectModalVisible ? "visible" : "invisible"} absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}>
@@ -158,6 +198,38 @@ const Connect = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {/* History Modal */}
+                        <div className={`${isHistory ? "visible" : "invisible"} fixed bottom-0 left-0 right-0 h-screen bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex flex-col justify-between px-4 py-5 custom-shadow`}>
+                            <button onClick={() => setIsHistory(false)} className="flex items-center justify-center absolute right-8 top-8 text-center rounded-[12px] font-medium text-[16px]">
+                                <IoClose size={24} className="text-[#9a96a6]" />
+                            </button>
+                        <div className="w-full flex flex-col flex-grow py-8">
+                        <div className="w-full flex flex-col">
+          <h2 className="font-semibold text-[24px] py-4 text-center">Claim Request History</h2>
+          <div className="w-full max-h-[500px] overflow-y-auto p-4">
+  {claimRequests.length > 0 ? (
+    <ul className="w-full">
+      {claimRequests.map((request, index) => (
+        <li
+          key={index}
+          className="bg-gradient-to-b from-[#f96800] to-[#c30000] p-4 mb-2 rounded-lg shadow-md"
+        >
+          <p className="font-medium text-[18px]">Claim Status: {request.claimBoxStatus}</p>
+          <p className="text-[16px]">Claim Amount: {request.claimTon} USDT</p>
+          <p className="text-[16px]">Address: {formatClaimAddress(request.address)}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p className="text-[#9a96a6] text-[16px]">No claim requests found.</p>
+  )}
+</div>
+
+        </div>
+                        </div>
+                            </div>
+
                     </div>
                 </Animate>
         )}

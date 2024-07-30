@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Animate from "../Components/Animate";
 import { Outlet, useNavigate } from "react-router-dom";
 import coinsmall from "../images/coinsmall.webp";
+import USDTton from "../images/USDT.webp";
 import mysterybox from "../images/mysterybox.webp"
 import gastank from "../images/baterai1.webp";
 import battery3 from "../images/energylimit.webp";
@@ -10,7 +11,7 @@ import flash from "../images/flash1.webp";
 import botr from "../images/bott.webp";
 import boost from "../images/booster2.webp";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust the path as needed
 import { useUser } from "../context/userContext";
 import { IoClose } from "react-icons/io5";
@@ -178,13 +179,14 @@ const chargingUpgradeCosts = [0, 1000000, 3000000, 7000000, 15000000];
 
 const Boost = () => {
 
-  const { balance, id, freeGuru, refiller, setRefiller, setFreeGuru, setTapGuru, fullTank, setFullTank, setMainTap, startTimer, timeRefill, setTimeRefill, tapValue, setTapValue, battery, setEnergy, setBattery, setBalance, refBonus, loading } = useUser();
+  const { balance, id, freeGuru, refiller, setRefiller, setFreeGuru, setTapGuru, fullTank, setFullTank, setMainTap, startTimer, timeRefill, setTimeRefill, tapValue, setTapValue, battery, setEnergy, setBattery, setBalance, refBonus, loading, referrals } = useUser();
   const [openInfo, setOpenInfo] = useState(false);
   const [openInfoTwo, setOpenInfoTwo] = useState(false);
   const [isUpgradeModalVisible, setIsUpgradeModalVisible] = useState(false);
   const [isUpgradeModalVisibleEn, setIsUpgradeModalVisibleEn] = useState(false);
   const [isUpgradeModalVisibleEnc, setIsUpgradeModalVisibleEnc] = useState(false);
-  const [congrats, setCongrats] = useState(false)
+  const [congrats, setCongrats] = useState(false);
+  const [congratsBox, setCongratsBox] = useState(false);
   const [isUpgrading, setIsUpgrading] = useState(false);
   const [isUpgradingEn, setIsUpgradingEn] = useState(false);
   const [isUpgradingEnc, setIsUpgradingEnc] = useState(false);
@@ -192,6 +194,10 @@ const Boost = () => {
   const [tank, setTank] = useState(false);
   const [bot, setBot] = useState(false);
   const [mybox, setMyBox] = useState(false);
+  const [claimRequirement, setClaimRequirement] = useState(10);
+  const [claimTon, setClaimTon] = useState(null);
+  const [loadingbox, setLoadingbox] = useState(false);
+  const [claimaddress, setClaimAddress] = useState(null);
 
 
   const infoRef = useRef(null);
@@ -372,11 +378,78 @@ const Boost = () => {
     };
   };
  
-  const handleMyBox = async () => {
+  const fetchClaimData = async () => {
     if (id) {
-    
-    };
+      try {
+        const userRef = doc(db, 'telegramUsers', id.toString());
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setClaimRequirement(data.claimRequirement || 10);
+          setClaimAddress(data.address || null);
+
+          const latestClaim = data.claimRequests && data.claimRequests.length > 0
+          ? data.claimRequests[data.claimRequests.length - 1] // Get the last claim in the array
+          : {};
+          setClaimTon(latestClaim.claimTon ? parseFloat(latestClaim.claimTon).toFixed(4) : null);
+        }
+      } catch (error) {
+        console.error('Error fetching claim data:', error);
+      }
+    }
   };
+
+  useEffect(() => {
+    fetchClaimData();
+  }, [id]);
+
+
+  const handleMyBox = async () => {
+    if (referrals.length >= claimRequirement && claimaddress && id) {
+      setLoadingbox(true);
+      const userRef = doc(db, 'telegramUsers', id.toString());
+      try {
+        const newClaimTon = (Math.random() * (0.3 - 0.1) + 0.1).toFixed(4); // Generate a new claimTon and format it
+        await updateDoc(userRef, {
+          claimRequests: arrayUnion({
+            claimBoxStatus: "process",
+            claimTon: newClaimTon,
+            address: claimaddress
+          }),
+          claimRequirement: claimRequirement + 10 // Update claim requirement
+        });
+
+        // Fetch the updated user document
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        setClaimRequirement(data.claimRequirement || 10);
+
+        // Update claimTon with the most recent claim
+        const latestClaim = data.claimRequests && data.claimRequests.length > 0
+          ? data.claimRequests[data.claimRequests.length - 1] // Get the last claim in the array
+          : {};
+        setClaimTon(latestClaim.claimTon ? parseFloat(latestClaim.claimTon).toFixed(4) : null);
+      }
+
+        setMyBox(false);
+        setCongratsBox(true);
+        
+        setTimeout(() => {
+          setCongratsBox(false);
+        }, 5000);
+        console.log('Box claimed successfully');
+      } catch (error) {
+        console.error('Error claiming box:', error);
+      } finally {
+        setLoadingbox(false); // Reset loading state after the operation completes
+      }
+    }
+  };
+
+  
+
+  
   const handleFullTank = async () => {
     if (id) {
     if (fullTank > 0) {
@@ -425,6 +498,13 @@ const Boost = () => {
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
 
+  const formatClaimAddress = (address) => {
+    if (!address) return '';
+    const start = address.substring(0, 5);
+    const end = address.substring(address.length - 5);
+    return `${start}...${end}`;
+  };
+  
 
   return (
     <>
@@ -460,18 +540,10 @@ const Boost = () => {
                           <img src={coinsmall} className="w-full" alt="coin" />
                         </span> */}
                         <span className="font-medium flex items-center">
-                          <span className="text-[15px]">
-                          🔒 Invite 10 friends
-                          
-                   
-
-                        
-                            
-                            
-                            </span>{" "}
-                          
-                          
-                        </span>
+      <span className="text-[15px]">
+        {referrals.length >= claimRequirement  ? 'Open your box' : `🔒 Invite ${claimRequirement - referrals.length} more friends`}
+      </span>
+    </span>
                       </div>
                     </div>
                   </div>
@@ -917,7 +989,7 @@ const Boost = () => {
                  Mystery Box
                   </h3>
                   <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
-                  Claim your box with a random reward of up to 100 USDT. Invite 10 friends to unlock the box.
+                  Claim your box with a random reward of up to 100 USDT. Invite {claimRequirement - referrals.length} friends to unlock the box.
                   </p>
 
                   <div className="flex flex-1 items-center space-x-2">
@@ -933,13 +1005,22 @@ const Boost = () => {
                 </div>
 
                 <div className="w-full flex justify-center pb-6 pt-4">
-                  <button
-                                        onClick={handleMyBox}
-                                       
-                    className={`bg-gray-400 cursor-not-allowed w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px]`}
-                  >
-                   Invite 10 friends
-                  </button>
+                <button
+  onClick={handleMyBox}
+  className={`w-full py-5 px-3 flex items-center justify-center text-center rounded-[12px] font-semibold text-[22px] ${
+    referrals.length >= claimRequirement && claimaddress ? 'bg-gradient-to-b from-[#f96800] to-[#c30000] cursor-pointer' : 'bg-gray-400 cursor-not-allowed'
+  }`}
+>
+  {loadingbox
+    ? 'Opening...'
+    : (
+      !claimaddress
+        ? 'Please connect wallet'
+        : (referrals.length >= claimRequirement ? 'Open box' : `Invite ${claimRequirement - referrals.length} friends`)
+    )
+  }
+</button>
+
                 </div>
               </div>
             </div>
@@ -1120,6 +1201,33 @@ const Boost = () => {
               </div>
 
 
+            </div>
+            <div className={`${
+                congratsBox  === true ? "visible" : "invisible"
+              } absolute bottom-0 left-0 right-0 h-fit bg-[#1e2340f7] z-[100] rounded-tl-[20px] rounded-tr-[20px] flex justify-center px-4 py-5 custom-shadow`}
+            >
+            <div className="w-full flex flex-col justify-between py-8">
+                <div className="w-full flex justify-center flex-col items-center">
+                  <h3 className="font-semibold text-[32px] py-4">
+                 Congratulation
+                  </h3>
+                  <p className="pb-6 text-[#9a96a6] text-[16px] text-center">
+                  Your reward is processing to<br />
+                  {formatClaimAddress(claimaddress)}
+                  </p>
+
+                  <div className="flex flex-1 items-center space-x-2">
+                    <div className="">
+                      <img
+                        src={USDTton}
+                        className="w-[25px]"
+                        alt="Coin Icon"
+                      />
+                    </div>
+                    <div className="font-bold text-[26px] flex items-center">{claimTon}</div>
+                  </div>
+                </div>
+              </div>
             </div>
 {isUpgradingEn && (
   <>
