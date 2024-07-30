@@ -50,7 +50,7 @@ const Plutos = () => {
   const [play] = useSound(boopSfx);
   const [play2] = useSound(burnSfx);
   const [clicks, setClicks] = useState([]);
-  const { name, balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
+  const { name, smallname, balance, tapBalance, energy, battery, tapGuru, mainTap, setIsRefilling, refillIntervalRef, refillEnergy, setEnergy, tapValue, setTapBalance, setBalance, refBonus, level, loading } = useUser();
 
   // eslint-disable-next-line
   const [points, setPoints] = useState(0);
@@ -383,7 +383,7 @@ const Plutos = () => {
           <div className="w-full flex justify-center flex-col overflow-hidden">
           <div className="flex flex-row justify-center items-center mb-2">
   <div className="bg-cards text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px]">
-  Welcome<br />{name}
+  Welcome<br />{smallname}
   </div>
   <div className="bg-cards text-[#fff] text-[12px] font-extrabold text-center p-2 mr-2 rounded-[10px]">
     Earn per tap:<br /> +{tapValue.value}

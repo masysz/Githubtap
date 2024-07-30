@@ -47,6 +47,7 @@ export const UserProvider = ({ children }) => {
   const [timeStaTank, setTimeStaTank] = useState(null);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
+  const [smallname, setSmallName] = useState("");
   // eslint-disable-next-line
   const [idme, setIdme] = useState("");
   const [totalCount, setTotalCount] = useState(0);
@@ -499,6 +500,11 @@ export const UserProvider = ({ children }) => {
     if (telegramName) {
       setName(telegramName + " " + telegramLastName);
     }
+    if (telegramName) {
+      const fullNameT = telegramName + " " + telegramLastName;
+      const truncatedName = fullNameT.substring(0, 10);
+      setSmallName(truncatedName);
+    }
     if (telegramUserid) {
       setIdme(telegramUserid);
     }
@@ -596,7 +602,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ balance, battery, freeGuru, fullTank, taskCompleted, setTaskCompleted, taskCompleted2, setTaskCompleted2, setFullTank, timeStaTank, setTimeStaTank, timeSta, setFreeGuru, time, setTime, startTimer, tapGuru, setTapGuru, mainTap, setMainTap, timeRefill, setTimeRefill, refiller, setRefiller, count, setCount, isRefilling, setIsRefilling, refillIntervalRef, setBattery, refillEnergy, tapValue, setTapValue, tapBalance, setTapBalance, level, energy, setEnergy, setBalance, setLevel, loading, setLoading, id, setId, sendUserData, initialized, setInitialized, refBonus, SetRefBonus, manualTasks, setManualTasks, userManualTasks, setUserManualTasks, tasks, setTasks, completedTasks, setCompletedTasks, claimedMilestones, setClaimedMilestones,claimedWatch,setClaimedWatch, address, setAddress, referrals, claimedReferralRewards, setClaimedReferralRewards, idme, setIdme, totalCount, setTotalCount, dividedCount, setDividedCount, users, setUsers, dividedUsers, setDividedUsers, username, setUsername, name, setName }}>
+    <UserContext.Provider value={{ balance, battery, freeGuru, fullTank, taskCompleted, setTaskCompleted, taskCompleted2, setTaskCompleted2, setFullTank, timeStaTank, setTimeStaTank, timeSta, setFreeGuru, time, setTime, startTimer, tapGuru, setTapGuru, mainTap, setMainTap, timeRefill, setTimeRefill, refiller, setRefiller, count, setCount, isRefilling, setIsRefilling, refillIntervalRef, setBattery, refillEnergy, tapValue, setTapValue, tapBalance, setTapBalance, level, energy, setEnergy, setBalance, setLevel, loading, setLoading, id, setId, sendUserData, initialized, setInitialized, refBonus, SetRefBonus, manualTasks, setManualTasks, userManualTasks, setUserManualTasks, tasks, setTasks, completedTasks, setCompletedTasks, claimedMilestones, setClaimedMilestones,claimedWatch,setClaimedWatch, address, setAddress, referrals, claimedReferralRewards, setClaimedReferralRewards, idme, setIdme, totalCount, setTotalCount, dividedCount, setDividedCount, users, setUsers, dividedUsers, setDividedUsers, username, setUsername, name, setName, smallname, setSmallName }}>
       {children}
     </UserContext.Provider>
   );
