@@ -995,12 +995,12 @@ const Boost = () => {
                   <div className="flex flex-1 items-center space-x-2">
                     <div className="">
                       <img
-                        src={coinsmall}
+                        src={USDTton}
                         className="w-[25px]"
                         alt="Coin Icon"
                       />
                     </div>
-                    <div className="font-bold text-[26px] flex items-center">Free</div>
+                    <div className="font-bold text-[26px] flex items-center">Random USDT Rewards</div>
                   </div>
                 </div>
 
