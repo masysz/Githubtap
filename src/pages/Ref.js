@@ -18,7 +18,7 @@ const Ref = () => {
 
    const reflink = `https://t.me/Apecommercetestbot?start=r${id}
 Play with me, and get free token airdrop! 
-Tap Geto for more coin and invite friends… 
+Tap Apecom for more coin and invite friends… 
 More friends more coin!!
 🪙+25k Coins as a first-time gift
 🔥+25k Coins for referral`
