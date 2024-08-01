@@ -90,7 +90,7 @@ More friends more coin!!
               </span>
             </span>
             <div className="text-[#9a96a6] text-[13px]">
-            https://t.me/geto_spirit_bot?start=r{id}
+            https://t.me/Apecommercetestbot/apecom?startapp=r{id}
             </div>
           </div>
           <div className="bg-borders w-full px-5 h-[1px] !mt-6"></div>
