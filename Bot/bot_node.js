@@ -1,8 +1,8 @@
 const { Telegraf } = require("telegraf");
-const TOKEN = "7390776943:AAGvJKezEPGBmKlVdRqGHx1DMlIM-geVguQ";
+const TOKEN = "7091294846:AAE6GIm2_YsHjqjYBAWhe8hwIDRw5aa47Qs";
 const bot = new Telegraf(TOKEN);
 
-const web_link = "https://tgame-chi.vercel.app";
+const web_link = "https://apecomtest12.vercel.app";
 const community_link = "https://t.me/geto_spirit_announcement"; 
 const how_to_earn = `How to play Geto Spirit 🤑
 
