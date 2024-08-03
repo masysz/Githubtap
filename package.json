@@ -54,8 +54,10 @@
   "devDependencies": {
     "cross-env": "^7.0.3"
   }
-  "scripts": {
+"scripts": {
   "setup-webhook": "node Bot/setupWebhook.js"
 }
 
 }
+
+
