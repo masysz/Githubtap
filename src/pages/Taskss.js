@@ -67,7 +67,7 @@ const Tab = styled.button`
   font-weight: 500;
   transition: all 0.3s;
   font-size: 13px;
-  background-color: ${props => props.active ? '#ffffff' : 'transparent'};
+  background-color: ${props => props.active ? '#422b09' : 'transparent'};
   box-shadow: ${props => props.active ? '0 2px 4px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
@@ -78,7 +78,7 @@ const TaskContainer = styled.div`
 `;
 
 const TaskItem = styled.div`
-  background-color: #ffffff;
+  background-color: #332008;
   border-radius: 10px;
   padding: 0.5rem;
   display: flex;
