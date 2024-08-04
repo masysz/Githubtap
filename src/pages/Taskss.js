@@ -44,14 +44,14 @@ const Header = styled.header`
 const Title = styled.h1`
   font-size: 28px;
   font-weight: bold;
-  color: #262626;
+  color: #e3be44;
   margin-bottom: 0.25rem;
 `;
 
 const TabContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #f0f4ff;
+  background-color: #c28830;
   border-radius: 1rem;
   padding: 0.25rem;
   margin-bottom: 1rem;
