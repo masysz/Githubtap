@@ -105,7 +105,7 @@ const TaskInfo = styled.div`
 const TaskName = styled.h3`
   font-size: 16px;
   font-weight: 600;
-  color: #262626;
+  color: #ffffff;
   margin-bottom: 0.25rem;
 `;
 
