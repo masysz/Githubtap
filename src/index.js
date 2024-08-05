@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import ErrorCom from "./Components/ErrorCom";
-import Tasks from "./pages/Taskss";
+import Tasks from "./pages/Tasks";
 import Boost from "./pages/Boost";
 import Stats from "./pages/Stats";
 import Connect from "./pages/ConnectWallet";
