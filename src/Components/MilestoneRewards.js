@@ -7,9 +7,9 @@ import congratspic from "../images/celebrate.gif";
 import coinsmall from "../images/coinsmall.webp";
 
 const milestones = [
-  { name: 'Warm', icon: '/warm.webp', tapBalanceRequired: 500000, reward: 50000 },
-  { name: 'Light', icon: '/light.webp', tapBalanceRequired: 1000000, reward: 100000 },
-  { name: 'Blaze', icon: '/blaze.webp', tapBalanceRequired: 2000000, reward: 250000 },
+  { name: 'Silver Ape Boy', icon: '/Silverapeboy.webp', tapBalanceRequired: 500000, reward: 50000 },
+  { name: 'Green Ape Boy', icon: '/light.webp', tapBalanceRequired: 1000000, reward: 100000 },
+  { name: 'Golden Ape Boy', icon: '/blaze.webp', tapBalanceRequired: 2000000, reward: 250000 },
   { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000, reward: 500000 },
   { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000, reward: 1000000 },
   { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000, reward: 1500000 },
