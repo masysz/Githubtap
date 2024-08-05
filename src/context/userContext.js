@@ -188,7 +188,7 @@ export const UserProvider = ({ children }) => {
           timeStaTank: null,
           tapValue: {level: 1, value: 1},
           timeRefill: {level: 1, duration: 10, step: 600},
-          level: { id: 1, name: "Warm", imgUrl: '/warm.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Set the initial level with id and name
+          level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Silverapeboy.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Set the initial level with id and name
           energy: 500,
           battery: {level: 1, energy: 500},
           refereeId: referrerId || null,
@@ -221,7 +221,7 @@ export const UserProvider = ({ children }) => {
                 userId: userId.toString(),
                 username: finalUsername,
                 balance: initialBalance,
-                level: { id: 1, name: "Warm", imgUrl: '/warm.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
+                level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Silverapeboy.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
               })
             });
             console.log('Referrer updated in Firestore');
