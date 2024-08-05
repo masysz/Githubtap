@@ -5,8 +5,8 @@ import { useUser } from '../context/userContext';
 
 const userLevels = [
     { name: 'Silver Ape Boy', icon: '/Silverapeboy.webp', tapBalanceRequired: 500000 },
-    { name: 'Green Ape Boy', icon: '/light.webp', tapBalanceRequired: 1000000 },
-    { name: 'Golden Ape Boy', icon: '/blaze.webp', tapBalanceRequired: 2000000 },
+    { name: 'Green Ape Boy', icon: '/Greenapebpoy.webp', tapBalanceRequired: 1000000 },
+    { name: 'Golden Ape Boy', icon: '/Goldenapeboy.webp', tapBalanceRequired: 2000000 },
     { name: 'Flame', icon: '/flame.webp', tapBalanceRequired: 4000000 },
     { name: 'Hot', icon: '/hot.webp', tapBalanceRequired: 8000000 },
     { name: 'Burning', icon: '/burning.webp', tapBalanceRequired: 25000000 },
