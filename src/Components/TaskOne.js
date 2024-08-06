@@ -68,7 +68,7 @@ const TaskOne = ({ showModal, setShowModal }) => {
 
 
   const handleTaskLinkClick = () => {
-    window.open("https://t.me/geto_spirit_announcement");
+    window.open("https://t.me/jurnaliscryptochannel");
 
     setTimeout(() => {
       setShowTaskButton(false);
