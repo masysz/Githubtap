@@ -327,11 +327,11 @@ export const UserProvider = ({ children }) => {
     } else if (newTapBalance >= 1000000 && newTapBalance < 2000000) {
       newLevel = { id: 3, name: "Golden Ape Boy", imgUrl: "/Goldenapeboy.webp", imgTap: "/coin-3.webp", imgBoost: "/coins-3.webp" };
     } else if (newTapBalance >= 2000000 && newTapBalance < 4000000) {
-      newLevel = { id: 4, name: "Flame", imgUrl: "/flame.webp", imgTap: "/coin-4.webp", imgBoost: "/coins-4.webp" };
+      newLevel = { id: 4, name: "Juvenile Silver Ape", imgUrl: "/juvenilesilverape.webp", imgTap: "/coin-4.webp", imgBoost: "/coins-4.webp" };
     } else if (newTapBalance >= 4000000 && newTapBalance < 8000000) {
-      newLevel = { id: 5, name: "Hot", imgUrl: "/hot.webp", imgTap: "/coin-5.webp", imgBoost: "/coins-5.webp" };
+      newLevel = { id: 5, name: "Juvenile Green Ape", imgUrl: "/juvenilegreenape.webp", imgTap: "/coin-5.webp", imgBoost: "/coins-5.webp" };
     } else if (newTapBalance >= 8000000 && newTapBalance < 25000000) {
-      newLevel = { id: 6, name: "Burning", imgUrl: "/burning.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
+      newLevel = { id: 6, name: "Juvenile Golden Ape", imgUrl: "/juvenilegoldenape.webp", imgTap: "/coin-6.webp", imgBoost: "/coins-6.webp" };
     } else if (newTapBalance >= 25000000 && newTapBalance < 50000000) {
       newLevel = { id: 7, name: "Fire", imgUrl: "/fire.webp", imgTap: "/coin-7.webp", imgBoost: "/coins-7.webp" };
     } else if (newTapBalance >= 50000000 && newTapBalance < 100000000) {
