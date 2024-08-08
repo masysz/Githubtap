@@ -9,9 +9,16 @@ import ref from "../images/ref1.png";
 import coinsmall from "../images/coinsmall.webp";
 
 const friendsRewards = [
-  { title: 'Invite 3 friends', referralsRequired: 2, bonusAward: 50000, imgRef: '/ref1.webp' },
-  { title: 'Invite 5 friends', referralsRequired: 5, bonusAward: 150000, imgRef: '/ref2.webp' },
-  { title: 'Invite 10 friends', referralsRequired: 10, bonusAward: 250000, imgRef: '/ref3.webp' },
+  { title: 'Invite 1 friends', referralsRequired: 1, bonusAward: 2500, imgRef: '/ref1.webp' },
+  { title: 'Invite 3 friends', referralsRequired: 3, bonusAward: 35000, imgRef: '/ref1.webp' },
+  { title: 'Invite 10 friends', referralsRequired: 10, bonusAward: 150000, imgRef: '/ref1.webp' },
+  { title: 'Invite 25 friends', referralsRequired: 25, bonusAward: 250000, imgRef: '/ref1.webp' },
+  { title: 'Invite 50 friends', referralsRequired: 50, bonusAward: 350000, imgRef: '/ref2.webp' },
+  { title: 'Invite 100 friends', referralsRequired: 100, bonusAward: 500000, imgRef: '/ref2.webp' },
+  { title: 'Invite 500 friends', referralsRequired: 500, bonusAward: 2500000, imgRef: '/ref2.webp' },
+  { title: 'Invite 1000 friends', referralsRequired: 1000, bonusAward: 3500000, imgRef: '/ref2.webp' },
+  { title: 'Invite 10000 friends', referralsRequired: 10000, bonusAward: 10000000, imgRef: '/ref3.webp' },
+  { title: 'Invite 100000 friends', referralsRequired: 100000, bonusAward: 100000000, imgRef: '/ref3.webp' },
 ];
 
 const ReferralRewards = () => {
