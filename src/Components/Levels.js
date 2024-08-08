@@ -13,8 +13,8 @@ const userLevels = [
     { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 50000000 },
     { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 100000000 },
     { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 1000000000 },
-    { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 10000000000 },
-    { name: 'Hellfire', icon: '/hellfire.webp', tapBalanceRequired: 20000000000 },
+    { name: 'Silver King Ape', icon: '/silverkingape.webp', tapBalanceRequired: 10000000000 },
+    { name: 'Golden King Ape', icon: '/goldenkingape.webp', tapBalanceRequired: 20000000000 },
   ];
   
   
