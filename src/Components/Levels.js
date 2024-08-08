@@ -4,17 +4,17 @@ import { useUser } from '../context/userContext';
 
 
 const userLevels = [
-    { name: 'Silver Ape Boy', icon: '/Silverapeboy.webp', tapBalanceRequired: 500000 },
-    { name: 'Green Ape Boy', icon: '/Greenapeboy.webp', tapBalanceRequired: 1000000 },
-    { name: 'Golden Ape Boy', icon: '/Goldenapeboy.webp', tapBalanceRequired: 2000000 },
-    { name: 'Juvenile Silver Ape', icon: '/juvenilesilverape.webp', tapBalanceRequired: 4000000 },
-    { name: 'Juvenile Green Ape', icon: '/juvenilegreenape.webp', tapBalanceRequired: 8000000 },
-    { name: 'Juvenile Golden Ape', icon: '/juvenilegoldenape.webp', tapBalanceRequired: 25000000 },
-    { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 50000000 },
-    { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 100000000 },
-    { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 1000000000 },
-    { name: 'Silver King Ape', icon: '/silverkingape.webp', tapBalanceRequired: 10000000000 },
-    { name: 'Golden King Ape', icon: '/goldenkingape.webp', tapBalanceRequired: 20000000000 },
+    { name: 'Silver Ape Boy', icon: '/Silverapeboy.webp', tapBalanceRequired: 10 },
+    { name: 'Green Ape Boy', icon: '/Greenapeboy.webp', tapBalanceRequired: 5000 },
+    { name: 'Golden Ape Boy', icon: '/Goldenapeboy.webp', tapBalanceRequired: 50000 },
+    { name: 'Juvenile Silver Ape', icon: '/juvenilesilverape.webp', tapBalanceRequired: 500000 },
+    { name: 'Juvenile Green Ape', icon: '/juvenilegreenape.webp', tapBalanceRequired: 1000000 },
+    { name: 'Juvenile Golden Ape', icon: '/juvenilegoldenape.webp', tapBalanceRequired: 2500000 },
+    { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 5000000 },
+    { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 10000000 },
+    { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 25000000 },
+    { name: 'Silver King Ape', icon: '/silverkingape.webp', tapBalanceRequired: 50000000 },
+    { name: 'Golden King Ape', icon: '/goldenkingape.webp', tapBalanceRequired: 100000000 },
   ];
   
   
