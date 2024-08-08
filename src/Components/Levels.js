@@ -10,9 +10,9 @@ const userLevels = [
     { name: 'Juvenile Silver Ape', icon: '/juvenilesilverape.webp', tapBalanceRequired: 4000000 },
     { name: 'Juvenile Green Ape', icon: '/juvenilegreenape.webp', tapBalanceRequired: 8000000 },
     { name: 'Juvenile Golden Ape', icon: '/juvenilegoldenape.webp', tapBalanceRequired: 25000000 },
-    { name: 'Fire', icon: '/fire.webp', tapBalanceRequired: 50000000 },
-    { name: 'Scorch', icon: '/scorch.webp', tapBalanceRequired: 100000000 },
-    { name: 'Broiling', icon: '/broiling.webp', tapBalanceRequired: 1000000000 },
+    { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 50000000 },
+    { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 100000000 },
+    { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 1000000000 },
     { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 10000000000 },
     { name: 'Hellfire', icon: '/hellfire.webp', tapBalanceRequired: 20000000000 },
   ];
