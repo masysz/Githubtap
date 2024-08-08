@@ -16,8 +16,8 @@ const milestones = [
   { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 75000000, reward: 1750000 },
   { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 150000000, reward: 2000000 },
   { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 250000000, reward: 2500000 },
-  { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 500000000, reward: 3000000 },
-  { name: 'Hellfire', icon: '/hellfire.webp', tapBalanceRequired: 1000000000, reward: 3500000 },
+  { name: 'Silver King Ape', icon: '/silverkingape.webp', tapBalanceRequired: 500000000, reward: 3000000 },
+  { name: 'Golden King Ape', icon: '/goldenkingape.webp', tapBalanceRequired: 1000000000, reward: 3500000 },
  ];
 
 const MilestoneRewards = () => {
