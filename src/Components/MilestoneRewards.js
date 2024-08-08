@@ -13,9 +13,9 @@ const milestones = [
   { name: 'Juvenile Silver Ape', icon: '/juvenilesilverape.webp', tapBalanceRequired: 4000000, reward: 500000 },
   { name: 'Juvenile Green Ape', icon: '/juvenilegreenape.webp', tapBalanceRequired: 8000000, reward: 1000000 },
   { name: 'Juvenile Golden Ape', icon: '/juvenilegoldenape.webp', tapBalanceRequired: 25000000, reward: 1500000 },
-  { name: 'Fire', icon: '/fire.webp', tapBalanceRequired: 75000000, reward: 1750000 },
-  { name: 'Scorch', icon: '/scorch.webp', tapBalanceRequired: 150000000, reward: 2000000 },
-  { name: 'Broiling', icon: '/broiling.webp', tapBalanceRequired: 250000000, reward: 2500000 },
+  { name: 'Silver Old Ape', icon: '/silveroldape.webp', tapBalanceRequired: 75000000, reward: 1750000 },
+  { name: 'Green Old Ape', icon: '/greenoldape.webp', tapBalanceRequired: 150000000, reward: 2000000 },
+  { name: 'Golden Old Ape', icon: '/goldenoldape.webp', tapBalanceRequired: 250000000, reward: 2500000 },
   { name: 'Eternal', icon: '/eternal.webp', tapBalanceRequired: 500000000, reward: 3000000 },
   { name: 'Hellfire', icon: '/hellfire.webp', tapBalanceRequired: 1000000000, reward: 3500000 },
  ];
