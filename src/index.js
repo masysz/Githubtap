@@ -11,7 +11,7 @@ import ErrorCom from "./Components/ErrorCom";
 import Tasks from "./pages/TasksOld";
 import Boost from "./pages/Boost";
 import Stats from "./pages/Stats";
-import Connect from "./pages/ConnectWallet";
+import Connect from "./pages/Wallet";
 import DeviceCheck from "./Components/DeviceCheck";
 import Plutos from "./pages/Plutos";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
