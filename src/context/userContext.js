@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   const [balance, setBalance] = useState(0);
   // const [totalBalance, setTotalBalance] = useState(0);
   const [tapBalance, setTapBalance] = useState(0);
-  const [level, setLevel] = useState({ id: 1, name: "Silver Ape Boy", imgUrl: '/Home.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }); // Initial level as an object with id and name
+  const [level, setLevel] = useState({ id: 1, name: "Name Level 1", imgUrl: '/Home.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }); // Initial level as an object with id and name
   const [tapValue, setTapValue] = useState({level: 1, value: 1});
   const [timeRefill, setTimeRefill] = useState({level: 1, duration: 10, step: 600});
   const [id, setId] = useState("");
@@ -188,7 +188,7 @@ export const UserProvider = ({ children }) => {
           timeStaTank: null,
           tapValue: {level: 1, value: 1},
           timeRefill: {level: 1, duration: 10, step: 600},
-          level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Silverapeboy.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Set the initial level with id and name
+          level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Home.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Set the initial level with id and name
           energy: 500,
           battery: {level: 1, energy: 500},
           refereeId: referrerId || null,
@@ -221,7 +221,7 @@ export const UserProvider = ({ children }) => {
                 userId: userId.toString(),
                 username: finalUsername,
                 balance: initialBalance,
-                level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Silverapeboy.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
+                level: { id: 1, name: "Silver Ape Boy", imgUrl: '/Home.webp', imgTap: '/coin-1.webp', imgBoost: '/coins-1.webp' }, // Include level with id and name
               })
             });
             console.log('Referrer updated in Firestore');
@@ -320,7 +320,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const updateUserLevel = async (userId, newTapBalance) => {
-    let newLevel = { id: 1, name: "Silver Ape Boy", imgUrl: "/Silverapeboy.webp", imgTap: "/coin-1.webp", imgBoost: "/coin-1.webp" };
+    let newLevel = { id: 1, name: "Silver Ape Boy", imgUrl: "/Home.webp", imgTap: "/coin-1.webp", imgBoost: "/coin-1.webp" };
 
     if (newTapBalance >= 10 && newTapBalance < 5000) {
       newLevel = { id: 2, name: "Green Ape Boy", imgUrl: "/Home.webp", imgTap: "/coin-2.webp", imgBoost: "/coin-2.webp" };
