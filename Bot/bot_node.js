@@ -1,5 +1,5 @@
 const { Telegraf } = require("telegraf");
-const TOKEN = "7438172148:AAErfdSz1xXUg4aEbHVNp2eIQESiunmgDKY";
+const TOKEN = "7091294846:AAE6GIm2_YsHjqjYBAWhe8hwIDRw5aa47Qs";
 const bot = new Telegraf(TOKEN);
 
 const web_link = "https://apecomtest12.vercel.app";
